@@ -35,7 +35,7 @@ app.post('/api/login', async (req, res) => {
   // const user = await User.find({ email })
   const user = users.find((user) => user.email === email);
   console.log(user);
-  if (user) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     delete user.password;
     //подняли сессии
     req.session.user = user;
