@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 export default function Login() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [error, setError] = useState(false);
   const [inputs, setInputs] = useState({
@@ -23,8 +25,14 @@ export default function Login() {
       }),
     });
     if (response.status === 200) {
+      dispatch({
+        type: 'AUTHENTICATED_SUCCESSFULLY',
+      });
       return history.push('/home');
-    }
+    } 
+    // dispatch({
+    //   type: 'AUTHENTICATED_UNSUCCESSFULLY'
+    // })
     return setError('Повторите вход');
   }
 

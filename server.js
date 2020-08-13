@@ -28,11 +28,12 @@ app.use(
   })
 );
 
+// app.use(express.static('../client/build'));
+
+//отправление запроса логин
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   const users = await User.find({});
-  // console.log(users);
-  // const user = await User.find({ email })
   const user = users.find((user) => user.email === email);
   console.log(user);
   if (user && (await bcrypt.compare(password, user.password))) {
@@ -80,9 +81,23 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-app.get('*', async () => {
-  const index = await fs.promises.readFile('../build/index.html', 'utf-8');
-  res.send(index);
+// app.get('*', async () => {
+//   const index = await fs.promises.readFile(
+//     '../client/build/index.html',
+//     'utf-8'
+//   );
+//   res.send(index);
+// });
+
+app.get('/api/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(() => {
+      res.clearCookie('connect.sid');
+      res.end();
+    });
+  } else {
+    res.end();
+  }
 });
 
 app.listen(process.env.PORT ?? 3001);
