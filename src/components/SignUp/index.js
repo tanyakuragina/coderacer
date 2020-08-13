@@ -10,7 +10,7 @@ function SignUp() {
 
   useEffect(() => {
     async function getSignUp() {
-      const response = await fetch('/signup', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,9 @@ function SignUp() {
         <Input type="password" name="password" placeholder="New Password" />
       </FormGroup>
       <FormGroup>
-        <Button color="primary"type="submit">Sign Up</Button>
+        <Button color="primary" type="submit">
+          Sign Up
+        </Button>
       </FormGroup>
     </Form>
   );

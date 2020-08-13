@@ -1,16 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import session from 'express-session';
+import dotenv from 'dotenv';
 import User from './src/db/User.js';
-import cookieParser from 'cookie-parser';
-// import session from 'express-session';
-// import FileStoreOption from 'session-file-store';
-// FileStoreOption(session);
-import logger from 'morgan';
+import fs from 'fs';
+dotenv.config();
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 const saltRounds = 10;
 
@@ -24,23 +21,47 @@ mongoose.connection.on(
   console.error.bind(console, 'Ошибка соединения с MongoDB:')
 );
 
-// подключаем сессии куки.
-// app.use(
-//   session({
-//     store: new FileStoreOption(),
-//     key: 'user_sid',
-//     secret: 'anything here',
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       expires: 600000,
-//     },
-//   })
-// );
+app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_KEY,
+  })
+);
 
-app.use(cookieParser());
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+  const users = await User.find({});
+  // console.log(users);
+  // const user = await User.find({ email })
+  const user = users.find((user) => user.email === email);
+  console.log(user);
+  if (user) {
+    delete user.password;
+    //подняли сессии
+    req.session.user = user;
+    return res.end();
+  }
+  res.status(401).end();
+});
 
-app.post('/signup', async (req, res) => {
+//запрашивает аутенфикацию
+app.get(
+  '/api/home',
+  (req, res, next) => {
+    if (req.session.user) {
+      return next();
+    }
+    res.status(401).end();
+  },
+  (req, res) => {
+    res.json({
+      email: req.session.user.email,
+    });
+  }
+);
+
+//регистрация
+app.post('/api/signup', async (req, res) => {
   console.log(req.body);
   try {
     const { username, email, password } = req.body;
@@ -59,32 +80,9 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email: email });
-  console.log(user);
-  if (user) {
-    console.log('вы вошли');
-    res.json(200);
-    // res.json({user})
-  } else {
-    console.log('вы не вошли');
-    res.json(404);
-  }
+app.get('*', async () => {
+  const index = await fs.promises.readFile('../build/index.html', 'utf-8');
+  res.send(index);
 });
 
-// app.get('/api/restaurants', (req, res) => {
-//   res.json(
-//     db.map(({ id, name }) => ({
-//       id,
-//       name,
-//     }))
-//   );
-// });
-
-// app.get('/api/restaurant/:id', (req, res) => {
-//   const { id } = req.params;
-//   res.json(db.find((restaurant) => restaurant.id.toString() === id));
-// });
-
-app.listen(3001, () => console.log('Listening on 3001'));
+app.listen(process.env.PORT ?? 3001);
