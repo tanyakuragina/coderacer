@@ -1,0 +1,36 @@
+.inputform{
+  display: flex;
+  width: 500px;
+  
+}
+
+.cus{
+  display: flex;
+  justify-content: end;
+  margin: 8px;
+  border: 1px solid blue;
+  color: blue;
+
+}
+
+.cardbody {
+  display: flex;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  justify-content: end;
+  padding: 1.25rem;
+  padding-top: 1.25rem;
+  padding-right: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.instyle {
+  display: flex;
+  border: 1px solid black;
+  background: grey;
+  flex-direction: column;
+}
