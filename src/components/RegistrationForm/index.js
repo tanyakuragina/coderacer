@@ -46,7 +46,7 @@ function RegistrationForm() {
 
         <Form.Group as={Row}>
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit">Sign up</Button>
+            <Button type="submit">Sign up!</Button>
           </Col>
         </Form.Group>
       </Form >
