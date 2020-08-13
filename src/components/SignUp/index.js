@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function SignUp() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [inputs, setInputs] = useState({
     username: '',
@@ -24,7 +26,7 @@ function SignUp() {
         }),
       });
       const result = await response.json();
-      history.push('/home');
+      console.log(result);
     }
     if (inputs.username && inputs.email && inputs.password) {
       getSignUp();
@@ -67,78 +69,3 @@ function SignUp() {
 
 export default SignUp;
 
-// import React, { useState } from 'react';
-// import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
-// export default () => {
-//   const [email, setEmail] = useState('');
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [message, setMessage] = useState('');
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//   };
-
-//   const onSubmit = async (email, password, username) => {
-//     console.log(email, password, username);
-//     let user = {
-//       email: email,
-//       pass: password,
-//       username: username,
-//     };
-//     let response = await (
-//       await fetch(`/signup`, {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(user),
-//       })
-//     ).json();
-//     console.log(response);
-//     if (response.ok === 'ok') {
-//       setEmail('');
-//       setPassword('');
-//       setUsername('');
-//       setMessage('Вы успешно зарегистрировались!');
-//     } else {
-//       setMessage('Error');
-//     }
-//   };
-
-//   return (
-//     <Form
-//       style={{ width: '300px', margin: '0 auto' }}
-//       onSubmit={(e) => handleSubmit(e, onSubmit(email, password))}
-//     >
-//       <p>{message}</p>
-//       <FormGroup>
-//         <Label for="email">Email</Label>
-//         <Input
-//           onChange={(e) => setEmail(e.target.value)}
-//           value={email}
-//           type="email"
-//           placeholder="Email"
-//         />
-//       </FormGroup>
-//       <FormGroup>
-//         <Label for="username">Username</Label>
-//         <Input
-//           onChange={(e) => setUsername(e.target.value)}
-//           value={username}
-//           type="text"
-//           placeholder="username"
-//         />
-//       </FormGroup>
-//       <FormGroup>
-//         <Label for="password">Password</Label>
-//         <Input
-//           value={password}
-//           type="password"
-//           onChange={(e) => setPassword(e.target.value)}
-//           name="password"
-//           placeholder="Password"
-//         />
-//         <Button color="primary">Submit</Button>
-//       </FormGroup>
-//     </Form>
-//   );
-// };

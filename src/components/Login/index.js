@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { FormControl } from 'react-bootstrap';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function Login() {
         type: 'AUTHENTICATED_SUCCESSFULLY',
       });
       return history.push('/home');
-    } 
+    }
     // dispatch({
     //   type: 'AUTHENTICATED_UNSUCCESSFULLY'
     // })
@@ -46,25 +47,24 @@ export default function Login() {
   const { email, password } = inputs;
 
   return (
-    <Form style={{ width: '300px', margin: '0 auto' }} onSubmit={handleSubmit}>
+    <Form className="d-flex" onSubmit={handleSubmit}>
       <FormGroup>
-        <Label for="email">Эл. адрес</Label>
         <Input
           type="text"
           name="email"
           required
-          placeholder="New Email"
+          placeholder="Эл.почта"
           onChange={handleChange}
           value={email}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="password">Пароль</Label>
         <Input
+          className="m-2"
           type="password"
           name="password"
           required
-          placeholder="New Password"
+          placeholder="Пароль"
           onChange={handleChange}
           value={password}
         />
