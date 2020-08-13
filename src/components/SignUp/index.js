@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 
 function SignUp() {
+  const history = useHistory();
   const [inputs, setInputs] = useState({
     username: '',
     email: '',
@@ -22,8 +24,8 @@ function SignUp() {
         }),
       });
       const result = await response.json();
+      history.push('/home');
     }
-
     if (inputs.username && inputs.email && inputs.password) {
       getSignUp();
     }
