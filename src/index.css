@@ -82,3 +82,12 @@ code {
   color: white !important;
   text-align: center;
 }
+
+#chui-color {
+  color: pink;
+}
+
+.background_home {
+  background-color: #130348;
+  height: 1000px;
+}
