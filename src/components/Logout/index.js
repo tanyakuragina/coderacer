@@ -6,7 +6,7 @@ import logoutRequest from '../../redux/thunks/logout.js';
 export default function Logout() {
   const dispatch = useDispatch();
   useEffect(() => {
-    logoutRequest();
+    dispatch(logoutRequest());
   }, []);
   return <Redirect to="/" />;
 }
