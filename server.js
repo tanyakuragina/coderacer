@@ -101,4 +101,16 @@ app.get('/api/logout', (req, res) => {
   }
 });
 
+// get user statistics
+app.get('/api/userstat', (req, res) => {
+  if (req.session) {
+    // get users info from db
+    const users = [{ name: 'user1' }, { name: 'user2' }, { name: 'user3' }];
+    res.json(users);
+  } else {
+    // get error message
+    res.json({ name: 'error' });
+  }
+});
+
 app.listen(process.env.PORT ?? 3001);
