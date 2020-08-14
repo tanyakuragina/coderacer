@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/thunks/logoutRequset.js';
+
+import logoutRequest from '../../redux/thunks/logout.js';
 
 export default function Logout() {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ export default function Logout() {
   return (
     <Form>
       <FormGroup>
-        <Button color="secondary" type="submit" onSubmit={() => { dispatch(logout()); }}>
+        <Button color="secondary" type="submit" onSubmit={() => { dispatch(logoutRequest()); }}>
           Выйти
         </Button>
       </FormGroup>
