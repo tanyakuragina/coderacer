@@ -12,15 +12,15 @@ code {
     monospace;
 }
 
-#classicformpage .view {
-  background-image: url("./pictures/main.png");
+#view {
+  background-image: url('./pictures/main.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   height: 100vh;
 }
 
-#classicformpage .gradient {
+#mask {
   background: -webkit-linear-gradient(
     45deg,
     rgba(0, 0, 0, 0.5),
@@ -31,12 +31,26 @@ code {
     45deg,
     from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)
   );
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(72, 15, 144, 0.4) 100%
+  );
+  position: absolute;
+  top: 1;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
-
-#classicformpage .card {
+.card {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+/* #classicformpage .card {
   background-color: rgba(255, 255, 255, 0.2);
-}
+} */
 
 #classicformpage h6 {
   line-height: 1.7;
@@ -60,22 +74,22 @@ code {
   color: #fff !important;
 }
 
-#signUp{
-  color: white !important; 
+#signUp {
+  color: white !important;
 }
 
 #lorem {
-  color: white !important; 
+  color: white !important;
 }
 
 .view .mask {
-    position: absolute;
-    top: 1;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 1;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 #registration {
