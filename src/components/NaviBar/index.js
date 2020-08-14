@@ -8,7 +8,7 @@ export default function NaviBar() {
   return (
     <>
       <Navbar variant="dark" expand="lg" id="navibar">
-        <Navbar.Brand id="codeTitle" href="#home">
+        <Navbar.Brand id="codeTitle" href="/">
           CodeRacer
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
