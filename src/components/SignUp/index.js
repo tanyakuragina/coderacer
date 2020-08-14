@@ -60,34 +60,31 @@ function SignUp() {
 
   return (
     <MDBView>
-      <MDBMask className="d-flex justify-content-center align-items-center gradient">
-        <MDBContainer>
+      <MDBMask className="d-flex justify-content-end align-items-center gradient">
+        <MDBContainer className="m-2 p-5">
           <MDBRow>
             <MDBAnimation
               type="fadeInLeft"
               delay=".3s"
               className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5"
             >
-              <h1 className="h1-responsive font-weight-bold">
+              <div id='backgroundLorem'>
+              <h1 id='signUp'>
                 Зарегистрируйся
               </h1>
               <hr className="hr-light" />
-              <h6 className="mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem
-                repellendus quasi fuga nesciunt dolorum nulla magnam veniam
-                sapiente, fugiat! Commodi sequi non animi ea dolor molestiae,
-                quisquam iste, maiores. Nulla.
+              <h6 className="mb-4" id="lorem">
+                Соревнуйся с реальными игроками. 
               </h6>
-              <MDBBtn outline color="white">
-                Learn More
-              </MDBBtn>
+
+              </div>
             </MDBAnimation>
 
-            <MDBCol md="6" xl="4" className="mb-4">
+            <MDBCol md="6" xl="5" className="mb-4">
               <MDBAnimation type="fadeInRight" delay=".3s">
                 <MDBCard id="classic-card">
                   <MDBCardBody className="white-text">
-                    <h3 className="text-center">
+                    <h3 className="text-center" id="registration">
                       <MDBIcon icon="user" /> Регистрация:
                     </h3>
                     <hr className="hr-light" />
