@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from "react-router-dom";
 
 export default function Home() {
   const [data, setData] = useState('Идет загрузка...');
@@ -9,5 +10,9 @@ export default function Home() {
       setData(JSON.stringify(json));
     })();
   }, []);
-  return <h1>ЧУИ МЫ ДОМА</h1>;
+  return (
+    <div className="background_home">
+      <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
+    </div>
+  );
 }
