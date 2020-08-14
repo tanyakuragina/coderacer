@@ -71,6 +71,7 @@ app.post('/api/signup', async (req, res) => {
       email,
       password: await bcrypt.hash(password, saltRounds),
     });
+    req.session.user = user;
     await user.save();
     console.log('ok');
     // req.session.user = user;
