@@ -3,6 +3,7 @@ import './App.css';
 import GuestPage from './components/GuestPage';
 import NaviBar from './components/NaviBar';
 import Classic from '../src/components/Classic'
+import UserStatsList from './components/UserStatsList';
 // import SignUp from './components/SignUp';
 // import Login from './components/Login';
 // import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       <GuestPage />
+      <UserStatsList />
     </>
   );
   // const isAuthenticated = useSelector((state) => state.isAuthenticated);
