@@ -8,7 +8,7 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-function Game() {
+export default function Game() {
   const dispatch = useDispatch();
   const [code, setCode] = React.useState('() => {\n\n}');
   const [userConsole, setUserConsole] = React.useState('');
@@ -74,7 +74,8 @@ function Game() {
   }
 
   return (
-    <Container>
+    // <Container className="text-light">
+    <>
       <Row>
         <Col>
           <h3>Ваше решение:</h3>
@@ -118,8 +119,6 @@ function Game() {
           <div>Пример результата: [2,4,6,8,10]</div>
         </Col>
       </Row>
-    </Container>
+      </>
   );
 }
-
-export default Game;

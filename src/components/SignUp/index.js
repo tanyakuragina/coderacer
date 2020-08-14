@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {
   Button, Form, FormGroup, Label, Input, FormText,
 } from 'reactstrap';
-import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router, Route, Switch, Link, Redirect,
+} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   MDBMask,
   MDBRow,
@@ -20,6 +23,7 @@ import {
 import signup from '../../redux/thunks/signup.js';
 
 function SignUp() {
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     username: '',
@@ -38,6 +42,7 @@ function SignUp() {
     dispatch(signup(inputs.username, inputs.email, inputs.password));
   }
 
+  if (isAuthenticated) return (<Redirect to="/home" />);
   return (
     <MDBView>
       <MDBMask className="d-flex justify-content-end align-items-center gradient">
