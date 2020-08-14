@@ -9,5 +9,9 @@ export default function Home() {
       setData(JSON.stringify(json));
     })();
   }, []);
-  return data;
+  return (
+    <>
+      <>Hello</>
+    </>
+  );
 }
