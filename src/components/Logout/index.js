@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/actionCreators'
 
 export default function Logout() {
   const dispatch = useDispatch();
@@ -8,9 +9,7 @@ export default function Logout() {
   useEffect(() => {
     (async () => {
       await fetch('/api/logout');
-      dispatch({
-        type: 'LOGOUT',
-      });
+      dispatch(logout());
       history.push('/');
     })();
   }, []);

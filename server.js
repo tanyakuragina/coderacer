@@ -24,7 +24,7 @@ mongoose.connection.on(
 app.use(express.json());
 app.use(
   session({
-    secret: process.env.SESSION_KEY,
+    secret: 'asgaerhgse',
   })
 );
 

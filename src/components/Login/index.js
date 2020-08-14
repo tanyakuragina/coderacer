@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { FormControl } from 'react-bootstrap';
+import { authenticatedSuccessfully } from '../../redux/actionCreators'
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -26,9 +27,7 @@ export default function Login() {
       }),
     });
     if (response.status === 200) {
-      dispatch({
-        type: 'AUTHENTICATED_SUCCESSFULLY',
-      });
+      dispatch(authenticatedSuccessfully());
       return history.push('/home');
     }
     // dispatch({
