@@ -5,7 +5,7 @@ import {
   Button, Form, FormGroup, Label, Input, FormText,
 } from 'reactstrap';
 import { FormControl } from 'react-bootstrap';
-import { login } from '../../redux/thunks/login.js';
+import login from '../../redux/thunks/login.js';
 
 export default function Login() {
   const dispatch = useDispatch();
