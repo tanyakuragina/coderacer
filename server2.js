@@ -24,6 +24,8 @@ mongoose.connection.on(
   'error',
   console.error.bind(console, 'Ошибка соединения с MongoDB:')
 );
+
+
 // подключаем сессии куки.
 // app.use(
 //   session({

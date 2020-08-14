@@ -3,31 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-const preloadedState =
-  window.localStorage.getItem('state') || '{"isAuthenticated": false }';
+import reducer from './redux/reducers'
+import thunk from 'redux-thunk';
 
-const store = createStore(
-  (state, action) => {
-    switch (action.type) {
-      case 'AUTHENTICATED_SUCCESSFULLY':
-        return {
-          isAuthenticated: true,
-        };
-      case 'LOGOUT':
-        return {
-          isAuthenticated: false,
-        };
-      default:
-        return state;
-    }
-  },
-  JSON.parse(preloadedState)
-  // {
-  //   isAuthenticated: false,
-  // }
-);
+  const enhancers = compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  );
+
+  const store = createStore(reducer, enhancers);
 
 store.subscribe(() => {
   const state = store.getState();
