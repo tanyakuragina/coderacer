@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Form, FormGroup, Label, Input, FormText,
@@ -10,6 +10,7 @@ import login from '../../redux/thunks/login.js';
 export default function Login() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.error);
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -27,6 +28,8 @@ export default function Login() {
       [name]: value,
     });
   }
+
+  if (isAuthenticated) return <Redirect to="/home" />;
 
   return (
     <Form className="d-flex" onSubmit={handleSubmit}>
