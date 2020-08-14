@@ -3,6 +3,7 @@ import * as actionTypes from '../actionTypes.js';
 const inititalState = {
   isAuthenticated: false,
   error: '',
+  challenges: [],
 };
 
 const reducer = (state = inititalState, action) => {
@@ -23,6 +24,13 @@ const reducer = (state = inititalState, action) => {
         ...state,
         error: action.error,
       };
+
+    case actionTypes.setChallenges:
+      return {
+        ...state,
+        challenges: action.challenges,
+      };
+
     default:
       return {
         ...state,
