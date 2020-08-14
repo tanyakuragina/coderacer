@@ -11,23 +11,27 @@ function UserStatsList() {
     { 'name': 'valya12', 'timeSeconds': '33', 'score': '600000', 'btn': < MDBBtn color="purple" size="sm" > Button</MDBBtn > }];
   return (
     <>
-      <MDBTableHead color="dark" textWhite>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Time</th>
-          <th>Score</th>
-        </tr>
-      </MDBTableHead>
-      {users.map((element, index) => (
-        <UserStats
-          index={index}
-          name={element.name}
-          time={element.timeSeconds}
-          score={element.score}
-          btn={element.btn}
-        />
-      ))}
+      <MDBTable>
+
+        <MDBTableHead color="dark" textWhite>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Score</th>
+          </tr>
+        </MDBTableHead>
+        
+        {users.map((element, index) => (
+          <UserStats
+            index={index}
+            name={element.name}
+            time={element.timeSeconds}
+            score={element.score}
+            btn={element.btn}
+          />
+        ))}
+      </MDBTable>
     </>
   );
 }
