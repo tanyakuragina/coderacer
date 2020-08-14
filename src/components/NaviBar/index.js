@@ -1,10 +1,14 @@
 import React from 'react';
-import { Navbar, Nav, Form, Button, Row } from 'react-bootstrap';
-import Login from '../Login';
+import { useSelector } from 'react-redux';
+import {
+  Navbar, Nav, Form, Button, Row,
+} from 'react-bootstrap';
 import { FormGroup } from 'reactstrap';
+import Login from '../Login';
 import './navibar.css';
 
 export default function NaviBar() {
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
   return (
     <>
       <Navbar variant="dark" expand="lg" id="navibar">
@@ -13,7 +17,7 @@ export default function NaviBar() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto"></Nav>
+          <Nav className="mr-auto" />
           <Form inline>
             <Login />
           </Form>

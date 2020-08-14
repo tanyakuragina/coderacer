@@ -34,7 +34,6 @@ import '../../index.css';
 
 export default function GuestPage() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
-  if (isAuthenticated) return <Home />;
   return (
     <div id="classicformpage">
       <Router>
@@ -62,7 +61,7 @@ export default function GuestPage() {
             </header>
           </Route>
         </Switch>
-        <SignUp />
+        {isAuthenticated ? <Home /> : <SignUp />}
       </Router>
     </div>
   );
