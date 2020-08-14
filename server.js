@@ -24,7 +24,7 @@ mongoose.connection.on(
 app.use(express.json());
 app.use(
   session({
-    secret: process.env.SESSION_KEY || '*',
+    secret: 'asgaerhgse',
   })
 );
 
@@ -71,6 +71,7 @@ app.post('/api/signup', async (req, res) => {
       email,
       password: await bcrypt.hash(password, saltRounds),
     });
+    req.session.user = user;
     await user.save();
     console.log('ok');
     // req.session.user = user;

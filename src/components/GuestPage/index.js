@@ -1,13 +1,8 @@
 import React from 'react';
-import Login from '../Login';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import SignUp from '../SignUp';
-import Home from '../Home';
-import PrivateRoute from '../PrivateRoute';
-import Logout from '../Logout';
+import {
+  BrowserRouter as Router, Route, Switch, Link, Redirect,
+} from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import NaviBar from '../NaviBar';
-import '../../../src/index.css';
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -27,8 +22,15 @@ import {
   MDBCardBody,
   MDBInput,
   MDBFormInline,
-  MDBAnimation
-} from "mdbreact";
+  MDBAnimation,
+} from 'mdbreact';
+import Login from '../Login';
+import SignUp from '../SignUp';
+import Home from '../Home';
+import PrivateRoute from '../PrivateRoute';
+import Logout from '../Logout';
+import NaviBar from '../NaviBar';
+import '../../index.css';
 
 export default function GuestPage() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -52,8 +54,6 @@ export default function GuestPage() {
           </PrivateRoute>
           <Route path="/">
             <header>
-              {!isAuthenticated && <Link to="/login">Войти</Link>}
-              {isAuthenticated && <Link to="/logout">Выйти</Link>}
               &nbsp;
               <Link to="/signup">Зарегистрироваться</Link>
               &nbsp;
@@ -61,7 +61,7 @@ export default function GuestPage() {
             </header>
           </Route>
         </Switch>
-        <SignUp />
+        {isAuthenticated ? <Home /> : <SignUp />}
       </Router>
     </div>
   );
