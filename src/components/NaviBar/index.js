@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import { FormGroup } from 'reactstrap';
 import Login from '../Login';
+import Logout from '../Logout';
 import './navibar.css';
 
 export default function NaviBar() {
@@ -19,7 +20,7 @@ export default function NaviBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto" />
           <Form inline>
-            <Login />
+            {isAuthenticated ? <Logout /> : <Login />}
           </Form>
         </Navbar.Collapse>
       </Navbar>
