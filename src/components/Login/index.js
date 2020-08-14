@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+
+import React, { useState, useEffect } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Form, FormGroup, Label, Input, FormText,
 } from 'reactstrap';
-import login from '../../redux/thunks/login.js';
+import { FormControl } from 'react-bootstrap';
+import { authenticatedSuccessfully } from '../../redux/actionCreators';
+import login from '../../redux/thunks/login.js'
+
 
 export default function Login() {
   const dispatch = useDispatch();
