@@ -1,39 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Button, Form, FormGroup, Label, Input, FormText,
+} from 'reactstrap';
 import { FormControl } from 'react-bootstrap';
-import { authenticatedSuccessfully } from '../../redux/actionCreators'
+import { login } from '../../redux/thunks/login.js';
 
 export default function Login() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const [error, setError] = useState(false);
+  const error = useSelector((state) => state.error);
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
   });
+  const { email, password } = inputs;
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    if (response.status === 200) {
-      dispatch(authenticatedSuccessfully());
-      return history.push('/home');
-    }
-    // dispatch({
-    //   type: 'AUTHENTICATED_UNSUCCESSFULLY'
-    // })
-    return setError('Повторите вход');
+    dispatch(login(email, password));
   }
 
   function handleChange({ target: { name, value } }) {
@@ -42,8 +27,6 @@ export default function Login() {
       [name]: value,
     });
   }
-
-  const { email, password } = inputs;
 
   return (
     <Form className="d-flex" onSubmit={handleSubmit}>
