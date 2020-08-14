@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from 'react-router-dom';
 
 export default function Home() {
   const [data, setData] = useState('Идет загрузка...');
@@ -13,6 +19,14 @@ export default function Home() {
   return (
     <div className="background_home">
       <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
+      <Router>
+        <Switch>
+          <Route path="/game">
+            <Home />
+          </Route>
+          <Link to="/game">Войти в игру</Link>
+        </Switch>
+      </Router>
     </div>
   );
 }
