@@ -11,3 +11,7 @@ export function logout() {
 export function sendError(error) {
   return { type: actionTypes.sendError, error };
 }
+
+export function setChallenges(data) {
+  return { type: actionTypes.setChallenges, challenges: data };
+}

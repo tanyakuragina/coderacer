@@ -17,10 +17,23 @@ self.addEventListener('message', (ev) => {
   const { data } = ev;
   switch (data.do) {
     case 'run': {
+      console.log('TEST RUN')
       const code = data.code.replace(/console/g, 'myConsole');
       const foo = eval(code);
-      const result = data.tests.map((test) => _.isEqual(foo(...test.params), test.equals));
+      const result = data.tests.map((test) => _.isEqual(foo(...test.in), test.out));
       self.postMessage({ type: 'result', result });
+      break;
+    }
+    case 'runFinal': {
+      const code = data.code.replace(/console/g, 'myConsole');
+      const foo = eval(code);
+      const result = data.tests.map((test) => {
+        console.log('FINAL TEST RUN')
+        console.log('input', test.in);
+        console.log('output', foo(...test.in));
+        return _.isEqual(foo(...test.in), test.out);
+      });
+      self.postMessage({ type: 'resultFinal', result });
       break;
     }
     case 'die':

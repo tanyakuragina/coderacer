@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import User from './src/db/User.js';
+import Challenge from './src/db/Challenge.js'
 import fs from 'fs';
 dotenv.config();
 
@@ -101,6 +102,13 @@ app.get('/api/logout', (req, res) => {
   }
 });
 
+
+app.get('/api/challenges', async (req, res) => {
+  const challenges = await Challenge.find()
+    res.json(challenges);
+  }
+);
+
 // get user statistics
 app.get('/api/userstat', (req, res) => {
   if (req.session) {
@@ -112,5 +120,6 @@ app.get('/api/userstat', (req, res) => {
     res.json({ name: 'error' });
   }
 });
+
 
 app.listen(process.env.PORT ?? 3001);
