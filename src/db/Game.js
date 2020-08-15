@@ -3,21 +3,32 @@ import mongoose from 'mongoose';
 // Создаём схемы.
 const gameSchema = mongoose.Schema({
   author: {
-      type: mongoose.Schema.Types.ObjectId
-      ref: 'User'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
   challenges: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Challenge'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Challenge',
   }],
   startDate: Date,
-  players: {
-      player: {
-        type: mongoose.Schema.Types.ObjectId
-        ref: 'User'
-      },
-      challengeTimes: [Date]
-  }
+  players: [{
+    player: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    challengeTimes: [],
+  }],
 });
+
+// Выдает всех пользователей, учавствующих в игре
+gameSchema.methods.findPlayers = async function () {
+  const populated = await this.model('Game').findById(this.id).populate('players.player');
+  return populated.players.map((player) => player.player);
+};
+
+// Выдает все не начавшиеся игры, отсортированные по дате начала
+gameSchema.statics.findUpcoming = async function () {
+  return this.find().where('startDate').gte(new Date()).sort({ startDate: 1 });
+};
 
 export default mongoose.model('Game', gameSchema);
