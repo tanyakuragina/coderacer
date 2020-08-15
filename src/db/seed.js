@@ -37,7 +37,7 @@ Challenge.create({
     main: [
       { in: ['all your base are belong to us'], out: 'll r bs r blng t s' },
       { in: ['eval is evil'], out: 'vl s vl' },
-      { in: ['goodbye'], out: 'gdby' },
+      { in: ['goodbye'], out: 'gdb' },
       { in: [''], out: '' },
     ],
   },
