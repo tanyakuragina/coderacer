@@ -33,7 +33,7 @@ gameSchema.statics.findUpcoming = async function () {
     _id: game._id,
     author: game.author,
     startDate: game.startDate,
-    playerCount: game.players.length,
+    players: game.players,
   }));
 };
 

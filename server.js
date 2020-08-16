@@ -109,21 +109,25 @@ app.get('/api/logout', (req, res) => {
   }
 });
 
+// выдает все задания из БД (только для разработки, в продакшене не использовать)
 app.get('/api/challenges', async (req, res) => {
   const challenges = await Challenge.find();
   res.json(challenges);
 });
 
+// выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
   const games = await Game.findUpcoming();
   res.json(games);
 });
 
+// выдает полную информацию по игре. id - это _id игры в БД
 app.get('/api/game/:id', async (req, res) => {
   const game = await Game.findById(req.params.id);
   res.json(game);
 });
 
+// добавляет игрока в игру, id игрока берет из сессии
 app.post('/api/game/join/:id', async (req, res) => {
   if (!req.session.user) {
     return res.sendStatus(401);
@@ -143,6 +147,7 @@ app.post('/api/game/join/:id', async (req, res) => {
   return res.json(game);
 });
 
+// удаляет игрока из игры, id игрока берет из сессии
 app.post('/api/game/quit/:id', async (req, res) => {
   if (!req.session.user) {
     return res.sendStatus(401);
@@ -159,6 +164,7 @@ app.post('/api/game/quit/:id', async (req, res) => {
   }
 });
 
+// добавляет в массив дат выполнения задания игрока новое время
 app.post('/api/game/postScore/:id', async (req, res) => {
   if (!req.session.user) {
     return res.sendStatus(401);
@@ -175,6 +181,7 @@ app.post('/api/game/postScore/:id', async (req, res) => {
   }
 });
 
+// создает новую игру, пока без заданий
 app.post('/api/game/new', async (req, res) => {
   const { date } = req.body;
   if (!req.session.user) {
