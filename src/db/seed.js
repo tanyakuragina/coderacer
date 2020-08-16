@@ -48,8 +48,15 @@ mongoose.connect('mongodb://localhost:27017/coderacer', { useNewUrlParser: true,
 const seed = async () => {
   const challenges = await Challenge.find();
   const users = await User.find();
-  const game = await Game.findOne().populate('players.player');
-  console.log(await game.findPlayers());
+  Game.create({
+    challenges,
+    author: users[0],
+    startDate: new Date('2020-08-18T14:57:08.633Z'),
+    players: users.map((user) => ({
+      player: user._id,
+      challengeTimes: [],
+    })),
+  });
 };
 
 seed();

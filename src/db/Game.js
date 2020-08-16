@@ -28,7 +28,13 @@ gameSchema.methods.findPlayers = async function () {
 
 // Выдает все не начавшиеся игры, отсортированные по дате начала
 gameSchema.statics.findUpcoming = async function () {
-  return this.find().where('startDate').gte(new Date()).sort({ startDate: 1 });
+  const games = await this.find().where('startDate').gte(new Date()).sort({ startDate: 1 });
+  return games.map((game) => ({
+    _id: game._id,
+    author: game.author,
+    startDate: game.startDate,
+    playerCount: game.players.length,
+  }));
 };
 
 export default mongoose.model('Game', gameSchema);
