@@ -132,11 +132,15 @@ app.post('/api/game/join/:id', async (req, res) => {
   if (game.startDate > Date.now) {
     return res.status(400).json({ isOkay: false, errorMessage: 'Игра уже началась' });
   }
-  game.players.push({
-    player: req.session.user._id,
-    challengeTimes: [],
-  });
-  res.sendStatus(200);
+  const playerIndex = game.players.findIndex((player) => player.player.toString() === req.session.user._id);
+  if (playerIndex === -1) {
+    game.players.push({
+      player: req.session.user._id,
+      challengeTimes: [],
+    });
+  }
+  await game.save();
+  return res.json(game);
 });
 
 app.post('/api/game/quit/:id', async (req, res) => {
@@ -145,10 +149,10 @@ app.post('/api/game/quit/:id', async (req, res) => {
   }
   try {
     const game = await Game.findById(req.params.id);
-    const playerIndex = game.players.findIndex((player) => player._id.toString() === req.session.user._id);
+    const playerIndex = game.players.findIndex((player) => player.player.toString() === req.session.user._id);
     game.players.splice(playerIndex, 1);
     await game.save();
-    return res.sendStatus(200);
+    return res.json(game);
   } catch (error) {
     console.log(error.message);
     return res.json({ isOkay: false, errorMessage: error.message });
@@ -161,7 +165,7 @@ app.post('/api/game/postScore/:id', async (req, res) => {
   }
   try {
     const game = await Game.findById(req.params.id);
-    const playerIndex = game.players.findIndex((player) => player._id.toString() === req.session.user._id);
+    const playerIndex = game.players.findIndex((player) => player.player.toString() === req.session.user._id);
     game.players[playerIndex].challengeTimes.push(Date.now);
     await game.save();
     return res.status(200).json(game);
