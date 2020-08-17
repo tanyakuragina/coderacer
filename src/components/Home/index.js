@@ -43,13 +43,13 @@ export default function Home() {
           </Link>
           <br />
           <br />
-          {/* <Button
-          onClick={() => {
-            dispatch(joinGame('5f391aa214d409b5ed9fc65a'));
-          }}
-        >
-          Зайти в игру (тест)
-        </Button> */}
+          <Button
+            onClick={() => {
+              dispatch(joinGame('5f391aa214d409b5ed9fc65a'));
+            }}
+          >
+            Зайти в игру (тест)
+          </Button>
           <br />
           <br />
           <Button
@@ -66,7 +66,7 @@ export default function Home() {
                 игры:
                 {game.startDate}. Количество игроков: {game.players.length}
                 {currentGame ? (
-                  <Link to="/lobby">
+                  <Link to={`/game/${game._id}`}>
                     <Button
                       disabled={joinGame ? 'click' : 'dont'}
                       onClick={() => {
@@ -77,7 +77,7 @@ export default function Home() {
                     </Button>
                   </Link>
                 ) : (
-                  <Link to="/lobby">
+                  <Link to={`/game/${game._id}`}>
                     <Button
                       onClick={() => {
                         dispatch(joinGame(game._id));

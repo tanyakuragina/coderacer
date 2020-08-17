@@ -29,6 +29,11 @@ const reducer = (state = inititalState, action) => {
         games: action.games,
       };
 
+    case actionTypes.setOneGame:
+      return {
+        ...state,
+        game: action.game,
+      };
     case actionTypes.dropGame:
       return {
         ...state,
