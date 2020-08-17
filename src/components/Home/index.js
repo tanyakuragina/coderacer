@@ -6,27 +6,29 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import UserStatsList from '../UserStatsList';
+import newGame from '../../redux/thunks/newGame.js';
+import quitGame from '../../redux/thunks/quitGame.js'
+import joinGame from '../../redux/thunks/joinGame.js'
 
 export default function Home() {
-  const [data, setData] = useState('Идет загрузка...');
-  useEffect(() => {
-    (async () => {
-      const response = await fetch('/api/home');
-      const json = await response.json();
-      setData(JSON.stringify(json));
-    })();
-  }, []);
+  const dispatch = useDispatch();
   return (
     <div className="background_home">
       <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
-      <Router>
-        <Switch>
-          <Route path="/game">
-            <Home />
-          </Route>
-          <Link to="/game">Войти в игру</Link>
-        </Switch>
-      </Router>
+      <Link to="/game">Войти в игру</Link>
+      <br />
+      <br />
+      <Button onClick={() => { dispatch(newGame(new Date('2020-08-16T18:30:00'))); }}>Создать игру (тест)</Button>
+      <br />
+      <br />
+      <Button onClick={() => { dispatch(joinGame('5f391aa214d409b5ed9fc65a')); }}>Зайти в игру (тест)</Button>
+      <br />
+      <br />
+      <Button onClick={() => { dispatch(quitGame('5f391aa214d409b5ed9fc65a')); }}>Выйти из игры (тест)</Button>
+      <UserStatsList />
     </div>
   );
 }

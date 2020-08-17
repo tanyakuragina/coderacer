@@ -18,7 +18,7 @@ export default function signup(username, email, password) {
       if (result.isOkay) dispatch(authenticatedSuccessfully());
       console.log(result);
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }
