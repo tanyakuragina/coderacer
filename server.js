@@ -221,11 +221,13 @@ app.post('/api/game/new', async (req, res) => {
 });
 
 // get user statistics
-app.get('/api/userstat', (req, res) => {
+app.get('/api/game/user/:id', async (req, res) => {
   if (req.session) {
     // get users info from db
-    const users = [{ name: 'user1' }, { name: 'user2' }, { name: 'user3' }];
-    res.json(users);
+    // const users = [{ name: 'user1' }, { name: 'user2' }, { name: 'user3' }];
+    const gameData = await Game.findById(req.params.id);
+    const players = await gameData.findPlayers();
+    res.json(players);
   } else {
     // get error message
     res.json({ name: 'error' });
