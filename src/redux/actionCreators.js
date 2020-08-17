@@ -24,6 +24,10 @@ export function setGame(data) {
   return { type: actionTypes.setGame, game: data };
 }
 
+export function setOneGame(data) {
+  return { type: actionTypes.setOneGame, game: data };
+}
+
 export function setGameList(data) {
   return {type: actionTypes.setGameList, games: data}
 }

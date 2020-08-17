@@ -6,13 +6,14 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import UserStatsList from '../UserStatsList';
 import newGame from '../../redux/thunks/newGame.js';
 import quitGame from '../../redux/thunks/quitGame.js';
 import joinGame from '../../redux/thunks/joinGame.js';
 import getGames from '../../redux/thunks/getGames.js';
+import './home.css';
 
 export default function Home() {
   const games = useSelector((state) => state.games);
@@ -24,10 +25,12 @@ export default function Home() {
     dispatch(getGames());
   }, []);
 
-  if (games)
+  if (games) {
     return (
       <>
         <div className="background_home">
+        <div id="maskBack"
+        >
           <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
           <Link to="/game">Войти в игру</Link>
           <br />
@@ -43,13 +46,6 @@ export default function Home() {
           </Link>
           <br />
           <br />
-          {/* <Button
-          onClick={() => {
-            dispatch(joinGame('5f391aa214d409b5ed9fc65a'));
-          }}
-        >
-          Зайти в игру (тест)
-        </Button> */}
           <br />
           <br />
           <Button
@@ -59,40 +55,69 @@ export default function Home() {
           >
             Выйти из игры (тест)
           </Button>
-          {games ? (
-            games.map((game) => (
-              <div>
-                ID игры: {game._id}. Автор игры: {game.author}. Время начала
-                игры:
-                {game.startDate}. Количество игроков: {game.players.length}
-                {currentGame ? (
-                  <Link to="/lobby">
-                    <Button
-                      disabled={joinGame ? 'click' : 'dont'}
-                      onClick={() => {
-                        dispatch(joinGame(game._id));
-                      }}
-                    >
-                      Зайти в игру (тест)
+          <div className="d-flex justify-content-center">
+            <Table className="w-25" striped bordered hover variant="dark">
+              <thead>
+                <tr>
+                  <th>ID игры</th>
+                  <th>Автор игры</th>
+                  <th>Время начала игры</th>
+                  <th>Количество игроков</th>
+                </tr>
+              </thead>
+
+              {games ? (
+                games.map((game) => (
+                  <tbody>
+                    <tr>
+                      <td>
+                        {game._id}
+                      </td>
+                      <td>
+                        {game.author}
+                      </td>
+                      <td>
+                        {game.startDate}
+                      </td>
+                      <td>
+                        {game.players.length}
+                      </td>
+                      <td>
+                        {currentGame ? (
+                          <Link to="/lobby">
+                            <Button
+                              disabled={joinGame ? 'click' : 'dont'}
+                              onClick={() => {
+                                dispatch(joinGame(game._id));
+                              }}
+                            >
+                              Зайти в игру (тест)
                     </Button>
-                  </Link>
-                ) : (
-                  <Link to="/lobby">
-                    <Button
-                      onClick={() => {
-                        dispatch(joinGame(game._id));
-                      }}
-                    >
-                      Перейти в игру (тест)
+                          </Link>
+                        ) : (
+                            <Link to="/lobby">
+                              <Button
+                                onClick={() => {
+                                  dispatch(joinGame(game._id));
+                                }}
+                              >
+                                Перейти в игру (тест)
                     </Button>
-                  </Link>
+                            </Link>
+                          )}
+                      </td>
+                    </tr>
+                  </tbody>
+                ))
+              ) : (
+                  <div>Загружаем...</div>
                 )}
-              </div>
-            ))
-          ) : (
-            <div>Загружаем...</div>
-          )}
+
+            </Table>
+          </div>
+          </div>
         </div>
       </>
     );
+  }
 }
