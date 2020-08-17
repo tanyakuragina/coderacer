@@ -1,24 +1,31 @@
 import React from 'react';
 import {
-  Container, Row, Col, Button,
+  Container, Row, Col, Button, Tabs, Tab,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
+import getChallenge from '../../redux/thunks/getChallenge.js';
 
 export default function Game() {
   const dispatch = useDispatch();
-  const [code, setCode] = React.useState('() => {\n\n}');
+  const game = useSelector((state) => state.game);
+  const challengeIds = useSelector((state) => state.game && state.game.challenges);
+  const challenge = useSelector((state) => state.challenge);
+  const startParams = useSelector((state) => state.challenge && state.challenge.startParameters);
+  const [challengeNumber, setChallengeNumber] = React.useState(0);
+  const [code, setCode] = React.useState('\n() => {\n\n}');
   const [userConsole, setUserConsole] = React.useState('');
   const [workerRunning, setWorkerRunning] = React.useState(false);
   const [isTestPassed, setIsTestPassed] = React.useState(false);
-  const [tests, setTests] = React.useState([{
-    params: [[1, 2, 3, 4, 5]],
-    equals: [2, 4, 6, 8, 10],
-  },
-  ]);
+  const [isFinalTestPassed, setIsFinalTestPassed] = React.useState(false);
+
+  React.useEffect(() => {
+    dispatch(getChallenge(challengeIds[challengeNumber]));
+    setCode(`\n(${startParams}) => {\n\n}`);
+  }, []);
 
   let msgBuffer = '';
 
@@ -27,6 +34,18 @@ export default function Game() {
     if (data === 'Closing web worker') setWorkerRunning(false);
     console.log(data);
     switch (data.type) {
+      case 'resultFinal':
+      {
+        setWorkerRunning(false);
+        setUserConsole(msgBuffer);
+        if (data.result.every((res) => res === true)) {
+          setChallengeNumber(challengeNumber + 1);
+          setUserConsole('');
+          setIsTestPassed(false);
+          setIsFinalTestPassed(false);
+        }
+        break;
+      }
       case 'result':
       {
         setWorkerRunning(false);
@@ -50,17 +69,20 @@ export default function Game() {
     setUserConsole(msgBuffer);
   }
 
-  function runTest() {
+  function runTest(type) {
     try {
+      const tests = type === 'test'
+        ? [{
+          in: challenge.tests.sample.in,
+          out: challenge.tests.sample.out,
+        }] : challenge.tests.main;
       setWorkerRunning(true);
       msgBuffer = '';
       setUserConsole('');
       const worker = new Worker('worker.js');
       worker.addEventListener('message', workerMessaged);
       worker.addEventListener('error', workerError);
-      // const foo = eval(code);
-
-      worker.postMessage({ do: 'run', code, tests });
+      worker.postMessage({ do: type === 'test' ? 'run' : 'runFinal', code, tests });
       setTimeout(() => {
         worker.terminate();
         console.log('Worker terminated');
@@ -73,10 +95,31 @@ export default function Game() {
     }
   }
 
+  if (!challenge) return <h1>Загрузка</h1>;
+
   return (
     // <Container className="text-light">
-    <>
+    <Container>
       <Row>
+        <Col>
+          <h2 className="mt-3">{challenge.name}</h2>
+          <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+            <Tab eventKey="description" title="Описание задачи">
+              <div className="my-1">{challenge.description}</div>
+            </Tab>
+            <Tab eventKey="sample" title="Примеры">
+              <div className="my-1">
+                {`Пример исходных данных: ${challenge.sampleInput}`}
+              </div>
+              <div>
+                {`Пример результата: ${challenge.sampleOutput}`}
+              </div>
+            </Tab>
+          </Tabs>
+          <br />
+        </Col>
+      </Row>
+      <Row className="my-3">
         <Col>
           <h3>Ваше решение:</h3>
           <AceEditor
@@ -85,6 +128,8 @@ export default function Game() {
             onChange={(e) => { setCode(e); }}
             name="EDITOR_ID"
             value={code}
+            height="300px"
+            width="800px"
             setOptions={{
               fontSize: 16,
               enableBasicAutocompletion: true,
@@ -92,15 +137,19 @@ export default function Game() {
               tabSize: 2,
             }}
           />
-          <Button disabled={workerRunning} onClick={runTest} className="mt-3">Тест</Button>
-          {isTestPassed ? <Button variant="success" className="mt-3 mx-2">Отправить решение</Button> : <></>}
+          <Button disabled={workerRunning} onClick={() => { runTest('test'); }} className="mt-3">Тест</Button>
+          {isTestPassed ? <Button variant="success" className="mt-3 mx-2" onClick={() => { runTest('main'); }}>Отправить решение</Button> : <></>}
         </Col>
+      </Row>
+      <Row className="my-3">
         <Col>
           <h3>Консоль:</h3>
           <AceEditor
             theme="tomorrow_night_eighties"
             name="CONSOLE"
             value={userConsole}
+            height="300px"
+            width="800px"
             setOptions={{
               fontSize: 16,
               highlightActiveLine: false,
@@ -111,14 +160,6 @@ export default function Game() {
           />
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <h2 className="mt-3">Описание задачи:</h2>
-          <div>Необходимо вывести массив элементов исходного массива arr, умноженных на два.</div>
-          <div>Пример исходного массива: [1,2,3,4,5]</div>
-          <div>Пример результата: [2,4,6,8,10]</div>
-        </Col>
-      </Row>
-      </>
+    </Container>
   );
 }
