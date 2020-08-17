@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Container, Row, Col, Button, Tabs, Tab,
 } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -128,7 +127,7 @@ export default function Game() {
 
   if (!challenge) return <h1>Загрузка</h1>;
 
-  if (isFinished) return <h1>Done</h1>;
+  if (isFinalTestPassed) return <h1>Done</h1>;
 
   return (
     <Container>
