@@ -123,7 +123,7 @@ app.get('/api/challenges/:id', async (req, res) => {
 
 // выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
-  const games = await Game.findPlayers();
+  const games = await Game.findUpcoming();
   // console.log(games)
   res.json(games);
 });
