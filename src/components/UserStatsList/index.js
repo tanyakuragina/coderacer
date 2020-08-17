@@ -21,8 +21,8 @@ function UserStatsList() {
       ),
     },
   ];
-  const storeData = store.get
-  console.log();
+  // const storeData = store.get
+  // console.log();
 
   return (
     <>

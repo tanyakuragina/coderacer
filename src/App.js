@@ -7,6 +7,7 @@ import {
 import GuestPage from './components/GuestPage';
 import Home from './components/Home';
 import Login from './components/Login';
+import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Home />
+          </Route>
+          <Route exact path="/lobby">
+            <Lobby />
           </Route>
           <Route exact path="/">
             <GuestPage />
