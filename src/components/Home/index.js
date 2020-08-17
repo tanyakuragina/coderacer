@@ -16,56 +16,82 @@ import getGames from '../../redux/thunks/getGames.js';
 
 export default function Home() {
   const games = useSelector((state) => state.games);
+  const currentGame = useSelector((state) => state.game);
   console.log(games);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGames());
   }, []);
-  
-  const arr = [{name: 'a', time: 12},{name: '2'},{name: '3'}]
 
-  return (
-    <>
-      <div className="background_home">
-        <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
-        <Link to="/game">Войти в игру</Link>
-        <br />
-        <br />
-        <Button
-          onClick={() => {
-            dispatch(newGame(new Date('2020-08-16T18:30:00')));
-          }}
-        >
-          Создать игру (тест)
-        </Button>
-        <br />
-        <br />
-        <Button
+  if (games)
+    return (
+      <>
+        <div className="background_home">
+          <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
+          <Link to="/game">Войти в игру</Link>
+          <br />
+          <br />
+          <Link to="/new-game">
+            <Button
+              onClick={() => {
+                dispatch(newGame(new Date('2020-08-16T18:30:00')));
+              }}
+            >
+              Создать игру (тест)
+            </Button>
+          </Link>
+          <br />
+          <br />
+          {/* <Button
           onClick={() => {
             dispatch(joinGame('5f391aa214d409b5ed9fc65a'));
           }}
         >
           Зайти в игру (тест)
-        </Button>
-        <br />
-        <br />
-        <Button
-          onClick={() => {
-            dispatch(quitGame('5f391aa214d409b5ed9fc65a'));
-          }}
-        >
-          Выйти из игры (тест)
-        </Button>
-        {games ? (
-         games.map((game) => (
-          <div>
-            ID игры: {game._id}. Автор игры: {game.author}. Время начала игры: {game.startDate}. Количество игроков: {game.players.length}
-          </div>
-        ))) : (
-          <div>Загружаем...</div>
-        )}
-      </div>
-    </>
-  );
+        </Button> */}
+          <br />
+          <br />
+          <Button
+            onClick={() => {
+              dispatch(quitGame('5f391aa214d409b5ed9fc65a'));
+            }}
+          >
+            Выйти из игры (тест)
+          </Button>
+          {games ? (
+            games.map((game) => (
+              <div>
+                ID игры: {game._id}. Автор игры: {game.author}. Время начала
+                игры:
+                {game.startDate}. Количество игроков: {game.players.length}
+                {currentGame ? (
+                  <Link to="/lobby">
+                    <Button
+                      onClick={() => {
+                        dispatch(joinGame(game._id));
+                      }}
+                    >
+                      Зайти в игру (тест)
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/lobby">
+                    <Button
+                      onClick={() => {
+                        dispatch(joinGame(game._id));
+                      }}
+                    >
+                      Перейти в игру (тест)
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            ))
+          ) : (
+            <div>Загружаем...</div>
+          )}
+        </div>
+      </>
+    );
 }
