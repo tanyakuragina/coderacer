@@ -27,7 +27,7 @@ function UserStatsList() {
   return (
     <>
       <div className="d-flex justify-content-center">
-        <MDBTable className>
+        <MDBTable >
           <MDBTableHead color="dark" textWhite>
             <tr>
               <th>#</th>
