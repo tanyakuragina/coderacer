@@ -24,6 +24,6 @@ export function setGame(data) {
   return { type: actionTypes.setGame, game: data };
 }
 
-export function quitGame() {
-  return { type: actionTypes.quitGame };
+export function dropGame() {
+  return { type: actionTypes.dropGame };
 }

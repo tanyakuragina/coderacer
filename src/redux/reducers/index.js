@@ -22,7 +22,7 @@ const reducer = (state = inititalState, action) => {
         game: action.game,
       };
 
-    case actionTypes.quitGame:
+    case actionTypes.dropGame:
       return {
         ...state,
         challenge: null,

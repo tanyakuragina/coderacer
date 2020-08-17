@@ -7,21 +7,23 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
-import getChallenges from '../../redux/thunks/getChallenges.js';
+import getChallenge from '../../redux/thunks/getChallenge.js';
 
 export default function Game() {
   const dispatch = useDispatch();
+  const game = useSelector((state) => state.game);
+  const challengeIds = useSelector((state) => state.game.challenges);
+  const challenge = useSelector((state) => state.challenge);
+  const startParams = useSelector((state) => state.challenge && state.challenge.startParameters);
   const [challengeNumber, setChallengeNumber] = React.useState(0);
   const [code, setCode] = React.useState('\n() => {\n\n}');
   const [userConsole, setUserConsole] = React.useState('');
   const [workerRunning, setWorkerRunning] = React.useState(false);
   const [isTestPassed, setIsTestPassed] = React.useState(false);
   const [isFinalTestPassed, setIsFinalTestPassed] = React.useState(false);
-  const challenge = useSelector((state) => state.challenges[challengeNumber]);
-  const startParams = useSelector((state) => state.challenges.length > 0 && state.challenges[challengeNumber].startParameters);
 
   React.useEffect(() => {
-    dispatch(getChallenges());
+    dispatch(getChallenge(challengeIds[challengeNumber]));
     setCode(`\n(${startParams}) => {\n\n}`);
   }, [startParams]);
 
