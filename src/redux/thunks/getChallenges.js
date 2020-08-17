@@ -7,6 +7,7 @@ export default function getChallenges() {
         method: 'GET',
       });
       const data = await response.json();
+      console.log('get chalenges >>>> ', data);
       dispatch(setChallenges(data));
     } catch (err) {
       dispatch(sendError(err.message));
