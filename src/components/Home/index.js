@@ -68,6 +68,7 @@ export default function Home() {
                 {currentGame ? (
                   <Link to="/lobby">
                     <Button
+                      disabled={joinGame ? 'click' : 'dont'}
                       onClick={() => {
                         dispatch(joinGame(game._id));
                       }}
