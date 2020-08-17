@@ -5,3 +5,4 @@ export const setChallenges = 'SET_CHALLENGES';
 export const setChallenge = 'SET_CHALLENGE';
 export const setGame = 'SET_GAME';
 export const dropGame = 'DROP_GAME';
+export const setGameList = 'SET_GAME_LIST'
