@@ -115,6 +115,11 @@ app.get('/api/challenges', async (req, res) => {
   res.json(challenges);
 });
 
+app.get('/api/challenges/:id', async (req, res) => {
+  const challenge = await Challenge.findById(req.params.id);
+  res.json(challenge);
+});
+
 // выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
   const games = await Game.findUpcoming();

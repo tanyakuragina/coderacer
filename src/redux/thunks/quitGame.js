@@ -1,4 +1,4 @@
-import { authenticatedSuccessfully, sendError } from '../actionCreators.js';
+import { quitGame, sendError } from '../actionCreators.js';
 
 export default function quitGame(gameId) {
   return async (dispatch) => {
@@ -7,9 +7,9 @@ export default function quitGame(gameId) {
         method: 'POST',
       });
       const result = await response.json();
-      console.log(result);
+      dispatch(quitGame())
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }

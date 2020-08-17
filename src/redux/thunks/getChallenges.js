@@ -1,6 +1,6 @@
 import { setChallenges, sendError } from '../actionCreators.js';
 
-export default function login(email, password) {
+export default function getChallenges() {
   return async (dispatch) => {
     try {
       const response = await fetch('/api/challenges', {
@@ -8,9 +8,8 @@ export default function login(email, password) {
       });
       const data = await response.json();
       dispatch(setChallenges(data));
-      console.log(data);
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }

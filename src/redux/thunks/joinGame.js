@@ -1,4 +1,4 @@
-import { authenticatedSuccessfully, sendError } from '../actionCreators.js';
+import { setGame, sendError } from '../actionCreators.js';
 
 export default function joinGame(gameId) {
   return async (dispatch) => {
@@ -7,9 +7,9 @@ export default function joinGame(gameId) {
         method: 'POST',
       });
       const result = await response.json();
-      console.log(result);
+      dispatch(setGame(result));
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }

@@ -4,10 +4,31 @@ const inititalState = {
   isAuthenticated: false,
   error: '',
   challenges: [],
+  challenge: null,
+  game: null,
 };
 
 const reducer = (state = inititalState, action) => {
   switch (action.type) {
+    case actionTypes.setChallenge:
+      return {
+        ...state,
+        challenge: action.challenge,
+      };
+
+    case actionTypes.setGame:
+      return {
+        ...state,
+        game: action.game,
+      };
+
+    case actionTypes.quitGame:
+      return {
+        ...state,
+        challenge: null,
+        game: null,
+      };
+
     case actionTypes.authenticatedSuccessfully:
       return {
         ...state,
