@@ -37,22 +37,31 @@ export default function Game() {
 
   let msgBuffer = '';
 
-  function workerMessaged(ev) {
+  function workerMessage(ev) {
     const { data } = ev;
     if (data === 'Closing web worker') setWorkerRunning(false);
-    console.log(data);
     switch (data.type) {
+      case 'closing':
+        setWorkerRunning(false);
+        break;
       case 'resultFinal':
       {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
-        if (data.result.every((res) => res === true)) {
+        const result = data.result.every((res) => res === true);
+        if (!result) {
+          msgBuffer += 'Тесты не пройдены!';
+          setIsTestPassed(false);
+        } else {
+          msgBuffer += 'Тесты пройдены успешно!';
+        }
+        setUserConsole(msgBuffer);
+        if (result) {
           if (challengeNumber === (challengeIds.length - 1)) {
             setIsFinished(true);
           } else {
             dispatch(postScore(game._id));
             setChallengeNumber(challengeNumber + 1);
-            setUserConsole('');
             setIsTestPassed(false);
             setIsFinalTestPassed(false);
           }
@@ -63,13 +72,19 @@ export default function Game() {
       {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
-        setIsTestPassed(data.result.every((res) => res === true));
+        const result = data.result.every((res) => res === true);
+        if (!result) {
+          msgBuffer += 'Тесты не пройдены!';
+        } else {
+          msgBuffer += 'Тесты пройдены успешно!';
+        }
+        setUserConsole(msgBuffer);
+        setIsTestPassed(result);
         break;
       }
       case 'log':
       {
         msgBuffer += `${data.message.join(' ')}\n`;
-        setUserConsole(msgBuffer);
         break;
       }
       default:
@@ -94,21 +109,22 @@ export default function Game() {
       msgBuffer = '';
       setUserConsole('');
       const worker = new Worker('worker.js');
-      worker.addEventListener('message', workerMessaged);
+      worker.addEventListener('message', workerMessage);
       worker.addEventListener('error', workerError);
       worker.postMessage({ do: type === 'test' ? 'run' : 'runFinal', code, tests });
-      setTimeout(() => {
-        worker.terminate();
-        console.log('Worker terminated');
-        setWorkerRunning(false);
+      worker.postMessage({ type: 'die' });
+      setUserConsole(msgBuffer);
+      setTimeout(async () => {
+        await worker.terminate();
+        setUserConsole(msgBuffer);
+        if (workerRunning) msgBuffer += 'Превышено максимальное время выполнения';
+        await setWorkerRunning(false);
       }, 1000);
-      worker.postMessage({ do: 'die' });
     } catch (err) {
       msgBuffer += `${err.message}\n`;
       setUserConsole(msgBuffer);
     }
   }
-
 
   if (!challenge) return <h1>Загрузка</h1>;
 
