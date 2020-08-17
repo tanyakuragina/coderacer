@@ -12,7 +12,7 @@ import getChallenge from '../../redux/thunks/getChallenge.js';
 export default function Game() {
   const dispatch = useDispatch();
   const game = useSelector((state) => state.game);
-  const challengeIds = useSelector((state) => state.game.challenges);
+  const challengeIds = useSelector((state) => state.game && state.game.challenges);
   const challenge = useSelector((state) => state.challenge);
   const startParams = useSelector((state) => state.challenge && state.challenge.startParameters);
   const [challengeNumber, setChallengeNumber] = React.useState(0);
@@ -25,7 +25,7 @@ export default function Game() {
   React.useEffect(() => {
     dispatch(getChallenge(challengeIds[challengeNumber]));
     setCode(`\n(${startParams}) => {\n\n}`);
-  }, [startParams]);
+  }, []);
 
   let msgBuffer = '';
 
