@@ -1,18 +1,23 @@
 import React from 'react';
 import {
-  Container, Row, Col, Button, Jumbotron, Tabs, Tab,
+  Container, Row, Col, Button, Tabs, Tab,
 } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AceEditor from 'react-ace';
-import 'ace-builds/src-noconflict/mode-javascript.js';
-import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties.js';
-import 'ace-builds/src-noconflict/ext-language_tools.js';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
+import 'ace-builds/src-noconflict/ext-language_tools';
 import Timer from 'react-compound-timer';
-import getChallenges from '../../redux/thunks/getChallenges.js';
-import { setChallenges } from '../../redux/actionTypes.js';
+import getChallenge from '../../redux/thunks/getChallenge.js';
+import postScore from '../../redux/thunks/postScore.js';
 
 export default function Game() {
   const dispatch = useDispatch();
+  const game = useSelector((state) => state.game);
+  const challengeIds = useSelector((state) => state.game && state.game.challenges);
+  const challenge = useSelector((state) => state.challenge);
+  const startParams = useSelector((state) => state.challenge && state.challenge.startParameters);
   const [challengeNumber, setChallengeNumber] = React.useState(0);
   const [code, setCode] = React.useState('\n() => {\n\n}');
   const [userConsole, setUserConsole] = React.useState('');
@@ -20,17 +25,15 @@ export default function Game() {
   const [isTestPassed, setIsTestPassed] = React.useState(false);
   const [isFinalTestPassed, setIsFinalTestPassed] = React.useState(false);
   const [isFinished, setIsFinished] = React.useState(false);
-  const [lapsTime, setLapsTime] = React.useState([new Date()]);
-  const challenges = useSelector((state) => state.challenges);
-  const challenge = useSelector((state) => state.challenges[challengeNumber]);
-  const startParams = useSelector((state) => state.challenges.length > 0 && state.challenges[challengeNumber].startParameters);
 
   React.useEffect(() => {
-    if (!challenge) {
-      dispatch(getChallenges());
-    }
+    dispatch(getChallenge(challengeIds[challengeNumber]));
     setCode(`\n(${startParams}) => {\n\n}`);
-  }, [startParams]);
+  }, [challengeNumber]);
+
+  React.useEffect(() => {
+    setCode(`\n(${startParams}) => {\n\n}`);
+  }, [challenge]);
 
   let msgBuffer = '';
 
@@ -44,10 +47,10 @@ export default function Game() {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
         if (data.result.every((res) => res === true)) {
-          if (challengeNumber === (challenges.length - 1)) {
+          if (challengeNumber === (challengeIds.length - 1)) {
             setIsFinished(true);
           } else {
-            setLapsTime([...lapsTime, new Date()]);
+            dispatch(postScore(game._id));
             setChallengeNumber(challengeNumber + 1);
             setUserConsole('');
             setIsTestPassed(false);
@@ -66,6 +69,7 @@ export default function Game() {
       case 'log':
       {
         msgBuffer += `${data.message.join(' ')}\n`;
+        setUserConsole(msgBuffer);
         break;
       }
       default:
@@ -105,9 +109,10 @@ export default function Game() {
     }
   }
 
+
   if (!challenge) return <h1>Загрузка</h1>;
 
-  if (isFinalTestPassed) return <h1>Done</h1>;
+  if (isFinished) return <h1>Done</h1>;
 
   return (
     <Container>
@@ -135,7 +140,7 @@ export default function Game() {
           </Row>
           <Row>
             <Timer
-              initialTime={60 * 1000 * 10}
+              initialTime={new Date(new Date(game.startDate).getTime() + 60 * 30 * 1000).getTime() - Date.now()}
               direction="backward"
             >
               <Timer.Minutes />
@@ -148,9 +153,9 @@ export default function Game() {
             </Timer>
           </Row>
         </Col>
-        <Col>
+        {/* <Col>
           {lapsTime.map((time) => <div>{time.toString()}</div>)}
-        </Col>
+        </Col> */}
       </Row>
       <Row className="my-3">
         <Col>
