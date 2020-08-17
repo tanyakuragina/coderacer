@@ -24,11 +24,11 @@ function App() {
       <NaviBar />
       <Router>
         <Switch>
-          {/* <Route exact path="/lobby/:id">
-            <Lobby />
-          </Route> */}
           <Route exact path="/game">
             <Game />
+          </Route>
+          <Route exact path="/game/:id">
+            <Lobby />
           </Route>
           <Route exact path="/home">
             <Home />
