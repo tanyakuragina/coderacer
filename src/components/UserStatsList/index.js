@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import UserStats from '../UserStats';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 
@@ -20,6 +21,9 @@ function UserStatsList() {
       ),
     },
   ];
+  const storeData = store.get
+  console.log();
+
   return (
     <>
       <div className="d-flex justify-content-center">

@@ -27,3 +27,7 @@ export function setGame(data) {
 export function dropGame() {
   return { type: actionTypes.dropGame };
 }
+
+export function setPlayers() {
+  return { type: actionTypes.setPlayers };
+}
