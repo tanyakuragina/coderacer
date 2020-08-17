@@ -6,7 +6,7 @@ export default function logoutRequest() {
       await fetch('/api/logout');
       dispatch(logout());
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }

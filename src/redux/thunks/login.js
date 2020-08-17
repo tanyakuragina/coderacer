@@ -17,7 +17,7 @@ export default function login(email, password) {
         dispatch(authenticatedSuccessfully());
       }
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }

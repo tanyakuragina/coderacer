@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Row, Col, Button, Jumbotron, Tabs, Tab,
+  Container, Row, Col, Button, Tabs, Tab,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import AceEditor from 'react-ace';
@@ -8,7 +8,6 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import getChallenges from '../../redux/thunks/getChallenges.js';
-import { setChallenges } from '../../redux/actionTypes.js';
 
 export default function Game() {
   const dispatch = useDispatch();

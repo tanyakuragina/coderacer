@@ -1,4 +1,4 @@
-import { authenticatedSuccessfully, sendError } from '../actionCreators.js';
+import { authenticatedSuccessfully, sendError, setGame } from '../actionCreators.js';
 
 export default function newGame(date) {
   return async (dispatch) => {
@@ -13,9 +13,9 @@ export default function newGame(date) {
         }),
       });
       const result = await response.json();
-      console.log(result);
+      dispatch(setGame(result));
     } catch (err) {
-      sendError(err.message);
+      dispatch(sendError(err.message));
     }
   };
 }
