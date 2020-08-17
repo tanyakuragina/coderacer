@@ -6,6 +6,7 @@ const inititalState = {
   challenges: [],
   challenge: null,
   game: null,
+  games: [],
 };
 
 const reducer = (state = inititalState, action) => {
@@ -20,6 +21,12 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         game: action.game,
+      };
+
+    case actionTypes.setGameList:
+      return {
+        ...state,
+        games: action.games,
       };
 
     case actionTypes.dropGame:
