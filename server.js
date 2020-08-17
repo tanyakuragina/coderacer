@@ -22,14 +22,14 @@ mongoose.connect('mongodb://localhost:27017/coderacer', {
 });
 mongoose.connection.on(
   'error',
-  console.error.bind(console, 'Ошибка соединения с MongoDB:'),
+  console.error.bind(console, 'Ошибка соединения с MongoDB:')
 );
 
 app.use(express.json());
 app.use(
   session({
     secret: 'asgaerhgse',
-  }),
+  })
 );
 
 app.use((req, res, next) => {
@@ -67,7 +67,7 @@ app.get(
     res.json({
       email: req.session.user.email,
     });
-  },
+  }
 );
 
 // регистрация
@@ -124,6 +124,7 @@ app.get('/api/challenges/:id', async (req, res) => {
 // выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
   const games = await Game.findUpcoming();
+  // console.log(games)
   res.json(games);
 });
 
@@ -140,9 +141,13 @@ app.post('/api/game/join/:id', async (req, res) => {
   }
   const game = await Game.findById(req.params.id);
   if (game.startDate > Date.now) {
-    return res.status(400).json({ isOkay: false, errorMessage: 'Игра уже началась' });
+    return res
+      .status(400)
+      .json({ isOkay: false, errorMessage: 'Игра уже началась' });
   }
-  const playerIndex = game.players.findIndex((player) => player.player.toString() === req.session.user._id);
+  const playerIndex = game.players.findIndex(
+    (player) => player.player.toString() === req.session.user._id
+  );
   if (playerIndex === -1) {
     game.players.push({
       player: req.session.user._id,
@@ -160,7 +165,9 @@ app.post('/api/game/quit/:id', async (req, res) => {
   }
   try {
     const game = await Game.findById(req.params.id);
-    const playerIndex = game.players.findIndex((player) => player.player.toString() === req.session.user._id);
+    const playerIndex = game.players.findIndex(
+      (player) => player.player.toString() === req.session.user._id
+    );
     game.players.splice(playerIndex, 1);
     await game.save();
     return res.json(game);
@@ -202,10 +209,12 @@ app.post('/api/game/new', async (req, res) => {
     author: req.session.user._id,
     challenges: shuffle(challenges),
     startDate: date,
-    players: [{
-      player: req.session.user._id,
-      challengeTimes: [],
-    }],
+    players: [
+      {
+        player: req.session.user._id,
+        challengeTimes: [],
+      },
+    ],
   });
   res.json(game);
 });
