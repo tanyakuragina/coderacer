@@ -44,12 +44,6 @@ function SignUp() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const { username, email, password } = event.target;
-    setInputs({
-      username: username.value,
-      email: email.value,
-      password: password.value,
-    });
     dispatch(signup(inputs.username, inputs.email, inputs.password));
   }
 
@@ -105,6 +99,9 @@ function SignUp() {
                               type="text"
                               name="username"
                               placeholder="Новый ник"
+                              onChange={(e) => {
+                                 setInputs({...inputs, username: e.target.value})
+                              }}
                             />
                           </FormGroup>
                           <FormGroup>
@@ -113,6 +110,9 @@ function SignUp() {
                               type="text"
                               name="email"
                               placeholder="Новый email"
+                              onChange={(e) => {
+                                setInputs({...inputs, email: e.target.value})
+                             }}
                             />
                           </FormGroup>
                           <FormGroup>
@@ -121,6 +121,9 @@ function SignUp() {
                               type="password"
                               name="password"
                               placeholder="Новый пароль"
+                              onChange={(e) => {
+                                setInputs({...inputs, password: e.target.value})
+                             }}
                             />
                           </FormGroup>
                           <FormGroup>
