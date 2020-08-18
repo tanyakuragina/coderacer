@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import shuffle from 'lodash/_arrayShuffle.js';
 import User from './src/db/User.js';
 import Challenge from './src/db/Challenge.js';
 import Game from './src/db/Game.js';
@@ -120,6 +121,7 @@ app.get('/api/challenges/:id', async (req, res) => {
   res.json(challenge);
 });
 
+
 // выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
   const games = await Game.findUpcoming();
@@ -182,13 +184,12 @@ app.post('/api/game/postScore/:id', async (req, res) => {
     return res.sendStatus(401);
   }
   try {
-    const game = await Game.findById(req.params.id);
-    const playerIndex = game.players.findIndex(
-      (player) => player.player.toString() === req.session.user._id
-    );
-    game.players[playerIndex].challengeTimes.push(Date.now);
+    const game = await Game.findById(req.params.id).populate('players.player');
+    console.log(game.players);
+    const playerIndex = game.players.findIndex((player) => player.player._id.toString() === req.session.user._id);
+    game.players[playerIndex].challengeTimes.push(Date.now());
     await game.save();
-    return res.status(200).json(game);
+    return res.json(game);
   } catch (error) {
     console.log(error.message);
     return res.json({ isOkay: false, errorMessage: error.message });
@@ -204,9 +205,10 @@ app.post('/api/game/new', async (req, res) => {
   if (!date || date < Date.now()) {
     return res.status(400).send('Некорректная дата начала');
   }
+  const challenges = await Challenge.find();
   const game = await Game.create({
     author: req.session.user._id,
-    challenges: [],
+    challenges: shuffle(challenges),
     startDate: date,
     players: [
       {
@@ -219,11 +221,13 @@ app.post('/api/game/new', async (req, res) => {
 });
 
 // get user statistics
-app.get('/api/userstat', (req, res) => {
+app.get('/api/game/user/:id', async (req, res) => {
   if (req.session) {
     // get users info from db
-    const users = [{ name: 'user1' }, { name: 'user2' }, { name: 'user3' }];
-    res.json(users);
+    // const users = [{ name: 'user1' }, { name: 'user2' }, { name: 'user3' }];
+    const gameData = await Game.findById(req.params.id);
+    const players = await gameData.findPlayers();
+    res.json(players);
   } else {
     // get error message
     res.json({ name: 'error' });

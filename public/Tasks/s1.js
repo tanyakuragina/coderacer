@@ -37,14 +37,14 @@ const s = {
   name: "Правда или ложь",
   difficulty: 1,
   describtion: 'Напиши метод, который принимает булевое значение и возвращает "YES" в случае true и "NO" в случае false',
-  startParameters: 'str',
+  startParameters: 'bool',
   sampleInput: 'false',
   sampleOutput: 'NO',
   tests: {
-    sample: { in: ['true'], out: 'YES' },
+    sample: { in: [true], out: 'YES' },
     main: [
-      { in: ['false'], out: 'NO' },
-      { in: ['true'], out: 'YES' },
+      { in: [false], out: 'NO' },
+      { in: [true], out: 'YES' },
     ]
   }
 };
@@ -84,7 +84,7 @@ const s = {
   difficulty: 1,
   describtion: 'Напиши функцию с именем divisors которая принимает целое и возвращает массив всех делителей введенного числа, в порядке возрастания значения, если делителей нет, выведи  строку "(integer) is prime"',
   startParameters: 'str',
-  sampleInput: 'divisors(12);',
+  sampleInput: 'divisors(12)',
   sampleOutput: '[2,3,4,6]',
   tests: {
     sample: { in: ['divisors(25);'], out: '[5]' },

@@ -17,15 +17,19 @@ export function setChallenges(data) {
 }
 
 export function setChallenge(data) {
-  return { type: actionTypes.setChallenges, challenge: data };
+  return { type: actionTypes.setChallenge, challenge: data };
 }
 
 export function setGame(data) {
   return { type: actionTypes.setGame, game: data };
 }
 
+export function setOneGame(data) {
+  return { type: actionTypes.setOneGame, game: data };
+}
+
 export function setGameList(data) {
-  return {type: actionTypes.setGameList, games: data}
+  return { type: actionTypes.setGameList, games: data };
 }
 
 export function dropGame() {

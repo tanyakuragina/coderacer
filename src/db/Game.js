@@ -19,9 +19,10 @@ const gameSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
-      challengeTimes: [],
-    },
-  ],
+    challengeTimes: [{
+      type: Date,
+    }],
+  }],
 });
 
 // Выдает всех пользователей, учавствующих в игре
@@ -34,17 +35,17 @@ gameSchema.methods.findPlayers = async function () {
 
 // Выдает все не начавшиеся игры, отсортированные по дате начала
 gameSchema.statics.findUpcoming = async function () {
+
   const games = await this.find()
     .where('startDate')
     .gte(new Date())
     .sort({ startDate: 1 })
     .populate('author');
-
   return games.map((game) => ({
     _id: game._id,
     author: game.author.username,
     startDate: game.startDate,
-    players: game.players,
+    players: game.players.length,
   }));
 };
 
