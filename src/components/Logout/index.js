@@ -10,7 +10,7 @@ export default function Logout() {
   return (
     <Form>
       <FormGroup>
-        <Button color="secondary" type="submit" onSubmit={() => { dispatch(logoutRequest()); }}>
+        <Button color="secondary" type="button" onClick={() => { dispatch(logoutRequest()); }}>
           Выйти
         </Button>
       </FormGroup>

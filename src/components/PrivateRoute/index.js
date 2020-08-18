@@ -6,7 +6,7 @@ export default function PrivateRoute({ children, ...rest }) {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   return (
     <Route {...rest}>
-      {isAuthenticated ? children : <Redirect to="/login" />}
+      {isAuthenticated ? children : <Redirect to="/" />}
     </Route>
   );
 }
