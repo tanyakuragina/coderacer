@@ -5,17 +5,17 @@
 
 .lobby_shadow {
   background: -webkit-linear-gradient(
-    55deg,
+    45deg,
     rgba(0, 0, 0, 0.5),
     rgba(72, 15, 144, 0.4) 100%
   );
   background: -webkit-gradient(
     linear,
-    55deg,
+    45deg,
     from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)
   );
   background: linear-gradient(
-    55deg,
+    45deg,
     rgba(0, 0, 0, 0.7),
     rgba(72, 15, 144, 0.4) 100%
   );

@@ -31,7 +31,6 @@ function App() {
             <Lobby />
           </PrivateRoute>
           <Route exact path="/">
-            {/* <Test /> */}
             <SignUp />
           </Route>
         </Switch>
