@@ -1,4 +1,4 @@
-#mainVideo {
+#lobbyVideo {
   position: absolute;
   top: 0;
   left: 0;
@@ -6,6 +6,6 @@
   width: 100%;
 }
 
-#background-video {
+#background-lobby-video {
   width: 100%;
 }

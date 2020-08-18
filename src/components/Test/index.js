@@ -6,7 +6,7 @@ function Test() {
     <>
       <div id="mainVideo">
         <video autoPlay muted loop id='background-video'>
-          <source src="main.mp4" type="video/mp4" />
+          <source src="lobby.mp4" type="video/mp4" />
         </video>
       </div>
       <div>
