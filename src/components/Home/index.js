@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Switch,
   Link,
-  Redirect,
 } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +26,6 @@ export default function Home() {
       <>
         <div className="background_home">
           <div id="maskBack">
-            <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
             <Link to="/game">Войти в игру</Link>
             <br />
             <br />
@@ -53,8 +49,9 @@ export default function Home() {
             >
               Выйти из игры (тест)
             </Button>
+            <div className='home'><h1>Игры, которые вот-вот начнутся...</h1></div>
             <div className="d-flex justify-content-center">
-              <Table className="w-25" striped bordered hover variant="dark">
+              <Table className="homeTable w-25" striped bordered hover variant="dark">
                 <thead>
                   <tr>
                     <th>ID игры</th>
@@ -71,7 +68,7 @@ export default function Home() {
                         <td>{game._id}</td>
                         <td>{game.author}</td>
                         <td>{game.startDate}</td>
-                        <td>{game.players.length}</td>
+                        <td>{game.players}</td>
                         <td>
                           <Link to={`/game/${game._id}`}>
                             <Button
@@ -96,4 +93,5 @@ export default function Home() {
       </>
     );
   }
+  return <div>Loading</div>;
 }

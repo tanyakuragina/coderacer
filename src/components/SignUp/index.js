@@ -1,35 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Row,
-} from 'reactstrap';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
-} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Button, Form, FormGroup, Input, Row } from 'reactstrap';
+import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  MDBMask,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBBtn,
-  MDBView,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBFormInline,
-  MDBAnimation,
-} from 'mdbreact';
+import { MDBCol, MDBIcon, MDBView, MDBContainer, MDBCardBody } from 'mdbreact';
 import signup from '../../redux/thunks/signup.js';
 import '../../../src/index.css';
 
@@ -100,7 +73,10 @@ function SignUp() {
                               name="username"
                               placeholder="Новый ник"
                               onChange={(e) => {
-                                 setInputs({...inputs, username: e.target.value})
+                                setInputs({
+                                  ...inputs,
+                                  username: e.target.value,
+                                });
                               }}
                             />
                           </FormGroup>
@@ -111,8 +87,8 @@ function SignUp() {
                               name="email"
                               placeholder="Новый email"
                               onChange={(e) => {
-                                setInputs({...inputs, email: e.target.value})
-                             }}
+                                setInputs({ ...inputs, email: e.target.value });
+                              }}
                             />
                           </FormGroup>
                           <FormGroup>
@@ -122,8 +98,11 @@ function SignUp() {
                               name="password"
                               placeholder="Новый пароль"
                               onChange={(e) => {
-                                setInputs({...inputs, password: e.target.value})
-                             }}
+                                setInputs({
+                                  ...inputs,
+                                  password: e.target.value,
+                                });
+                              }}
                             />
                           </FormGroup>
                           <FormGroup>

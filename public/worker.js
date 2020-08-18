@@ -17,7 +17,7 @@ self.addEventListener('message', (ev) => {
   const { data } = ev;
   switch (data.do) {
     case 'run': {
-      console.log('TEST RUN')
+      console.log('TEST RUN');
       const code = data.code.replace(/console/g, 'myConsole');
       const foo = eval(code);
       const result = data.tests.map((test) => _.isEqual(foo(...test.in), test.out));
@@ -28,7 +28,7 @@ self.addEventListener('message', (ev) => {
       const code = data.code.replace(/console/g, 'myConsole');
       const foo = eval(code);
       const result = data.tests.map((test) => {
-        console.log('FINAL TEST RUN')
+        console.log('FINAL TEST RUN');
         console.log('input', test.in);
         console.log('output', foo(...test.in));
         return _.isEqual(foo(...test.in), test.out);
@@ -37,11 +37,10 @@ self.addEventListener('message', (ev) => {
       break;
     }
     case 'die':
-      self.postMessage('Closing web worker');
+      self.postMessage({ type: 'closing' });
       self.close();
       break;
     default:
-      self.postMessage('Closing web worker');
-      self.close();
+      break;
   }
 });

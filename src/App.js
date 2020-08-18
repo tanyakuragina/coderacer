@@ -5,16 +5,11 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link,
-  Redirect,
 } from 'react-router-dom';
 import GuestPage from './components/GuestPage';
 import Home from './components/Home';
-import Login from './components/Login';
 import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
-import PrivateRoute from './components/PrivateRoute';
-import Logout from './components/Logout';
 import NaviBar from './components/NaviBar';
 import Game from './components/Game';
 

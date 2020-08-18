@@ -1,4 +1,4 @@
-import { authenticatedSuccessfully, sendError, setGame } from '../actionCreators.js';
+import { sendError, setGame } from '../actionCreators.js';
 
 export default function newGame(date) {
   return async (dispatch) => {
