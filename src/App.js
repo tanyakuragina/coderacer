@@ -6,7 +6,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
 } from 'react-router-dom';
 import Home from './components/Home';
 import Lobby from './components/Lobby';
@@ -16,7 +15,6 @@ import Game from './components/Game';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
-  const isAuthorized = useSelector((state) => state.isAuthorized);
   return (
     <>
       <NaviBar />
@@ -38,7 +36,6 @@ function App() {
             <SignUp />
           </Route>
         </Switch>
-        {!isAuthorized && <Redirect to="/" />}
       </Router>
     </>
   );
