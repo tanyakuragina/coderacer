@@ -30,7 +30,7 @@ li a:hover {
 
 
 .background_home{
-  background-image: url('../../pictures/city.png');
+  background-image: url('../../pictures/future.jpg');
   height: 900px;
   background-size: 100%;
 }
@@ -42,4 +42,9 @@ li a:hover {
     rgba(72, 15, 144, 0.4) 100%
   );
   height: 900px;
+}
+
+.home {
+  display: flex;
+  justify-content: center;
 }
