@@ -6,7 +6,6 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import GuestPage from './components/GuestPage';
 import Home from './components/Home';
 import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
@@ -33,7 +32,6 @@ function App() {
             <Lobby />
           </Route>
           <Route exact path="/">
-            <GuestPage />
             <SignUp />
           </Route>
         </Switch>
