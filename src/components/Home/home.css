@@ -4,7 +4,6 @@ ul {
   padding: 0;
   width: 200px;
   background-color: blueviolet;
-
 }
 
 li a {
@@ -28,3 +27,49 @@ li a:hover {
   color: rgb(56, 51, 51);
 }
 
+.background_home {
+  height: 800px;
+  background-image: url('../../pictures/future.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media screen and (min-device-width: 375px) and (max-device-width: 812px) {
+  .background_home {
+    height: 812px;
+    width: 375px;
+  }
+}
+
+@media screen and (min-device-width: 481px) and (max-device-width: 768px) {
+  .background_home {
+    height: 767px;
+    width: 481px;
+  }
+}
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .background_home {
+    height: 1024px;
+  }
+}
+
+@media screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  .background_home {
+    height: 1300px;
+    width: 1024px;
+  }
+}
+
+#maskBack {
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(72, 15, 144, 0.4) 100%
+  );
+  background-size: cover;
+}
+
+.home {
+  display: flex;
+  justify-content: center;
+}

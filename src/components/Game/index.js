@@ -7,7 +7,9 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
+import Timer from 'react-compound-timer';
 import getChallenge from '../../redux/thunks/getChallenge.js';
+import postScore from '../../redux/thunks/postScore.js';
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -21,28 +23,47 @@ export default function Game() {
   const [workerRunning, setWorkerRunning] = React.useState(false);
   const [isTestPassed, setIsTestPassed] = React.useState(false);
   const [isFinalTestPassed, setIsFinalTestPassed] = React.useState(false);
+  const [isFinished, setIsFinished] = React.useState(false);
 
   React.useEffect(() => {
     dispatch(getChallenge(challengeIds[challengeNumber]));
     setCode(`\n(${startParams}) => {\n\n}`);
-  }, []);
+  }, [challengeNumber]);
+
+  React.useEffect(() => {
+    setCode(`\n(${startParams}) => {\n\n}`);
+  }, [challenge]);
 
   let msgBuffer = '';
 
-  function workerMessaged(ev) {
+  function workerMessage(ev) {
     const { data } = ev;
     if (data === 'Closing web worker') setWorkerRunning(false);
-    console.log(data);
     switch (data.type) {
+      case 'closing':
+        setWorkerRunning(false);
+        break;
       case 'resultFinal':
       {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
-        if (data.result.every((res) => res === true)) {
-          setChallengeNumber(challengeNumber + 1);
-          setUserConsole('');
+        const result = data.result.every((res) => res === true);
+        if (!result) {
+          msgBuffer += 'Тесты не пройдены!';
           setIsTestPassed(false);
-          setIsFinalTestPassed(false);
+        } else {
+          msgBuffer += 'Тесты пройдены успешно!';
+        }
+        setUserConsole(msgBuffer);
+        if (result) {
+          if (challengeNumber === (challengeIds.length - 1)) {
+            setIsFinished(true);
+          } else {
+            dispatch(postScore(game._id));
+            setChallengeNumber(challengeNumber + 1);
+            setIsTestPassed(false);
+            setIsFinalTestPassed(false);
+          }
         }
         break;
       }
@@ -50,7 +71,14 @@ export default function Game() {
       {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
-        setIsTestPassed(data.result.every((res) => res === true));
+        const result = data.result.every((res) => res === true);
+        if (!result) {
+          msgBuffer += 'Тесты не пройдены!';
+        } else {
+          msgBuffer += 'Тесты пройдены успешно!';
+        }
+        setUserConsole(msgBuffer);
+        setIsTestPassed(result);
         break;
       }
       case 'log':
@@ -80,15 +108,17 @@ export default function Game() {
       msgBuffer = '';
       setUserConsole('');
       const worker = new Worker('worker.js');
-      worker.addEventListener('message', workerMessaged);
+      worker.addEventListener('message', workerMessage);
       worker.addEventListener('error', workerError);
       worker.postMessage({ do: type === 'test' ? 'run' : 'runFinal', code, tests });
-      setTimeout(() => {
-        worker.terminate();
-        console.log('Worker terminated');
-        setWorkerRunning(false);
+      worker.postMessage({ type: 'die' });
+      setUserConsole(msgBuffer);
+      setTimeout(async () => {
+        await worker.terminate();
+        setUserConsole(msgBuffer);
+        if (workerRunning) msgBuffer += 'Превышено максимальное время выполнения';
+        await setWorkerRunning(false);
       }, 1000);
-      worker.postMessage({ do: 'die' });
     } catch (err) {
       msgBuffer += `${err.message}\n`;
       setUserConsole(msgBuffer);
@@ -97,13 +127,14 @@ export default function Game() {
 
   if (!challenge) return <h1>Загрузка</h1>;
 
+  if (isFinalTestPassed) return <h1>Done</h1>;
+
   return (
-    // <Container className="text-light">
     <Container>
       <Row>
         <Col>
           <h2 className="mt-3">{challenge.name}</h2>
-          <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+          <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
             <Tab eventKey="description" title="Описание задачи">
               <div className="my-1">{challenge.description}</div>
             </Tab>
@@ -118,6 +149,28 @@ export default function Game() {
           </Tabs>
           <br />
         </Col>
+        <Col>
+          <Row>
+            <h2 className="mt-3">До конца игры:</h2>
+          </Row>
+          <Row>
+            <Timer
+              initialTime={new Date(new Date(game.startDate).getTime() + 60 * 30 * 1000).getTime() - Date.now()}
+              direction="backward"
+            >
+              <Timer.Minutes />
+              {' '}
+              Минут
+              {' '}
+              <Timer.Seconds />
+              {' '}
+              Секунд
+            </Timer>
+          </Row>
+        </Col>
+        {/* <Col>
+          {lapsTime.map((time) => <div>{time.toString()}</div>)}
+        </Col> */}
       </Row>
       <Row className="my-3">
         <Col>
@@ -138,7 +191,7 @@ export default function Game() {
             }}
           />
           <Button disabled={workerRunning} onClick={() => { runTest('test'); }} className="mt-3">Тест</Button>
-          {isTestPassed ? <Button variant="success" className="mt-3 mx-2" onClick={() => { runTest('main'); }}>Отправить решение</Button> : <></>}
+          {isTestPassed && <Button variant="success" className="mt-3 mx-2" onClick={() => { runTest('main'); }}>Отправить решение</Button>}
         </Col>
       </Row>
       <Row className="my-3">
