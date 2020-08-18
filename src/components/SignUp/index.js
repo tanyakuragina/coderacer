@@ -9,6 +9,7 @@ import {
 } from 'mdbreact';
 import signup from '../../redux/thunks/signup.js';
 import '../../index.css';
+import '../SignUp/signup.css'
 
 function SignUp() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -26,10 +27,13 @@ function SignUp() {
 
   if (isAuthenticated) return <Redirect to="/home" />;
   return (
+    <>
+    <div id="mainVideo">
+    <video autoPlay muted loop id='background-video'>
+      <source src="main.mp4" type="video/mp4" />
+    </video>
+   </div>
     <MDBView>
-      <video autoPlay muted loop id="mainVideo">
-        <source src="main.mp4" type="video/mp4" />
-      </video>
       <div id="view">
         {/* <MDBMask className="d-flex justify-content-end align-items-center gradient"> */}
         <div
@@ -40,9 +44,6 @@ function SignUp() {
             <div id="container" className="m-2 p-5">
               <Row>
                 <div
-                  id="animation"
-                  type="fadeInLeft"
-                  delay=".3s"
                   className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5"
                 >
                   <div id="backgroundLorem">
@@ -128,10 +129,11 @@ function SignUp() {
               </Row>
             </div>
           </MDBContainer>
-        </div>
         {/* </MDBMask> */}
+        </div>
       </div>
     </MDBView>
+    </>
   );
 }
 

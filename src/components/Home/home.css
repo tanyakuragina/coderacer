@@ -84,3 +84,11 @@ li a:hover {
 h2 {
   color: white;
 }
+
+#videoBG {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+}
+

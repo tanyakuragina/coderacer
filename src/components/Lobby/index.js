@@ -20,6 +20,7 @@ function Lobby() {
 
   return (
     <>
+    
       <div className="lobby">
         <div className="lobby_shadow">
           <h1>Игра скоро начнется</h1>
