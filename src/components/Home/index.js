@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Switch,
   Link,
-  Redirect,
 } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
