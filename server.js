@@ -121,6 +121,7 @@ app.get('/api/challenges/:id', async (req, res) => {
   res.json(challenge);
 });
 
+
 // выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
   const games = await Game.findUpcoming();
@@ -131,6 +132,7 @@ app.get('/api/game/gameList', async (req, res) => {
 // выдает полную информацию по игре. id - это _id игры в БД
 app.get('/api/game/:id', async (req, res) => {
   const game = await Game.findById(req.params.id);
+  // console.log(game)
   res.json(game);
 });
 

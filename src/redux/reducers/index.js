@@ -30,7 +30,7 @@ const reducer = (state = inititalState, action) => {
       };
 
     case actionTypes.setOneGame:
-        return {
+      return {
         ...state,
         game: action.game,
       };

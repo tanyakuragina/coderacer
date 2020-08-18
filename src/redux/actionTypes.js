@@ -7,4 +7,3 @@ export const setGame = 'SET_GAME';
 export const dropGame = 'DROP_GAME';
 export const setGameList = 'SET_GAME_LIST';
 export const setOneGame = 'SET_ONE_GAME';
-

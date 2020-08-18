@@ -29,7 +29,7 @@ export function setOneGame(data) {
 }
 
 export function setGameList(data) {
-  return {type: actionTypes.setGameList, games: data}
+  return { type: actionTypes.setGameList, games: data };
 }
 
 export function dropGame() {
