@@ -47,7 +47,7 @@ function Lobby() {
             </Timer>
           )}
           {isGameStarted && (
-            <Link to="/race" >
+            <Link to="/game" >
             <button>Начать игру</button>
             </Link>
           )}
