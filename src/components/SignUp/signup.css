@@ -1,13 +1,13 @@
-
+/* 
 #classicformpage .view {
   background-image: url("../../pictures/main.png") !important;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   height: 100vh;
-}
+} */
 
-#classicformpage .gradient {
+/* #classicformpage .gradient {
   background: -webkit-linear-gradient(
     45deg,
     rgba(0, 0, 0, 0.5),
@@ -18,15 +18,47 @@
     45deg,
     from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)
   );
-}
+} */
 
-
-#classicformpage .card {
+/* #classicformpage .card {
   background-color: rgba(255, 255, 255, 0.2);
-}
+} */
 
-#classicformpage h6 {
+/* #classicformpage h6 {
   line-height: 1.7;
+} */
+
+/* #view {
+  background-image: url('../../pictures/main.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+} */
+
+#mask {
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(72, 15, 144, 0.4) 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    45deg,
+    from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(72, 15, 144, 0.4) 100%
+  );
+  position: absolute;
+  top: 1;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 #classicformpage .navbar {
@@ -47,22 +79,22 @@
   color: #fff !important;
 }
 
-#signUp{
-  color: white !important; 
+#signUp {
+  color: white !important;
 }
 
 #lorem {
-  color: white !important; 
+  color: white !important;
 }
 
 .view .mask {
-    position: absolute;
-    top: 1;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 1;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 #registration {
@@ -70,11 +102,15 @@
   text-align: center;
 }
 
-#chui-color {
-  color: pink;
+
+#mainVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
 }
 
-.background_home {
-  background-color: #130348;
-  height: 1000px;
+#background-video {
+  width: 100%;
 }

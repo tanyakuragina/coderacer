@@ -25,6 +25,11 @@ function Lobby() {
 
   return (
     <>
+      <div id="lobbyVideo">
+        <video autoPlay muted loop id="background-lobby-video">
+          <source src="../lobby.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div className="lobby">
         <div className="lobby_shadow">
           <h1>Игра скоро начнется</h1>
@@ -41,15 +46,9 @@ function Lobby() {
             >
               <h4>
                 До начала игры осталось:
-                <Timer.Hours />
-                {' '}
-                ч.
-                <Timer.Minutes />
-                {' '}
-                мин.
-                <Timer.Seconds />
-                {' '}
-                сек.
+                <Timer.Hours /> ч.
+                <Timer.Minutes /> мин.
+                <Timer.Seconds /> сек.
               </h4>
             </Timer>
           )}

@@ -2,17 +2,15 @@ import React from 'react';
 import './App.css';
 import './index.css';
 import { useSelector } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
 import NaviBar from './components/NaviBar';
 import Game from './components/Game';
 import PrivateRoute from './components/PrivateRoute';
+import Test from './components/Test'
+// import main from '../public/main.mp4'
 
 function App() {
   return (
@@ -33,6 +31,7 @@ function App() {
             <Lobby />
           </PrivateRoute>
           <Route exact path="/">
+            {/* <Test /> */}
             <SignUp />
           </Route>
         </Switch>

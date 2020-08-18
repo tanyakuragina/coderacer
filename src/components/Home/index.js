@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import newGame from '../../redux/thunks/newGame.js';
@@ -26,18 +23,9 @@ export default function Home() {
       <>
         <div className="background_home">
           <div id="maskBack">
-            <Link to="/game">Войти в игру</Link>
+            {/* <Link to="/game">Войти в игру</Link>
             <br />
             <br />
-            <Link to="/new-game">
-              <Button
-                onClick={() => {
-                  dispatch(newGame(new Date('2020-08-16T18:30:00')));
-                }}
-              >
-                Создать игру (тест)
-              </Button>
-            </Link>
             <br />
             <br />
             <br />
@@ -48,10 +36,19 @@ export default function Home() {
               }}
             >
               Выйти из игры (тест)
-            </Button>
-            <div className='home'><h1>Игры, которые вот-вот начнутся...</h1></div>
+            </Button> */}
+
+            <div className="home">
+              <h1>Игры, которые вот-вот начнутся...</h1>
+            </div>
             <div className="d-flex justify-content-center">
-              <Table className="homeTable w-25" striped bordered hover variant="dark">
+              <Table
+                className="homeTable w-25"
+                striped
+                bordered
+                hover
+                variant="dark"
+              >
                 <thead>
                   <tr>
                     <th>ID игры</th>
@@ -87,6 +84,20 @@ export default function Home() {
                   <div>Загружаем...</div>
                 )}
               </Table>
+            </div>
+            <div className="createGame">
+              <h1>Создайте свою игру</h1>
+            </div>
+            <div className='createGame'>
+              <Link to="/new-game">
+                <Button
+                  onClick={() => {
+                    dispatch(newGame(new Date('2020-08-16T18:30:00')));
+                  }}
+                >
+                  Создать игру (тест)
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
