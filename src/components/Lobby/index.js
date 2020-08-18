@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import Timer, { initialTime } from 'react-compound-timer';
+import useInterval from '../../hooks/useInterval.js';
 import getOneGame from '../../redux/thunks/getOneGame';
 import './lobby.css';
 
@@ -15,6 +16,10 @@ function Lobby() {
   useEffect(() => {
     dispatch(getOneGame(id));
   }, [id]);
+
+  useInterval(() => {
+    dispatch(getOneGame(id));
+  }, 5000);
 
   console.log(game);
 

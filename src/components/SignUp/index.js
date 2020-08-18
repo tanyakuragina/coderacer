@@ -27,9 +27,9 @@ function SignUp() {
   if (isAuthenticated) return <Redirect to="/home" />;
   return (
     <MDBView>
-      <video autoPlay muted loop id="mainVideo">
+      {/* <video autoPlay muted loop id="mainVideo">
         <source src="main.mp4" type="video/mp4" />
-      </video>
+      </video> */}
       <div id="view">
         {/* <MDBMask className="d-flex justify-content-end align-items-center gradient"> */}
         <div

@@ -8,6 +8,8 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import Timer from 'react-compound-timer';
+import useInterval from '../../hooks/useInterval.js';
+import getOneGame from '../../redux/thunks/getOneGame';
 import getChallenge from '../../redux/thunks/getChallenge.js';
 import postScore from '../../redux/thunks/postScore.js';
 
@@ -34,6 +36,11 @@ export default function Game() {
     setCode(`\n(${startParams}) => {\n\n}`);
   }, [challenge]);
 
+  useInterval(() => {
+    if (game) {
+      dispatch(getOneGame(game._id));
+    }
+  }, 5000);
   let msgBuffer = '';
 
   function workerMessage(ev) {
@@ -168,9 +175,10 @@ export default function Game() {
             </Timer>
           </Row>
         </Col>
-        {/* <Col>
-          {lapsTime.map((time) => <div>{time.toString()}</div>)}
-        </Col> */}
+        <Col className="mx-5 mt-3">
+          <h2>Таблица лидеров:</h2>
+          {game && game.players.map((player) => <div>{player.player.username}</div>)}
+        </Col>
       </Row>
       <Row className="my-3">
         <Col>

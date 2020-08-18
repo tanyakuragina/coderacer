@@ -45,18 +45,37 @@ mongoose.connect('mongodb://localhost:27017/coderacer', { useNewUrlParser: true,
 //   },
 // });
 
-const seed = async () => {
-  const challenges = await Challenge.find();
-  const users = await User.find();
-  Game.create({
-    challenges,
-    author: users[0],
-    startDate: new Date('2020-08-18T14:57:08.633Z'),
-    players: users.map((user) => ({
-      player: user._id,
-      challengeTimes: [],
-    })),
-  });
-};
+// const seed = async () => {
+//   const challenges = await Challenge.find();
+//   const users = await User.find();
+//   Game.create({
+//     challenges,
+//     author: users[0],
+//     startDate: new Date('2020-08-18T14:57:08.633Z'),
+//     players: users.map((user) => ({
+//       player: user._id,
+//       challengeTimes: [],
+//     })),
+//   });
+// };
 
-seed();
+// seed();
+
+Challenge.create({
+  name: 'Найди среднюю букву',
+  difficulty: 1,
+  description: 'Напиши функцию, которая принимает строку и возвращает средний символ этой строки. Если длина строки нечетная, верни два средних символа (в виде строки)',
+  startParameters: 'str',
+  sampleInput: 'testing',
+  sampleOutput: 't',
+  tests: {
+    sample: { in: ['testing'], out: 't' },
+    main: [
+      { in: ['middle'], out: 'dd' },
+      { in: ['A'], out: 'A' },
+      { in: ['coderacer'], out: 'r' },
+      { in: ['1115999'], out: '5' },
+      { in: ['test'], out: 'es' },
+    ],
+  },
+});
