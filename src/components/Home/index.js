@@ -88,13 +88,9 @@ export default function Home() {
             <div className="createGame">
               <h1>Создайте свою игру</h1>
             </div>
-            <div className='createGame'>
+            <div className="createGame">
               <Link to="/new-game">
-                <Button
-                  onClick={() => {
-                    dispatch(newGame(new Date('2020-08-16T18:30:00')));
-                  }}
-                >
+                <Button>
                   Создать игру (тест)
                 </Button>
               </Link>

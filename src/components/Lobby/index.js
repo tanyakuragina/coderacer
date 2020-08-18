@@ -46,9 +46,15 @@ function Lobby() {
             >
               <h4>
                 До начала игры осталось:
-                <Timer.Hours /> ч.
-                <Timer.Minutes /> мин.
-                <Timer.Seconds /> сек.
+                <Timer.Hours />
+                {' '}
+                ч.
+                <Timer.Minutes />
+                {' '}
+                мин.
+                <Timer.Seconds />
+                {' '}
+                сек.
               </h4>
             </Timer>
           )}
