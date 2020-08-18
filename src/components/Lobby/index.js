@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import getOneGame from '../../redux/thunks/getOneGame';
 import { useParams, Link } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import Timer, { initialTime } from 'react-compound-timer';
-import '../Lobby/lobby.css';
+import getOneGame from '../../redux/thunks/getOneGame';
+import './lobby.css';
 
 function Lobby() {
   const game = useSelector((state) => state.game);
@@ -15,14 +15,6 @@ function Lobby() {
   useEffect(() => {
     dispatch(getOneGame(id));
   }, [id]);
-
-  // useEffect(() => {
-  //   if (time > 10000) {
-  //     setTimeout(() => {
-  //     setTime(time - 1000)
-  //     }, 1000)
-  //   }
-  // },[time])
 
   console.log(game);
 
@@ -44,15 +36,21 @@ function Lobby() {
             >
               <h4>
                 До начала игры осталось:
-                <Timer.Hours /> ч.
-                <Timer.Minutes /> мин.
-                <Timer.Seconds /> сек.
+                <Timer.Hours />
+                {' '}
+                ч.
+                <Timer.Minutes />
+                {' '}
+                мин.
+                <Timer.Seconds />
+                {' '}
+                сек.
               </h4>
             </Timer>
           )}
           {isGameStarted && (
-            <Link to="/game" >
-            <button>Начать игру</button>
+            <Link to="/game">
+              <button>Начать игру</button>
             </Link>
           )}
           <Table className="w-25" striped bordered hover variant="dark">

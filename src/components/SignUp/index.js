@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Input, Row } from 'reactstrap';
+import {
+  Button, Form, FormGroup, Input, Row,
+} from 'reactstrap';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MDBCol, MDBIcon, MDBView, MDBContainer, MDBCardBody } from 'mdbreact';
+import {
+  MDBCol, MDBIcon, MDBView, MDBContainer, MDBCardBody,
+} from 'mdbreact';
 import signup from '../../redux/thunks/signup.js';
-import '../../../src/index.css';
+import '../../index.css';
 
 function SignUp() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -23,6 +27,9 @@ function SignUp() {
   if (isAuthenticated) return <Redirect to="/home" />;
   return (
     <MDBView>
+      <video autoPlay muted loop id="mainVideo">
+        <source src="main.mp4" type="video/mp4" />
+      </video>
       <div id="view">
         {/* <MDBMask className="d-flex justify-content-end align-items-center gradient"> */}
         <div
@@ -53,7 +60,9 @@ function SignUp() {
                     <div className="card">
                       <MDBCardBody className="white-text m-3">
                         <h3 className="text-center" id="registration">
-                          <MDBIcon icon="user" /> Регистрация:
+                          <MDBIcon icon="user" />
+                          {' '}
+                          Регистрация:
                         </h3>
                         <hr className="hr-light" />
                         <Form
