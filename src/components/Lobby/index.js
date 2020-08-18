@@ -51,8 +51,8 @@ function Lobby() {
             </Timer>
           )}
           {isGameStarted && (
-            <Link to="/race">
-              <button>Начать игру</button>
+            <Link to="/game" >
+            <button>Начать игру</button>
             </Link>
           )}
           <Table className="w-25" striped bordered hover variant="dark">
