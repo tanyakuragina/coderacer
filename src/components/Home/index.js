@@ -29,7 +29,7 @@ export default function Home() {
       <>
         <div className="background_home">
           <div id="maskBack">
-            <Link to="/game">Войти в игру</Link>
+            {/* <Link to="/game">Войти в игру</Link>
             <br />
             <br />
             <Link to="/new-game">
@@ -51,10 +51,10 @@ export default function Home() {
               }}
             >
               Выйти из игры (тест)
-            </Button>
+            </Button> */}
             <div className='home'><h1>Игры, которые вот-вот начнутся...</h1></div>
             <div className="d-flex justify-content-center">
-              <Table className="w-25" striped bordered hover variant="dark">
+              <Table className="homeTable w-25" striped bordered hover variant="dark">
                 <thead>
                   <tr>
                     <th>ID игры</th>

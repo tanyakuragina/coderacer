@@ -20,39 +20,41 @@ function Lobby() {
 
   return (
     <>
-      <div className="lobby">
-        <div className="lobby_shadow">
-          <h1>Игра скоро начнется</h1>
-          {time !== 0 ? (
-           <Timer initialTime={time} direction="backward">
-              <h4>
-                До начала игры осталось: <Timer.Minutes /> мин.
-                <Timer.Seconds /> сек.
-              </h4>
-            </Timer>
-          ) : (
-            <button>Начать игру</button>
-          )}
-          <Table className="w-25" striped bordered hover variant="dark">
-            <thead>
-              <tr>
-                <th>Автор игры</th>
-                <th>Время начала игры</th>
-                <th>Игроки</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{game?.author.username}</td>
-                <td>{game?.startDate}</td>
-                <td>
-                  {game?.players.map((el) => (
-                    <div>{el.player.username}</div>
-                  ))}
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+      <div className="lobby_start">
+        <div className="lobby">
+          <div className="lobby_container">
+            <h1>Игра скоро начнется</h1>
+            {time !== 0 ? (
+              <Timer initialTime={time} direction="backward">
+                <h4>
+                  До начала игры осталось: <Timer.Minutes /> мин.
+                  <Timer.Seconds /> сек.
+                </h4>
+              </Timer>
+            ) : (
+              <button>Начать игру</button>
+            )}
+            <Table className="lobbyTable w-25" striped bordered hover variant="dark">
+              <thead>
+                <tr>
+                  <th>Автор игры</th>
+                  <th>Время начала игры</th>
+                  <th>Игроки</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{game?.author.username}</td>
+                  <td>{game?.startDate}</td>
+                  <td>
+                    {game?.players.map((el) => (
+                      <div>{el.player.username}</div>
+                    ))}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </>
