@@ -54,7 +54,7 @@ export default function Home() {
             </Button>
             <div className='home'><h1>Игры, которые вот-вот начнутся...</h1></div>
             <div className="d-flex justify-content-center">
-              <Table className="w-25" striped bordered hover variant="dark">
+              <Table className="homeTable w-25" striped bordered hover variant="dark">
                 <thead>
                   <tr>
                     <th>ID игры</th>

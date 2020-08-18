@@ -10,7 +10,7 @@ function Lobby() {
   const game = useSelector((state) => state.game);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [isGameStarted, setIsGameStarted] = useState(false) 
+  const [isGameStarted, setIsGameStarted] = useState(false);
 
   useEffect(() => {
     dispatch(getOneGame(id));
@@ -32,14 +32,18 @@ function Lobby() {
         <div className="lobby_shadow">
           <h1>Игра скоро начнется</h1>
           {game && new Date(game.startDate).getTime() > Date.now() && (
-           <Timer initialTime={new Date(game.startDate).getTime() - Date.now()} direction="backward"
-           checkpoints={[
-            {
-                time: 0,
-                callback: () => setIsGameStarted(true),
-            },]}>
+            <Timer
+              initialTime={new Date(game.startDate).getTime() - Date.now()}
+              direction="backward"
+              checkpoints={[
+                {
+                  time: 0,
+                  callback: () => setIsGameStarted(true),
+                },
+              ]}
+            >
               <h4>
-                До начала игры осталось: 
+                До начала игры осталось:
                 <Timer.Hours /> ч.
                 <Timer.Minutes /> мин.
                 <Timer.Seconds /> сек.
