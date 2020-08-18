@@ -28,8 +28,8 @@ li a:hover {
 }
 
 .background_home {
-  height: 800px;
-  background-image: url('../../pictures/future.jpg');
+  height: 900px;
+  background-image: url('../../pictures/car.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -67,9 +67,20 @@ li a:hover {
     rgba(72, 15, 144, 0.4) 100%
   );
   background-size: cover;
+  height: 900px;
 }
 
 .home {
   display: flex;
   justify-content: center;
+}
+
+.createGame{
+  display: flex;
+  justify-content: center;
+}
+
+
+h2 {
+  color: white;
 }
