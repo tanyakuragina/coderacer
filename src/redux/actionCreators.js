@@ -17,7 +17,7 @@ export function setChallenges(data) {
 }
 
 export function setChallenge(data) {
-  return { type: actionTypes.setChallenges, challenge: data };
+  return { type: actionTypes.setChallenge, challenge: data };
 }
 
 export function setGame(data) {
