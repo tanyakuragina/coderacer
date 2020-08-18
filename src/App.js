@@ -1,20 +1,21 @@
 import React from 'react';
 import './App.css';
 import './index.css';
+import { useSelector } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
+  Redirect,
 } from 'react-router-dom';
-import GuestPage from './components/GuestPage';
 import Home from './components/Home';
 import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
 import NaviBar from './components/NaviBar';
 import Game from './components/Game';
 
-
 function App() {
+  const isAuthorized = useSelector((state) => state.isAuthorized);
   return (
     <>
       <NaviBar />
@@ -33,10 +34,10 @@ function App() {
             <Lobby />
           </Route>
           <Route exact path="/">
-            <GuestPage />
             <SignUp />
           </Route>
         </Switch>
+        {!isAuthorized && <Redirect to="/" />}
       </Router>
     </>
   );
