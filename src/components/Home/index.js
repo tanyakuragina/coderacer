@@ -24,7 +24,7 @@ export default function Home() {
     dispatch(getGames());
   }, []);
 
-  if (games)
+  if (games) {
     return (
       <>
         <div className="background_home">
@@ -43,13 +43,13 @@ export default function Home() {
           </Link>
           <br />
           <br />
-          {/* <Button
-          onClick={() => {
-            dispatch(joinGame('5f391aa214d409b5ed9fc65a'));
-          }}
-        >
-          Зайти в игру (тест)
-        </Button> */}
+          <Button
+            onClick={() => {
+              dispatch(joinGame('5f391aa214d409b5ed9fc65a'));
+            }}
+          >
+            Зайти в игру (тест)
+          </Button>
           <br />
           <br />
           <Button
@@ -62,9 +62,17 @@ export default function Home() {
           {games ? (
             games.map((game) => (
               <div>
-                ID игры: {game._id}. Автор игры: {game.author}. Время начала
+                ID игры:
+                {' '}
+                {game._id}
+                . Автор игры:
+                {' '}
+                {game.author}
+                . Время начала
                 игры:
-                {game.startDate}. Количество игроков: {game.players.length}
+                {game.startDate}
+                . Количество игроков:
+                {game.players.length}
                 {currentGame ? (
                   <Link to="/lobby">
                     <Button
@@ -95,4 +103,5 @@ export default function Home() {
         </div>
       </>
     );
+  }
 }

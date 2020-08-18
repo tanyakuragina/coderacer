@@ -129,7 +129,7 @@ app.get('/api/game/gameList', async (req, res) => {
 
 // выдает полную информацию по игре. id - это _id игры в БД
 app.get('/api/game/:id', async (req, res) => {
-  const game = await Game.findById(req.params.id);
+  const game = await Game.findById(req.params.id).populate('players.player');
   res.json(game);
 });
 
