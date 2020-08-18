@@ -50,6 +50,7 @@ const reducer = (state = inititalState, action) => {
     case actionTypes.logout:
       return {
         ...state,
+        game: null,
         isAuthenticated: false,
       };
 

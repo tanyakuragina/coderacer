@@ -9,7 +9,8 @@ import SignUp from './components/SignUp';
 import NaviBar from './components/NaviBar';
 import Game from './components/Game';
 import PrivateRoute from './components/PrivateRoute';
-import Test from './components/Test'
+import NewGame from './components/NewGame';
+import Test from './components/Test';
 // import main from '../public/main.mp4'
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
         <Switch>
           <PrivateRoute exact path="/game">
             <Game />
+          </PrivateRoute>
+          <PrivateRoute exact path="/new-game">
+            <NewGame />
           </PrivateRoute>
           <PrivateRoute exact path="/game/:id">
             <Lobby />
