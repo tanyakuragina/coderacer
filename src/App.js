@@ -13,6 +13,7 @@ import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
 import NaviBar from './components/NaviBar';
 import Game from './components/Game';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const isAuthorized = useSelector((state) => state.isAuthorized);
@@ -21,18 +22,18 @@ function App() {
       <NaviBar />
       <Router>
         <Switch>
-          <Route exact path="/game">
+          <PrivateRoute exact path="/game">
             <Game />
-          </Route>
-          <Route exact path="/game/:id">
+          </PrivateRoute>
+          <PrivateRoute exact path="/game/:id">
             <Lobby />
-          </Route>
-          <Route exact path="/home">
+          </PrivateRoute>
+          <PrivateRoute exact path="/home">
             <Home />
-          </Route>
-          <Route exact path="/lobby">
+          </PrivateRoute>
+          <PrivateRoute exact path="/lobby">
             <Lobby />
-          </Route>
+          </PrivateRoute>
           <Route exact path="/">
             <SignUp />
           </Route>
