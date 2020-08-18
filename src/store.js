@@ -1,30 +1,28 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import throttle from 'lodash/throttle';
 import reducer from './redux/reducers';
-import throttle from 'lodash/throttle'
 
 const loadState = () => {
-    try {
-      const serializedState = localStorage.getItem('state');
-      if (serializedState === null) {
-        return undefined;
-      }
-      return JSON.parse(serializedState);
-    } catch (err) {
+  try {
+    const serializedState = localStorage.getItem('state');
+    if (serializedState === null) {
       return undefined;
     }
-  }; 
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
 
-  const saveState = (state) => {
-    try {
-      const serializedState = JSON.stringify(state);
-      localStorage.setItem('state', serializedState);
-    } catch {
-      // ignore write errors
-    }
-  };
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 
 const enhancers = compose(
   applyMiddleware(thunk),
@@ -35,13 +33,14 @@ const persistedState = loadState();
 const store = createStore(
   reducer,
   persistedState,
-  enhancers
+  enhancers,
 );
 
 store.subscribe(throttle(() => {
-    saveState({
-      todos: store.getState().todos
-    });
-  }, 1000));
+  saveState({
+    isAuthenticated: store.getState().isAuthenticated,
+    game: store.getState().game,
+  });
+}, 1000));
 
-export default store ;
+export default store;
