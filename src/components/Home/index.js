@@ -29,7 +29,6 @@ export default function Home() {
       <>
         <div className="background_home">
           <div id="maskBack">
-            <h2 id="chui-color">ЧУИ МЫ ДОМА</h2>
             <Link to="/game">Войти в игру</Link>
             <br />
             <br />
