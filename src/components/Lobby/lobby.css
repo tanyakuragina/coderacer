@@ -1,7 +1,14 @@
-.background_lobby {
-  background-color: #130348;
+.lobby {
+  background-image: url('../../pictures/car.jpg');
+  height: 900px;
+  display: flex;
+  justify-content: center;
 }
 
-#chui-color {
-  color: pink;
+h1 {
+  color: white;
+}
+
+h4 {
+  color: white;
 }
