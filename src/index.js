@@ -5,20 +5,17 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './redux/reducers'
 import thunk from 'redux-thunk';
+import persistState from 'redux-localstorage';
+import reducer from './redux/reducers';
 
-  const enhancers = compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  );
+const enhancers = compose(
+  applyMiddleware(thunk),
+  persistState(),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
-  const store = createStore(reducer, enhancers);
-
-store.subscribe(() => {
-  const state = store.getState();
-  window.localStorage.setItem('state', JSON.stringify(state));
-});
+const store = createStore(reducer, enhancers);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,5 +23,5 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
