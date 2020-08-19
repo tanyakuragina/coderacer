@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MDBCol, MDBIcon, MDBView, MDBContainer, MDBCardBody } from 'mdbreact';
 import signup from '../../redux/thunks/signup.js';
-import Test from '../../components/Test'
+import Test from '../../components/Test';
 import '../../index.css';
 import './signup.css';
+import Details from '../Details';
 
 function SignUp() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -44,13 +45,10 @@ function SignUp() {
                       <h1 id="brandTitle">Coderacer</h1>
                       {/* <h1 id="signUp">Зарегистрируйся</h1> */}
                       <hr className="hr-light" />
-                      <h6 className="mb-4" id="lorem">
-                        
-                      </h6>
-                      <h6 className="mb-4" id="lorem">
-                        Улучшай навыки программирования соревнуясь с другими
-                        игроками
-                      </h6>
+                      <h6 className="mb-4" id="lorem"></h6>
+                      <h3 className="master mb-4" id="lorem">
+                        Решай задачи на скорость с реальными соперниками
+                      </h3>
                     </div>
                   </div>
 

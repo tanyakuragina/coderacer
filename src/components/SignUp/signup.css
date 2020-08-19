@@ -114,6 +114,10 @@
   width: 100%;
 }
 
+#window {
+  z-index: 1 !important;
+}
+
 #brandTitle {
   font-family: 'Road Rage';
   font-size: 70px;
