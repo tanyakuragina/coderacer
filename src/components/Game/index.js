@@ -12,6 +12,7 @@ import useInterval from '../../hooks/useInterval.js';
 import getOneGame from '../../redux/thunks/getOneGame';
 import getChallenge from '../../redux/thunks/getChallenge.js';
 import postScore from '../../redux/thunks/postScore.js';
+import GameProgress from '../GameProgress';
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -132,14 +133,14 @@ export default function Game() {
     }
   }
 
-  if (!challenge) return <h1 className='text-dark'>Загрузка</h1>;
+  if (!challenge) return <h1 className="text-dark">Загрузка</h1>;
 
   if (isFinished) return <h1>Финиш!</h1>;
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col xs="6">
+        <Col xs="4">
           <h2 className="mt-3 text-dark">{challenge.name}</h2>
           <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
             <Tab eventKey="description" title="Описание задачи">
@@ -175,9 +176,15 @@ export default function Game() {
             </Timer>
           </Row>
         </Col>
-        <Col className="mx-5 mt-3">
+        <Col xs='5' className="mx-5 mt-3 float-right">
           <h2 className="mt-3 text-dark">Таблица лидеров:</h2>
-          {game && game.players.map((player) => <div>{player.player.username}</div>)}
+          {game && game.players.map((player) => (
+            <GameProgress
+              bgcolor="red"
+              completed={player.challengeTimes.length}
+              username={player.player.username}
+            />
+          ))}
         </Col>
       </Row>
       <Row className="my-3">

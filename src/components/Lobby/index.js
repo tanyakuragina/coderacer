@@ -21,7 +21,7 @@ function Lobby() {
   }, [id]);
 
   useEffect(() => {
-    if (Date.now() - new Date(game.startDate).getTime() > 0) {
+    if (Date.now() - new Date(game?.startDate).getTime() > 0) {
       setIsGameStarted(true);
     }
   }, []);
@@ -98,7 +98,7 @@ function Lobby() {
           <Link to="/home">
             <Button onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
           </Link>
-          {userId === game.author._id && (
+          {userId === game?.author._id && (
           <Link to="/home">
             <Button onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
           </Link>
