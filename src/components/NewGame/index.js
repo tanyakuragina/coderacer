@@ -8,7 +8,7 @@ export default function () {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
-  if (game) return <Redirect to={`/game/${game.id}`} />;
+  if (game) return <Redirect to={`/game/${game._id}`} />;
 
   return (
     <>

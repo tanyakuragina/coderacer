@@ -40,6 +40,7 @@ store.subscribe(throttle(() => {
   saveState({
     isAuthenticated: store.getState().isAuthenticated,
     game: store.getState().game,
+    userId: store.getState().userId,
   });
 }, 1000));
 
