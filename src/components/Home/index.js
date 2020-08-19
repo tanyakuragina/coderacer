@@ -43,7 +43,7 @@ export default function Home() {
             </div>
             <div className="d-flex justify-content-center">
               <Table
-                className="homeTable w-25"
+                className="homeTable w-50"
                 striped
                 bordered
                 hover
