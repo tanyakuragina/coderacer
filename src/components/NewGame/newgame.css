@@ -20,21 +20,22 @@
   height: 100%;
 }
 
-.container {
+.containerGame {
   border-radius: 10px;
   border: rgb(46, 46, 46) 2px solid;
   width: 350px;
   background-color: rgb(38, 37, 38);
   color: white;
+  padding: 10px;
 }
 
-.form-control {
+.form-control-game {
   background-color: rgb(26, 25, 25);
   border: tomato;
   
 }
 
-.form-control:focus {
+.form-control-game:focus {
   background-color: rgb(80, 80, 80);
   color: white;
   /* outline: 1px solid rgb(2, 49, 203); */

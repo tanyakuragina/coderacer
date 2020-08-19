@@ -19,35 +19,37 @@ export default function () {
             <h2 className="d-flex justify-content-center">
               Укажи время начала игры
             </h2>
-            <div className="container d-flex justify-content-center">
-              {/* <h5 className="d-flex justify-content-center align-content-center">Дата и время</h5> */}
-              <div>
-                <div className="form-group row">
-                  <label
-                    htmlFor="datetime-local-input"
-                    className="dateAndTime col-2 col-form-label"
-                  >
-                    Дата и время
-                  </label>
-                  <div className="col-10">
-                    <input
-                      className="form-control"
-                      type="datetime-local"
-                      id="datetime-local-input"
-                      onChange={(e) => {
-                        setDate(new Date(e.target.value));
-                      }}
-                    />
+            <div className="gameCenter d-flex justify-content-center">
+              <div className="containerGame d-flex justify-content-center">
+                {/* <h5 className="d-flex justify-content-center align-content-center">Дата и время</h5> */}
+                <div>
+                  <div className="form-group row">
+                    <label
+                      htmlFor="datetime-local-input"
+                      className="dateAndTime col-2 col-form-label"
+                    >
+                      Дата и время
+                    </label>
+                    <div className="col-10">
+                      <input
+                        className="form-control-game"
+                        type="datetime-local"
+                        id="datetime-local-input"
+                        onChange={(e) => {
+                          setDate(new Date(e.target.value));
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="createGameButton">
-                  <Button
-                    onClick={() => {
-                      dispatch(newGame(date));
-                    }}
-                  >
-                    Создать игру
-                  </Button>
+                  <div className="createGameButton">
+                    <Button
+                      onClick={() => {
+                        dispatch(newGame(date));
+                      }}
+                    >
+                      Создать игру
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
