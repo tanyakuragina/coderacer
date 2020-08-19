@@ -22,7 +22,7 @@ export default function NaviBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto" />
           <Form inline>
-            {game && window.location.pathname !== `/game/${game._id}` && (
+            {game && window.location.pathname !== `/game/${game._id}` && window.location.pathname !== `/game` && (
               <Link to={`/game/${game._id}`}>
                 <Button className="mx-3">Вернуться в игру</Button>
               </Link>

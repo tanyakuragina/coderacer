@@ -20,6 +20,12 @@ function Lobby() {
     dispatch(getOneGame(id));
   }, [id]);
 
+  useEffect(() => {
+    if (Date.now() - new Date(game.startDate).getTime() > 0) {
+      setIsGameStarted(true);
+    }
+  }, []);
+
   useInterval(() => {
     dispatch(getOneGame(id));
   }, 5000);

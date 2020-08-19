@@ -132,15 +132,15 @@ export default function Game() {
     }
   }
 
-  if (!challenge) return <h1>Загрузка</h1>;
+  if (!challenge) return <h1 className='text-dark'>Загрузка</h1>;
 
-  if (isFinished) return <h1>Done</h1>;
+  if (isFinished) return <h1>Финиш!</h1>;
 
   return (
     <Container>
       <Row>
-        <Col>
-          <h2 className="mt-3">{challenge.name}</h2>
+        <Col xs="6">
+          <h2 className="mt-3 text-dark">{challenge.name}</h2>
           <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
             <Tab eventKey="description" title="Описание задачи">
               <div className="my-1">{challenge.description}</div>
@@ -158,7 +158,7 @@ export default function Game() {
         </Col>
         <Col>
           <Row>
-            <h2 className="mt-3">До конца игры:</h2>
+            <h2 className="mt-3 text-dark">До конца игры:</h2>
           </Row>
           <Row>
             <Timer
@@ -176,7 +176,7 @@ export default function Game() {
           </Row>
         </Col>
         <Col className="mx-5 mt-3">
-          <h2>Таблица лидеров:</h2>
+          <h2 className="mt-3 text-dark">Таблица лидеров:</h2>
           {game && game.players.map((player) => <div>{player.player.username}</div>)}
         </Col>
       </Row>
