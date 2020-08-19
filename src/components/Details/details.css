@@ -1,13 +1,13 @@
 .details {
   position: relative;
-  top: 700px;
+  top: 740px;
   background-color: rgb(23, 4, 46);
-  height: 1130px;
+  height: 1060px;
 }
 
 .window-one {
   position: relative;
-  top: 120px;
+  top: 0px;
   left: 0;
   z-index: 1 !important;
   display: flex;
@@ -19,7 +19,7 @@
 
 .window-two {
   position: relative;
-  top: 120px;
+  top: 30px;
   left: 35px;
   z-index: 1 !important;
   display: flex;
@@ -31,7 +31,7 @@
 
 .window-three {
   position: relative;
-  top: 120px;
+  top: 50px;
   left: 18px;
   z-index: 1 !important;
   display: flex;
