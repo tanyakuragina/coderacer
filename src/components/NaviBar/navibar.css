@@ -17,7 +17,8 @@
 	background-image: -webkit-linear-gradient(92deg, white, #feab3a);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	-webkit-animation: hue 1s infinite linear;
+  -webkit-animation: hue 1s infinite linear;
+  padding: 2px;
 }
 
 @-webkit-keyframes hue {

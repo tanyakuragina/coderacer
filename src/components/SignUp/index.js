@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import {
-  Button, Form, FormGroup, Input, Row,
-} from 'reactstrap';
+import { Button, Form, FormGroup, Input, Row } from 'reactstrap';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  MDBCol, MDBIcon, MDBView, MDBContainer, MDBCardBody,
-} from 'mdbreact';
+import { MDBCol, MDBIcon, MDBView, MDBContainer, MDBCardBody } from 'mdbreact';
 import signup from '../../redux/thunks/signup.js';
+import Test from '../../components/Test';
 import '../../index.css';
 import './signup.css';
+import Details from '../Details';
 
 function SignUp() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -44,11 +42,13 @@ function SignUp() {
                 <Row>
                   <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
                     <div id="backgroundLorem">
-                      <h1 id="signUp">Зарегистрируйся</h1>
+                      <h1 id="brandTitle">Coderacer</h1>
+                      {/* <h1 id="signUp">Зарегистрируйся</h1> */}
                       <hr className="hr-light" />
-                      <h6 className="mb-4" id="lorem">
-                        Соревнуйся с реальными игроками.
-                      </h6>
+                      <h6 className="mb-4" id="lorem"></h6>
+                      <h3 className="master mb-4" id="lorem">
+                        Решай задачи на скорость с реальными соперниками
+                      </h3>
                     </div>
                   </div>
 
@@ -58,9 +58,7 @@ function SignUp() {
                       <div className="card">
                         <MDBCardBody className="white-text m-3">
                           <h3 className="text-center" id="registration">
-                            <MDBIcon icon="user" />
-                            {' '}
-                            Регистрация:
+                            <MDBIcon icon="user" /> Регистрация:
                           </h3>
                           <hr className="hr-light" />
                           <Form
