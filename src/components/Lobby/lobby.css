@@ -40,27 +40,55 @@
   width: 100%;
 }
 
-@media screen and (min-device-width: 481px) and (max-device-width: 768px) {
-  .lobby {
-    height: 767px;
-  }
-}
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  .lobby {
-    height: 1024px;
-  }
-}
-
-@media screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-  .lobby {
-    height: 1300px;
-    width: 1024px;
-  }
-}
 h1 {
   color: white;
 }
 
 h4 {
   color: white;
+}
+
+.player {
+  width: 100%;
+  max-width: 550px;
+  margin: 1em auto;
+  padding: 1em;
+  border-radius: 5px;
+  background: rgb(28, 28, 28)
+    linear-gradient(to top, rgba(19, 19, 19, 0.65), rgba(145, 145, 145, 0.35));
+  box-shadow: inset rgba(0, 0, 0, 0.6) 0 -3px 8px,
+    inset rgba(157, 157, 157, 0.7) 0 3px 8px, rgba(0, 0, 0, 0.8) 0 3px 8px -3px;
+}
+
+.lobbyTable {
+  align-items: center;
+  width: 590px;
+  border-radius: 10px;
+}
+
+
+.textCenter {
+  text-align: center;
+}
+
+.tableHeader {
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+  font-size: 28px;
+  color: #89d1f7;
+}
+
+.playerFont {
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+  font-size: 28px;
+  color: #f2f8fa;
+}
+
+.table-dark {
+  background-color: #16191b;
+}
+
+.table {
+ margin-bottom: unset;
 }

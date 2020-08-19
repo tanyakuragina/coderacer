@@ -21,7 +21,7 @@ function Lobby() {
   useInterval(() => {
     dispatch(getOneGame(id));
   }, 5000);
-
+  let i = 0;
   return (
     <>
       <div id="lobbyVideo">
@@ -32,7 +32,7 @@ function Lobby() {
       <div className="lobby_shadow">
         <div className="lobby">
           <div>
-            <h1>Игра скоро начнется</h1>
+            <h1 className="textCenter">Игра скоро начнется</h1>
             {game && new Date(game.startDate).getTime() > Date.now() && (
               <Timer
                 initialTime={new Date(game.startDate).getTime() - Date.now()}
@@ -44,7 +44,7 @@ function Lobby() {
                   },
                 ]}
               >
-                <h4>
+                <h4 className="textCenter">
                   До начала игры осталось:
                   <Timer.Hours /> ч.
                   <Timer.Minutes /> мин.
@@ -57,26 +57,42 @@ function Lobby() {
                 <button>Начать игру</button>
               </Link>
             )}
-            <Table className="w-25" striped bordered hover variant="dark">
-              <thead>
-                <tr>
-                  <th>Автор игры</th>
-                  <th>Время начала игры</th>
-                  <th>Игроки</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{game?.author.username}</td>
-                  <td>{game?.startDate}</td>
-                  <td>
-                    {game?.players.map((el) => (
-                      <div>{el.player.username}</div>
-                    ))}
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+            <div className='d-flex'>
+              <Table
+                className="lobbyTable"
+                striped
+                bordered
+                hover
+                variant="dark"
+              >
+                <thead>
+                  <tr className="tableHeader">
+                    <th>ИГРОКИ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      {game?.players.map((el) => (
+                        <div className="player">
+                          <h3 className="playerFont">{el.player.username}</h3>
+                        </div>
+                      ))}
+                    </td>
+                  </tr>
+                </tbody>
+                <Table>
+                  <tr>
+                    <th className="tableHeader">Автор игры:</th>
+                    <td className="playerFont">{game?.author.username}</td>
+                  </tr>
+                  <tr>
+                    <th className="tableHeader">Время начала игры:</th>
+                    <td className="playerFont">{game?.startDate}</td>
+                  </tr>
+                </Table>
+              </Table>
+            </div>
             <Link to="/home">
               <Button
                 onClick={() => {
