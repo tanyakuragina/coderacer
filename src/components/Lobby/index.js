@@ -8,6 +8,7 @@ import getOneGame from '../../redux/thunks/getOneGame';
 import quitGame from '../../redux/thunks/quitGame';
 import deleteGame from '../../redux/thunks/deleteGame';
 import './lobby.css';
+import Avatar from '../Avatar';
 
 function Lobby() {
   const userId = useSelector((state) => state.userId);
@@ -82,8 +83,9 @@ function Lobby() {
                 <tr>
                   <td>
                     {game?.players.map((el) => (
-                      <div className="player">
-                        <h3 className="playerFont">{el.player.username}</h3>
+                      <div className="player d-flex ">
+                        <Avatar />
+                        <h3 className="playerFont m-3">{el.player.username}</h3>
                       </div>
                     ))}
                   </td>
@@ -112,9 +114,9 @@ function Lobby() {
             <Button onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
           </Link>
           {userId === game?.author._id && (
-          <Link to="/home">
-            <Button onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
-          </Link>
+            <Link to="/home">
+              <Button onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
+            </Link>
           )}
         </div>
       </div>

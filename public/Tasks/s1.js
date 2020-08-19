@@ -10,7 +10,7 @@
     sample: { in: {}, out: {} },
     main: [{ in: {}, out: {} }],
   },
-}); (edited)
+});
 
 // TASKS
 const s = {
@@ -32,7 +32,7 @@ const s = {
   }
 };
 
-//************************************ */
+// 2 ************************************ */
 
 const s = {
   name: "Правда или ложь",
@@ -55,7 +55,7 @@ function boolToWord(bool) {
   return bool ? 'Yes' : 'No';
 }
 
-//************************************ */
+// 3 ************************************ */
 
 const s = {
   name: "Убывающее число",
@@ -81,7 +81,7 @@ function descendingOrder(n) {
   return parseInt(n.toString().split('').sort().reverse().join(''), 10);
 }
 
-//********************************************************* */
+// 4 ********************************************************* */
 
 const s = {
   name: "Найти все делители",
@@ -109,3 +109,201 @@ function divisors(integer) {
   return res.length ? res : integer + ' is prime'
 };
 
+// 5 ********************************************************* */
+
+const s = {
+  name: "FizzBuzz",
+  difficulty: 2,
+  describtion: 'Напишите функцию, выводящую в консоль числа от 1 до n, где n — это целое число, которая функция принимает в качестве параметра, с такими условиями: вывод fizz вместо чисел, кратных 3,  вывод buzz вместо чисел, кратных 5, вывод fizzbuzz вместо чисел, кратных как 3, так и 5.',
+  startParameters: 'num',
+  sampleInput: '3',
+  sampleOutput: `[1, 2, 'fizz']`,
+  tests: {
+    sample: { in: [5], out: [1, 2, 'fizz', 4, 'buzz'] },
+    main: [
+      { in: 1, out: [1] },
+      { in: 2, out: [2] },
+      { in: 6, out: [1, 2, 'fizz', 4, 'buzz', 'fizz'] },
+    ]
+  }
+};
+
+// решение
+
+const fizzBuzz = num => {
+  const res = [];
+  for (let i = 1; i <= num; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      res.push('fizzbuzz');
+    } else if (i % 3 === 0) {
+      res.push('fizz');
+    } else if (i % 5 === 0) {
+      res.push('buzz');
+    } else {
+      res.push(i);
+    }
+  }
+  return res;
+}
+
+// 6 ********************************************************* */
+
+const s = {
+  name: "Фибоначчи",
+  difficulty: 2,
+  describtion: 'Напиши функцию fib(n) которая возвращает n-е число Фибоначчи.',
+  startParameters: 'num',
+  sampleInput: '3',
+  sampleOutput: `2`,
+  tests: {
+    sample: { in: 7, out: 13 },
+    main: [
+      { in: 77, out: 5527939700884757 },
+    ]
+  }
+};
+
+// решение
+function fib(n) {
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+// 7 ********************************************************* */
+const s = {
+  name: "Поиск гласных",
+  difficulty: 2,
+  describtion: 'Напиши функцию, принимающую строку в качестве аргумента и возвращающую количество гласных, которые содержатся в строке. Гласными являются «a», «e», «i», «o», «u»',
+  startParameters: 'str',
+  sampleInput: 'hello',
+  sampleOutput: `2`,
+  tests: {
+    sample: { in: 'peter', out: 2 },
+    main: [
+      { in: 'why', out: 1 },
+      { in: 'length', out: 1 },
+      { in: 'false', out: 2 },
+    ]
+  }
+};
+
+// решение
+const findVowels = str => {
+  let count = 0;
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  for (let char of str.toLowerCase()) {
+    if (vowels.includes(char)) {
+      count++;
+    }
+  }
+  return count;
+}
+
+// 8 ********************************************************* */
+const s = {
+  name: "Сумма элементов массива",
+  difficulty: 1,
+  describtion: 'Дан массив с числами. С помощью цикла найдите сумму элементов этого массива',
+  startParameters: 'arr',
+  sampleInput: '[1,2,3,4,5]',
+  sampleOutput: `15`,
+  tests: {
+    sample: { in: [1, 2, 3], out: 6 },
+    main: [
+      { in: [1, 2, 3], out: 6 },
+      { in: [4, 5, 6], out: 15 },
+      { in: [10, 11, 13], out: 34 },
+    ]
+  }
+};
+
+// решение
+function sum(arr) {
+  let res = 0;
+  for (let i = 0; i < arr.length; i++) {
+    res += arr[i];
+  }
+  return res;
+}
+
+// 9 ********************************************************* */
+const s = {
+  name: "Сумма квадратов элементов массива",
+  difficulty: 1,
+  describtion: 'Дан массив с числами. С помощью цикла найдите сумму квадратов элементов этого массива.',
+  startParameters: 'arr',
+  sampleInput: '[1,2,3,4,5]',
+  sampleOutput: `15`,
+  tests: {
+    sample: { in: [1, 2, 3], out: 6 },
+    main: [
+      { in: [1, 2, 3], out: 6 },
+      { in: [4, 5, 6], out: 15 },
+      { in: [10, 11, 13], out: 34 },
+    ]
+  }
+};
+
+// решение
+function sum(arr) {
+  let res = 0;
+  for (let i = 0; i < arr.length; i++) {
+    res += arr[i] * arr[i];
+  }
+  return res;
+}
+
+// 10 ********************************************************* */
+const s = {
+  name: "Cреднее арифметическое",
+  difficulty: 1,
+  describtion: 'Дан массив с числами. Найдите среднее арифметическое его элементов',
+  startParameters: 'arr',
+  sampleInput: '[1,2,3,4,5]',
+  sampleOutput: `3`,
+  tests: {
+    sample: { in: [1, 2, 3], out: 2 },
+    main: [
+      { in: [1, 2, 6], out: 3 },
+      { in: [4, 5, 6], out: 5 },
+      { in: [10, 11, 12], out: 11 },
+    ]
+  }
+};
+
+// решение
+function sum(arr) {
+  let res = 0;
+  for (let i = 0; i < arr.length; i++) {
+    res += arr[i];
+  }
+  return res / arr.length;
+}
+
+// 11 ********************************************************* */
+const s = {
+  name: "Массив массивов",
+  difficulty: 1,
+  describtion: 'Дан двумерный массив с числами. Найдите сумму элементов этого массива.',
+  startParameters: 'arr',
+  sampleInput: '[[1,2,3],[4,5], [6]]',
+  sampleOutput: `21`,
+  tests: {
+    sample: { in: [[1, 2, 3], [4, 5]], out: 15 },
+    main: [
+      { in: [[1, 2, 6], [2, 3]], out: 14 },
+      { in: [[4], [5], [6]], out: 15 },
+      { in: [[10, 11], [12, 13]], out: 46 },
+    ]
+  }
+};
+
+// решение
+function sum(arr) {
+  let res = 0;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].length; j++) {
+      res += arr[i][j];
+    }
+  }
+  return res;
+}
