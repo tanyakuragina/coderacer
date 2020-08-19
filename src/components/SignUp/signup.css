@@ -102,7 +102,6 @@
   text-align: center;
 }
 
-
 #mainVideo {
   position: absolute;
   top: 0;
@@ -113,4 +112,21 @@
 
 #background-video {
   width: 100%;
+}
+
+#window {
+  z-index: 1 !important;
+}
+
+#brandTitle {
+  font-family: 'Road Rage';
+  font-size: 70px;
+  font-weight: 100;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #f35626;
+  background-image: -webkit-linear-gradient(92deg, white, #feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue 1s infinite linear;
 }

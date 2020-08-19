@@ -11,6 +11,7 @@ import Game from './components/Game';
 import PrivateRoute from './components/PrivateRoute';
 import NewGame from './components/NewGame';
 import Test from './components/Test';
+import Details from './components/Details'
 // import main from '../public/main.mp4'
 
 function App() {
@@ -35,8 +36,9 @@ function App() {
             <Lobby />
           </PrivateRoute>
           <Route exact path="/">
-            {/* <Test /> */}
+            {/* <SignUp /> */}
             <SignUp />
+            <Details />
           </Route>
         </Switch>
       </Router>
