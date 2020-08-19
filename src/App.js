@@ -16,8 +16,8 @@ import Test from './components/Test';
 function App() {
   return (
     <>
-      <NaviBar />
       <Router>
+        <NaviBar />
         <Switch>
           <PrivateRoute exact path="/game">
             <Game />

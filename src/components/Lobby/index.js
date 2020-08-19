@@ -5,6 +5,7 @@ import { Button, Table } from 'react-bootstrap';
 import Timer, { initialTime } from 'react-compound-timer';
 import useInterval from '../../hooks/useInterval.js';
 import getOneGame from '../../redux/thunks/getOneGame';
+import quitGame from '../../redux/thunks/quitGame';
 import './lobby.css';
 
 function Lobby() {
@@ -20,8 +21,6 @@ function Lobby() {
   useInterval(() => {
     dispatch(getOneGame(id));
   }, 5000);
-
-  console.log(game);
 
   return (
     <>
@@ -83,6 +82,9 @@ function Lobby() {
               </tr>
             </tbody>
           </Table>
+          <Link to="/home">
+            <Button onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
+          </Link>
         </div>
       </div>
     </>
