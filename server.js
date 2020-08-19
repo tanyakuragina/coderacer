@@ -229,7 +229,7 @@ app.post('/api/game/new', async (req, res) => {
   const challenges = await Challenge.find();
   const game = await Game.create({
     author: req.session.user._id,
-    challenges: shuffle(challenges).slice(0, 2),
+    challenges: shuffle(challenges),
     startDate: date,
     players: [
       {

@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import newGame from '../../redux/thunks/newGame.js';
-import '../NewGame/newgame.css';
+import './newgame.css';
 
 export default function () {
   const game = useSelector((state) => state.game);
@@ -30,9 +30,9 @@ export default function () {
                     >
                       Дата и время
                     </label>
-                    <div className="col-10">
+                    <div className="col">
                       <input
-                        className="form-control-game"
+                        className="form-control-game text-light"
                         type="datetime-local"
                         id="datetime-local-input"
                         onChange={(e) => {

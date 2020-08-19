@@ -29,7 +29,7 @@ function Lobby() {
   useInterval(() => {
     dispatch(getOneGame(id));
   }, 5000);
-  let i = 0;
+  const i = 0;
   return (
     <>
       <div id="lobbyVideo">
@@ -38,7 +38,7 @@ function Lobby() {
         </video>
       </div>
       <div className="lobby">
-      <div className="lobby_shadow"></div>
+        <div className="lobby_shadow" />
         <div>
           <h1 className="textCenter">Игра скоро начнется</h1>
           {game && new Date(game.startDate).getTime() > Date.now() && (
@@ -54,9 +54,15 @@ function Lobby() {
             >
               <h4 className="textCenter">
                 До начала игры осталось:
-                <Timer.Hours /> ч.
-                <Timer.Minutes /> мин.
-                <Timer.Seconds /> сек.
+                <Timer.Hours />
+                {' '}
+                ч.
+                <Timer.Minutes />
+                {' '}
+                мин.
+                <Timer.Seconds />
+                {' '}
+                сек.
               </h4>
             </Timer>
           )}
@@ -90,7 +96,14 @@ function Lobby() {
                 </tr>
                 <tr>
                   <th className="tableHeader">Время начала игры:</th>
-                  <td className="playerFont">{game?.startDate}</td>
+                  <td className="playerFont">
+                    {new Date(game?.startDate).toLocaleTimeString('ru-RU', {
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                    })}
+                  </td>
                 </tr>
               </Table>
             </Table>
