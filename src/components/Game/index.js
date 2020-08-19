@@ -134,7 +134,7 @@ export default function Game() {
 
   if (!challenge) return <h1>Загрузка</h1>;
 
-  if (isFinalTestPassed) return <h1>Done</h1>;
+  if (isFinished) return <h1>Done</h1>;
 
   return (
     <Container>

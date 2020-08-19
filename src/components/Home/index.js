@@ -51,8 +51,7 @@ export default function Home() {
               >
                 <thead>
                   <tr>
-                    <th>ID игры</th>
-                    <th>Автор игры</th>
+                    <th>Создатель игры</th>
                     <th>Время начала игры</th>
                     <th>Количество игроков</th>
                   </tr>
@@ -62,20 +61,38 @@ export default function Home() {
                   games.map((game) => (
                     <tbody>
                       <tr>
-                        <td>{game._id}</td>
                         <td>{game.author}</td>
-                        <td>{game.startDate}</td>
-                        <td>{game.players}</td>
+                        <td>{new Date(game.startDate).toLocaleTimeString('ru-RU')}</td>
+                        <td>{`${game.players}/10`}</td>
                         <td>
+                          {currentGame ? currentGame._id === game._id && (
                           <Link to={`/game/${game._id}`}>
                             <Button
                               onClick={() => {
                                 dispatch(joinGame(game._id));
                               }}
                             >
-                              Зайти в игру (тест)
+                              Вернуться
+                              в
+                              игру
                             </Button>
                           </Link>
+
+                          )
+                            : (
+                              <Link to={`/game/${game._id}`}>
+                                <Button
+                                  onClick={() => {
+                                    dispatch(joinGame(game._id));
+                                  }}
+                                >
+                                  Зайти
+                                  в
+                                  игру
+                                </Button>
+                              </Link>
+
+                            )}
                         </td>
                       </tr>
                     </tbody>
@@ -91,7 +108,7 @@ export default function Home() {
             <div className="createGame">
               <Link to="/new-game">
                 <Button>
-                  Создать игру (тест)
+                  Создать игру
                 </Button>
               </Link>
             </div>

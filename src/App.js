@@ -17,8 +17,8 @@ import Details from './components/Details'
 function App() {
   return (
     <>
-      <NaviBar />
       <Router>
+        <NaviBar />
         <Switch>
           <PrivateRoute exact path="/game">
             <Game />
