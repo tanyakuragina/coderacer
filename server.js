@@ -49,7 +49,7 @@ app.post('/api/login', async (req, res) => {
     delete user.password;
     // подняли сессии
     req.session.user = user;
-    return res.end();
+    return res.json(user);
   }
   res.status(401).end();
 });
@@ -230,6 +230,20 @@ app.post('/api/game/new', async (req, res) => {
     ],
   });
   res.json(game);
+});
+
+app.delete('/api/game/:id', async (req, res) => {
+  if (!req.session.user) {
+    console.log('DELETING');
+    return res.sendStatus(401);
+  }
+  const game = await Game.findById(req.params.id);
+  if (game.author.toString() === req.session.user._id) {
+    console.log(game.author.toString(), req.session.user._id);
+    await Game.findOneAndDelete({ _id: req.params.id });
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(401);
 });
 
 // get user statistics

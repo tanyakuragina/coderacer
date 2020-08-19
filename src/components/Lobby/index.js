@@ -6,9 +6,11 @@ import Timer, { initialTime } from 'react-compound-timer';
 import useInterval from '../../hooks/useInterval.js';
 import getOneGame from '../../redux/thunks/getOneGame';
 import quitGame from '../../redux/thunks/quitGame';
+import deleteGame from '../../redux/thunks/deleteGame';
 import './lobby.css';
 
 function Lobby() {
+  const userId = useSelector((state) => state.userId);
   const game = useSelector((state) => state.game);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -88,14 +90,13 @@ function Lobby() {
             </Table>
           </div>
           <Link to="/home">
-            <Button
-              onClick={() => {
-                dispatch(quitGame(game._id));
-              }}
-            >
-              Выйти из игры
-            </Button>
+            <Button onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
           </Link>
+          {userId === game.author._id && (
+          <Link to="/home">
+            <Button onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
+          </Link>
+          )}
         </div>
       </div>
     </>
