@@ -32,6 +32,10 @@ export function setGameList(data) {
   return { type: actionTypes.setGameList, games: data };
 }
 
+export function setProfile(data) {
+  return { type: actionTypes.setProfile, user: data };
+}
+
 export function dropGame() {
   return { type: actionTypes.dropGame };
 }

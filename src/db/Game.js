@@ -33,6 +33,8 @@ gameSchema.methods.findPlayers = async function () {
   return populated.players.map((player) => player.player);
 };
 
+
+
 // Выдает все не начавшиеся игры, отсортированные по дате начала
 gameSchema.statics.findUpcoming = async function () {
 

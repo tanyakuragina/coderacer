@@ -8,6 +8,7 @@ const inititalState = {
   challenge: null,
   game: null,
   games: [],
+  user: {username: 'Vasya'},
 };
 
 const reducer = (state = inititalState, action) => {
@@ -68,6 +69,11 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         challenges: action.challenges,
+      };
+    case actionTypes.setProfile:
+      return {
+        ...state,
+        user: action.user,
       };
 
     default:

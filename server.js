@@ -267,4 +267,15 @@ app.get('/api/game/user/:id', async (req, res) => {
   }
 });
 
+//выдает информацию по пользователю для профиля
+app.get('/api/user:id', async (req, res) => {
+  if (req.session) {
+    const user = await User.findById(req.params.id);
+    console.log('>>>>' + user)
+    res.json(user)
+  } else {
+    res.json({ name: 'error'})
+  }
+})
+
 app.listen(3001);
