@@ -18,6 +18,10 @@ self.addEventListener('message', (ev) => {
   switch (data.do) {
     case 'run': {
       console.log('TEST RUN');
+      if (data.code.match(/self.postMessage/g)) {
+        self.postMessage({ type: 'cheater' });
+        break;
+      }
       const code = data.code.replace(/console/g, 'myConsole');
       const foo = eval(code);
       const result = data.tests.map((test) => _.isEqual(foo(...test.in), test.out));

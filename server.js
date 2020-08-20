@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 
 const saltRounds = 10;
-
+mongoose.set('useFindAndModify', false);
 // Подключаем mongoose.
 mongoose.connect('mongodb://localhost:27017/coderacer', {
   useNewUrlParser: true,
@@ -81,10 +81,10 @@ app.post('/api/signup', async (req, res) => {
       password: await bcrypt.hash(password, saltRounds),
     });
     req.session.user = user;
+    res.json({ isOkay: true, ...user._doc });
     await user.save();
     console.log('ok');
     // req.session.user = user;
-    res.json({ isOkay: true, username});
   } catch (error) {
     console.log(error.message);
     res.json({ isOkay: false, errorMessage: error.message });
@@ -274,14 +274,28 @@ app.get('/api/game/user/:id', async (req, res) => {
   }
 });
 
-//выдает информацию по пользователю для профиля
+// выдает информацию по пользователю для профиля
 app.get('/api/user/:id', async (req, res) => {
   if (req.session.user) {
     const user = await User.findById(req.params.id);
-    console.log('>>>>' + user.username);
+    console.log(`>>>>${user.username}`);
     res.json(user);
   } else {
     res.json({ name: 'error' });
+  }
+});
+
+//изменяет ник игрока
+app.put('/api/username/:id', async (req, res, next) => {
+  if (req.session.user) {
+    await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { username: req.body.username }
+    );
+    console.log(req.body.username);
+    res.json({ username: req.body.username });
+  } else {
+    res.json({ isOkay: false, errorMessage: 'user is not auth' });
   }
 });
 

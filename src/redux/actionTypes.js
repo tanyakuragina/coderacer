@@ -8,3 +8,5 @@ export const dropGame = 'DROP_GAME';
 export const setGameList = 'SET_GAME_LIST';
 export const setOneGame = 'SET_ONE_GAME';
 export const setProfile = 'SET_PROFILE';
+export const setNewName = 'SET_NEW_NAME';
+export const setUpdateInput = 'SET_UPDATE_INPUT';
