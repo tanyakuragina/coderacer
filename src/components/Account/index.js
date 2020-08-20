@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import getProfile from '../../redux/thunks/getProfile';
 import './account.css';
+import Edit from '../Edit'
 
 function Account() {
   const userId = useSelector((state) => state.userId);
@@ -33,6 +34,7 @@ function Account() {
         <div className="greeting">
           <h1 className="account-title">Личный кабинет</h1>
           <h2 className="greeting-name">Привет, {username}</h2>
+          <Edit />
         </div>
       </div>
     </>
