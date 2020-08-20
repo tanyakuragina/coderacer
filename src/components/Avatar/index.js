@@ -5,7 +5,6 @@ function Avatar({ avatarSource }) {
 
   return (
     <>
-      {/* <Image src="../avatar1.jpg" width={65} roundedCircle /> */}
       <Image src="/avatar1.jpg" width={65} roundedCircle />
     </>
   );

@@ -1,4 +1,6 @@
 import React from 'react';
+import Avatar from '../Avatar';
+import '../Lobby/lobby.css';
 
 export default function GameProgress(props) {
   const { bgcolor, completed, username } = props;
@@ -29,6 +31,9 @@ export default function GameProgress(props) {
 
   return (
     <div className="row" style={containerStyles}>
+      <div className="player">
+        <Avatar />
+      </div>
       <span style={{ height: '40px', verticalAlign: 'top', fontSize: '25px' }}>{username}</span>
       <div style={fillerStyles} />
       <span style={carStyles} />
