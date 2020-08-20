@@ -7,7 +7,7 @@ function Details() {
       <div className="details">
         <div className="window-one">
           <img
-            src="task.png"
+            src="cocode.png"
             width="250"
             height="250"
             alt="альтернативный текст"
