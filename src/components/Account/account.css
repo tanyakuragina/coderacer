@@ -1,0 +1,37 @@
+.account {
+  background-image: url('./account-back.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 900px;
+  color: white;
+  display: flex;
+}
+
+.account-title {
+  position: relative;
+  top: 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 30px;
+  left: 15px;
+}
+
+.greeting-name {
+  position: relative;
+  top: 20px;
+  left: 15px;
+}
+
+.vertical-item:hover {
+  background-color: rgb(240, 154, 24);
+  text-decoration: none;
+}
+
+.vertical-item {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  background-color: rgb(145, 23, 186);
+}
+
+a {
+  text-decoration: none;
+}

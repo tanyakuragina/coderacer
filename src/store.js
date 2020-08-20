@@ -26,22 +26,21 @@ const saveState = (state) => {
 
 const enhancers = compose(
   applyMiddleware(thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 const persistedState = loadState();
-const store = createStore(
-  reducer,
-  persistedState,
-  enhancers,
-);
+const store = createStore(reducer, persistedState, enhancers);
 
-store.subscribe(throttle(() => {
-  saveState({
-    isAuthenticated: store.getState().isAuthenticated,
-    game: store.getState().game,
-    userId: store.getState().userId,
-  });
-}, 1000));
+store.subscribe(
+  throttle(() => {
+    saveState({
+      isAuthenticated: store.getState().isAuthenticated,
+      game: store.getState().game,
+      userId: store.getState().userId,
+      username: store.getState().username,
+    });
+  }, 1000)
+);
 
 export default store;

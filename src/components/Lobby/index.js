@@ -68,7 +68,7 @@ function Lobby() {
           )}
           {isGameStarted && (
             <Link to="/game">
-              <button>Начать игру</button>
+              <Button>Начать игру</Button>
             </Link>
           )}
           <div className="table-table">

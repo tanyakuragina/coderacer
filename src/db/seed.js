@@ -84,21 +84,21 @@ Challenge.create({
   },
 });
 
-// const seed = async () => {
-//   const challenges = await Challenge.find();
-//   const users = await User.find();
-//   Game.create({
-//     challenges,
-//     author: users[0],
-//     startDate: new Date('2020-08-18T14:57:08.633Z'),
-//     players: users.map((user) => ({
-//       player: user._id,
-//       challengeTimes: [],
-//     })),
-//   });
-// };
+const seed = async () => {
+  const challenges = await Challenge.find();
+  const users = await User.find();
+  Game.create({
+    challenges,
+    author: users[0],
+    startDate: new Date('2020-08-18T14:57:08.633Z'),
+    players: users.map((user) => ({
+      player: user._id,
+      challengeTimes: [],
+    })),
+  });
+};
 
-// seed();
+seed();
 
 Challenge.create({
   name: 'Найди среднюю букву',

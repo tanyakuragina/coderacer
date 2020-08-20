@@ -7,6 +7,7 @@ import quitGame from '../../redux/thunks/quitGame.js';
 import joinGame from '../../redux/thunks/joinGame.js';
 import getGames from '../../redux/thunks/getGames.js';
 import './home.css';
+import Account from '../Account'
 
 export default function Home() {
   const games = useSelector((state) => state.games);
@@ -23,21 +24,6 @@ export default function Home() {
       <>
         <div className="background_home">
           <div id="maskBack">
-            {/* <Link to="/game">Войти в игру</Link>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <Button
-              onClick={() => {
-                dispatch(quitGame('5f391aa214d409b5ed9fc65a'));
-              }}
-            >
-              Выйти из игры (тест)
-            </Button> */}
-
             <div className="home">
               <h1>Игры, которые вот-вот начнутся...</h1>
             </div>
