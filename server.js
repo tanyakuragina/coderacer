@@ -22,14 +22,14 @@ mongoose.connect('mongodb://localhost:27017/coderacer', {
 });
 mongoose.connection.on(
   'error',
-  console.error.bind(console, 'Ошибка соединения с MongoDB:'),
+  console.error.bind(console, 'Ошибка соединения с MongoDB:')
 );
 
 app.use(express.json());
 app.use(
   session({
     secret: 'asgaerhgse',
-  }),
+  })
 );
 
 app.use((req, res, next) => {
@@ -46,10 +46,10 @@ app.post('/api/login', async (req, res) => {
   const user = users.find((user) => user.email === email);
   console.log(user);
   if (user && (await bcrypt.compare(password, user.password))) {
-    delete user.password;
+    // delete user.password;
     // подняли сессии
     req.session.user = user;
-    return res.json(user);
+    return res.json({ _id: user._id, username: user.username });
   }
   res.status(401).end();
 });
@@ -67,7 +67,7 @@ app.get(
     res.json({
       email: req.session.user.email,
     });
-  },
+  }
 );
 
 // регистрация
@@ -136,13 +136,18 @@ app.get('/api/game/gameList', async (req, res) => {
 
 // выдает полную информацию по игре. id - это _id игры в БД
 app.get('/api/game/:id', async (req, res) => {
-  const game = await Game.findById(req.params.id).populate('players.player').populate('author');
+  const game = await Game.findById(req.params.id)
+    .populate('players.player')
+    .populate('author');
   game.players.sort((a, b) => {
     if (a.challengeTimes.length === 0 && b.challengeTimes.length === 0) {
       return 0;
     }
     if (a.challengeTimes.length === b.challengeTimes.length) {
-      if (a.challengeTimes[a.challengeTimes.length - 1].getTime() < b.challengeTimes[b.challengeTimes.length - 1].getTime()) {
+      if (
+        a.challengeTimes[a.challengeTimes.length - 1].getTime() <
+        b.challengeTimes[b.challengeTimes.length - 1].getTime()
+      ) {
         return -1;
       }
       return 1;
@@ -165,7 +170,7 @@ app.post('/api/game/join/:id', async (req, res) => {
       .json({ isOkay: false, errorMessage: 'Игра уже началась' });
   }
   const playerIndex = game.players.findIndex(
-    (player) => player.player.toString() === req.session.user._id,
+    (player) => player.player.toString() === req.session.user._id
   );
   if (playerIndex === -1) {
     game.players.push({
@@ -185,7 +190,7 @@ app.post('/api/game/quit/:id', async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
     const playerIndex = game.players.findIndex(
-      (player) => player.player.toString() === req.session.user._id,
+      (player) => player.player.toString() === req.session.user._id
     );
     game.players.splice(playerIndex, 1);
     await game.save();
@@ -203,11 +208,13 @@ app.post('/api/game/postScore/:id', async (req, res) => {
   }
   try {
     const game = await Game.findById(req.params.id).populate('players.player');
-    if (Date.now() > new Date(game.startDate).getTime() + (1000 * 60 * 30)) {
+    if (Date.now() > new Date(game.startDate).getTime() + 1000 * 60 * 30) {
       throw new Error('Игра уже завершилась');
     }
     console.log(game.players);
-    const playerIndex = game.players.findIndex((player) => player.player._id.toString() === req.session.user._id);
+    const playerIndex = game.players.findIndex(
+      (player) => player.player._id.toString() === req.session.user._id
+    );
     game.players[playerIndex].challengeTimes.push(Date.now());
     await game.save();
     return res.json(game);
@@ -263,6 +270,17 @@ app.get('/api/game/user/:id', async (req, res) => {
     res.json(players);
   } else {
     // get error message
+    res.json({ name: 'error' });
+  }
+});
+
+//выдает информацию по пользователю для профиля
+app.get('/api/user/:id', async (req, res) => {
+  if (req.session.user) {
+    const user = await User.findById(req.params.id);
+    console.log('>>>>' + user.username);
+    res.json(user);
+  } else {
     res.json({ name: 'error' });
   }
 });
