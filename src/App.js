@@ -10,9 +10,9 @@ import NaviBar from './components/NaviBar';
 import Game from './components/Game';
 import PrivateRoute from './components/PrivateRoute';
 import NewGame from './components/NewGame';
-import Test from './components/Test';
 import Details from './components/Details';
-// import main from '../public/main.mp4'
+import Account from './components/Account';
+import AboutUs from './components/AboutUs';
 
 function App() {
   return (
@@ -20,6 +20,12 @@ function App() {
       <Router>
         <NaviBar />
         <Switch>
+          <PrivateRoute exact path="/about-us">
+            <AboutUs />
+          </PrivateRoute>
+          <PrivateRoute exact path="/user/:id">
+            <Account />
+          </PrivateRoute>
           <PrivateRoute exact path="/game">
             <Game />
           </PrivateRoute>
@@ -36,7 +42,6 @@ function App() {
             <Lobby />
           </PrivateRoute>
           <Route exact path="/">
-            {/* <SignUp /> */}
             <SignUp />
             <Details />
           </Route>
