@@ -16,6 +16,7 @@ export default function signup(username, email, password) {
       });
       const result = await response.json();
       if (result.isOkay) {
+        console.log(result);
         dispatch(authenticatedSuccessfully(result._id, result.username));
       } else {
         console.log(result);

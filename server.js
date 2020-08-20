@@ -22,14 +22,14 @@ mongoose.connect('mongodb://localhost:27017/coderacer', {
 });
 mongoose.connection.on(
   'error',
-  console.error.bind(console, 'Ошибка соединения с MongoDB:')
+  console.error.bind(console, 'Ошибка соединения с MongoDB:'),
 );
 
 app.use(express.json());
 app.use(
   session({
     secret: 'asgaerhgse',
-  })
+  }),
 );
 
 app.use((req, res, next) => {
@@ -67,7 +67,7 @@ app.get(
     res.json({
       email: req.session.user.email,
     });
-  }
+  },
 );
 
 // регистрация
@@ -81,10 +81,10 @@ app.post('/api/signup', async (req, res) => {
       password: await bcrypt.hash(password, saltRounds),
     });
     req.session.user = user;
+    res.json({ isOkay: true, ...user._doc });
     await user.save();
     console.log('ok');
     // req.session.user = user;
-    res.json({ isOkay: true, ...user });
   } catch (error) {
     console.log(error.message);
     res.json({ isOkay: false, errorMessage: error.message });
@@ -145,8 +145,8 @@ app.get('/api/game/:id', async (req, res) => {
     }
     if (a.challengeTimes.length === b.challengeTimes.length) {
       if (
-        a.challengeTimes[a.challengeTimes.length - 1].getTime() <
-        b.challengeTimes[b.challengeTimes.length - 1].getTime()
+        a.challengeTimes[a.challengeTimes.length - 1].getTime()
+        < b.challengeTimes[b.challengeTimes.length - 1].getTime()
       ) {
         return -1;
       }
@@ -170,7 +170,7 @@ app.post('/api/game/join/:id', async (req, res) => {
       .json({ isOkay: false, errorMessage: 'Игра уже началась' });
   }
   const playerIndex = game.players.findIndex(
-    (player) => player.player.toString() === req.session.user._id
+    (player) => player.player.toString() === req.session.user._id,
   );
   if (playerIndex === -1) {
     game.players.push({
@@ -190,7 +190,7 @@ app.post('/api/game/quit/:id', async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
     const playerIndex = game.players.findIndex(
-      (player) => player.player.toString() === req.session.user._id
+      (player) => player.player.toString() === req.session.user._id,
     );
     game.players.splice(playerIndex, 1);
     await game.save();
@@ -213,7 +213,7 @@ app.post('/api/game/postScore/:id', async (req, res) => {
     }
     console.log(game.players);
     const playerIndex = game.players.findIndex(
-      (player) => player.player._id.toString() === req.session.user._id
+      (player) => player.player._id.toString() === req.session.user._id,
     );
     game.players[playerIndex].challengeTimes.push(Date.now());
     await game.save();
@@ -274,11 +274,11 @@ app.get('/api/game/user/:id', async (req, res) => {
   }
 });
 
-//выдает информацию по пользователю для профиля
+// выдает информацию по пользователю для профиля
 app.get('/api/user/:id', async (req, res) => {
   if (req.session.user) {
     const user = await User.findById(req.params.id);
-    console.log('>>>>' + user.username);
+    console.log(`>>>>${user.username}`);
     res.json(user);
   } else {
     res.json({ name: 'error' });
