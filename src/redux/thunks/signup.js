@@ -15,8 +15,13 @@ export default function signup(username, email, password) {
         }),
       });
       const result = await response.json();
-      if (result.isOkay) dispatch(authenticatedSuccessfully());
-      console.log(result);
+      if (result.isOkay) {
+        console.log(result);
+        dispatch(authenticatedSuccessfully(result._id, result.username));
+      } else {
+        console.log(result);
+        dispatch(sendError(result.errorMessage));
+      }
     } catch (err) {
       dispatch(sendError(err.message));
     }
