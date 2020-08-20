@@ -23,7 +23,7 @@ export default function NaviBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto" />
           <Form inline>
-            {isAuthenticated ? (<Link to={`/user/${userId}`}>hello, {username}</Link>) : ('')}
+            {isAuthenticated ? (<Link to={`/user/${userId}`}><h5 id="username">{username}</h5></Link>) : ('')}
             {game &&
               window.location.pathname !== `/game/${game._id}` &&
               window.location.pathname !== `/game` && (

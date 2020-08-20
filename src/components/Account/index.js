@@ -11,8 +11,29 @@ function Account() {
   return (
     <>
       <div className="account">
-        <h1>{userId}</h1>
-        <h2>{username}</h2>
+        <div className="vertical-bar">
+          <ul>
+            <li>
+              <a className="vertical-item" href="/home">
+                Список игр
+              </a>
+            </li>
+            <li>
+              <a className="vertical-item" href="/new-game">
+                Создать игру
+              </a>
+            </li>
+            <li>
+              <a className="vertical-item" href="/about-us">
+                О создателях
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="greeting">
+          <h1 className="account-title">Личный кабинет</h1>
+          <h2 className="greeting-name">Привет, {username}</h2>
+        </div>
       </div>
     </>
   );
