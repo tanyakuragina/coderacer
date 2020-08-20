@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { FormGroup, Form, Button } from 'reactstrap';
+import Account from '../Account'
 
 import logoutRequest from '../../redux/thunks/logout.js';
 

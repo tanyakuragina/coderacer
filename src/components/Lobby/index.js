@@ -69,7 +69,7 @@ function Lobby() {
           )}
           {isGameStarted && (
             <Link to="/game">
-              <button>Начать игру</button>
+              <Button className="button">Начать игру</Button>
             </Link>
           )}
           <div className="table-table">
@@ -111,11 +111,11 @@ function Lobby() {
             </Table>
           </div>
           <Link to="/home">
-            <Button onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
+            <Button className="button" onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
           </Link>
           {userId === game?.author._id && (
             <Link to="/home">
-              <Button onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
+              <Button className="button" onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
             </Link>
           )}
         </div>

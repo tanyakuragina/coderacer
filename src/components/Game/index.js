@@ -13,6 +13,7 @@ import getOneGame from '../../redux/thunks/getOneGame';
 import getChallenge from '../../redux/thunks/getChallenge.js';
 import postScore from '../../redux/thunks/postScore.js';
 import GameProgress from '../GameProgress';
+import Finish from '../Finish';
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ export default function Game() {
         setUserConsole(msgBuffer);
         if (result) {
           if (challengeNumber === (challengeIds.length - 1)) {
+            dispatch(postScore(game._id));
             setIsFinished(true);
           } else {
             dispatch(postScore(game._id));
@@ -135,7 +137,7 @@ export default function Game() {
 
   if (!challenge) return <h1 className="text-dark">Загрузка</h1>;
 
-  if (isFinished) return <h1>Финиш!</h1>;
+  if (isFinished) return <Finish />;
 
   return (
     <Container fluid>
@@ -176,7 +178,7 @@ export default function Game() {
             </Timer>
           </Row>
         </Col>
-        <Col xs='5' className="mx-5 mt-3 float-right">
+        <Col xs="5" className="mx-5 mt-3 float-right">
           <h2 className="mt-3 text-dark">Таблица лидеров:</h2>
           {game && game.players.map((player) => (
             <GameProgress
