@@ -8,6 +8,7 @@ import getOneGame from '../../redux/thunks/getOneGame';
 import quitGame from '../../redux/thunks/quitGame';
 import deleteGame from '../../redux/thunks/deleteGame';
 import './lobby.css';
+import Avatar from '../Avatar';
 
 function Lobby() {
   const userId = useSelector((state) => state.userId);
@@ -80,8 +81,9 @@ function Lobby() {
                 <tr>
                   <td>
                     {game?.players.map((el) => (
-                      <div className="player">
-                        <h3 className="playerFont">{el.player.username}</h3>
+                      <div className="player d-flex ">
+                        <Avatar avatarSource="/avatar1.jpg" />
+                        <h3 className="playerFont m-3">{el.player.username}</h3>
                       </div>
                     ))}
                   </td>
@@ -107,7 +109,7 @@ function Lobby() {
             </Table>
           </div>
           <Link to="/home">
-            <Button size="lg" block className="mb-2 mt-2"
+            <Button size="lg" block className="button mb-2 mt-2"
               onClick={() => {
                 dispatch(quitGame(game._id));
               }}
@@ -117,7 +119,7 @@ function Lobby() {
           </Link>
           {userId === game?.author._id && (
             <Link to="/home">
-              <Button variant="danger" size="lg" block
+              <Button className="button" variant="danger" size="lg" block
                 onClick={() => {
                   dispatch(deleteGame(game._id));
                 }}
