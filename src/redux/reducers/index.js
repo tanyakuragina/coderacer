@@ -8,7 +8,7 @@ const inititalState = {
   challenge: null,
   game: null,
   games: [],
-  user: {username: 'Vasya'},
+  username: '',
 };
 
 const reducer = (state = inititalState, action) => {
@@ -48,6 +48,7 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         userId: action.userId,
+        username: action.username,
         isAuthenticated: true,
       };
 

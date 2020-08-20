@@ -5,9 +5,9 @@ export default function getProfile(id) {
     try {
       const response = await fetch(`/api/user/${id}`, {
         method: 'GET',
-      }); 
+      });
       const data = await response.json();
-      console.log(data);
+      console.log('>>>>' + data);
       dispatch(setProfile(data));
     } catch (err) {
       dispatch(sendError(err.message));

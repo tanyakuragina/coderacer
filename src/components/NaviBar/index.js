@@ -10,7 +10,7 @@ import Account from '../Account';
 
 export default function NaviBar() {
   const userId = useSelector((state) => state.userId)
-  const user = useSelector((state) => state.user)
+  const username = useSelector((state) => state.username)
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const game = useSelector((state) => state.game);
   return (
@@ -23,7 +23,7 @@ export default function NaviBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto" />
           <Form inline>
-            <Link to={`/user/${userId}`}>hello, {user?.username}</Link>
+            {isAuthenticated ? (<Link to={`/user/${userId}`}>hello, {username}</Link>) : ('')}
             {game &&
               window.location.pathname !== `/game/${game._id}` &&
               window.location.pathname !== `/game` && (

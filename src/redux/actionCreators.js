@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes.js';
 
-export function authenticatedSuccessfully(id) {
-  return { type: actionTypes.authenticatedSuccessfully, userId: id };
+export function authenticatedSuccessfully(id, username) {
+  return { type: actionTypes.authenticatedSuccessfully, userId: id, username };
 }
 
 export function logout() {
