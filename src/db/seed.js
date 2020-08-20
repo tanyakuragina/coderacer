@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { create } from 'lodash';
 import Challenge from './Challenge.js';
 import Game from './Game.js';
 import User from './User.js';
@@ -121,4 +122,58 @@ Challenge.create({
 
 Challenge.create({
   tests: { sample: { in: [true], out: 'YES' }, main: [{ in: [false], out: 'NO' }, { in: [true], out: 'YES' }] }, name: 'Правда или ложь', difficulty: 1, description: 'Напиши функцию, который принимает булевое значение и возвращает "YES" в случае true и "NO" в случае false', startParameters: 'bool', sampleInput: 'false', sampleOutput: 'NO',
+});
+
+Challenge.create({
+  name: 'FizzBuzz',
+  difficulty: 2,
+  describtion: 'Напишите функцию, возвращающую массив от 1 до n, где n — это целое число, которая функция принимает в качестве параметра, с такими условиями: вывод Fizz вместо чисел, кратных 3,  вывод Buzz вместо чисел, кратных 5, вывод Fizzbuzz вместо чисел, кратных как 3, так и 5.',
+  startParameters: 'n',
+  sampleInput: '5',
+  sampleOutput: '[1, 2, \'Fizz\', 4, \'Buzz\']',
+  tests: {
+    sample: { in: [5], out: [1, 2, 'Fizz', 4, 'Buzz'] },
+    main: [
+      { in: [1], out: [1] },
+      { in: [2], out: [2] },
+      { in: [6], out: [1, 2, 'Fizz', 4, 'Buzz', 'Fizz'] },
+      { in: [15], out: [1, 2, 'Fizz', 4, 'Buzz', 'Fizz', 7, 8, 'Fizz', 'Buzz', 11, 'Fizz', 13, 14, 'FizzBuzz'] },
+    ],
+  },
+});
+
+Challenge.create({
+  name: 'Сумма элементов массива',
+  difficulty: 1,
+  describtion: 'Напишите функцию, которая принимает массив чисел, и выводит сумму этого массива',
+  startParameters: 'arr',
+  sampleInput: '[1, 2, 3]',
+  sampleOutput: '6',
+  tests: {
+    sample: { in: [[1, 2, 3]], out: 6 },
+    main: [
+      { in: [[1, 2, 3]], out: 6 },
+      { in: [[4, 5, 6]], out: 15 },
+      { in: [[10, 11, 13]], out: 34 },
+      { in: [[1, 2, 3, 4, 5]], out: 15 },
+    ],
+  },
+});
+
+Challenge.create({
+  name: 'Cреднее арифметическое',
+  difficulty: 1,
+  describtion: 'Дан массив с числами. Напишите функцию, которая вернет среднее арифметическое его элементов',
+  startParameters: 'arr',
+  sampleInput: '[1, 2, 3]',
+  sampleOutput: '2',
+  tests: {
+    sample: { in: [1, 2, 3], out: 2 },
+    main: [
+      { in: [[1, 2, 6]], out: 3 },
+      { in: [[4, 5, 6]], out: 5 },
+      { in: [[10, 11, 12]], out: 11 },
+      { in: [[1, 2, 3, 4, 5]], out: 3 },
+    ],
+  },
 });
