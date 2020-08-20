@@ -84,7 +84,7 @@ function Lobby() {
                   <td>
                     {game?.players.map((el) => (
                       <div className="player d-flex ">
-                        <Avatar />
+                        <Avatar avatarSource="/avatar1.jpg" />
                         <h3 className="playerFont m-3">{el.player.username}</h3>
                       </div>
                     ))}

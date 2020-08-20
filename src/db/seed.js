@@ -61,21 +61,21 @@ mongoose.connect('mongodb://localhost:27017/coderacer', { useNewUrlParser: true,
 
 // seed();
 
-Challenge.create({
-  name: 'Найди среднюю букву',
-  difficulty: 1,
-  description: 'Напиши функцию, которая принимает строку и возвращает средний символ этой строки. Если длина строки нечетная, верни два средних символа (в виде строки)',
-  startParameters: 'str',
-  sampleInput: 'testing',
-  sampleOutput: 't',
-  tests: {
-    sample: { in: ['testing'], out: 't' },
-    main: [
-      { in: ['middle'], out: 'dd' },
-      { in: ['A'], out: 'A' },
-      { in: ['coderacer'], out: 'r' },
-      { in: ['1115999'], out: '5' },
-      { in: ['test'], out: 'es' },
-    ],
-  },
-});
+// Challenge.create({
+//   name: 'Найди среднюю букву',
+//   difficulty: 1,
+//   description: 'Напиши функцию, которая принимает строку и возвращает средний символ этой строки. Если длина строки нечетная, верни два средних символа (в виде строки)',
+//   startParameters: 'str',
+//   sampleInput: 'testing',
+//   sampleOutput: 't',
+//   tests: {
+//     sample: { in: ['testing'], out: 't' },
+//     main: [
+//       { in: ['middle'], out: 'dd' },
+//       { in: ['A'], out: 'A' },
+//       { in: ['coderacer'], out: 'r' },
+//       { in: ['1115999'], out: '5' },
+//       { in: ['test'], out: 'es' },
+//     ],
+//   },
+// });
