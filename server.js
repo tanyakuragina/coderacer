@@ -84,7 +84,7 @@ app.post('/api/signup', async (req, res) => {
     await user.save();
     console.log('ok');
     // req.session.user = user;
-    res.json({ isOkay: true });
+    res.json({ isOkay: true, ...user });
   } catch (error) {
     console.log(error.message);
     res.json({ isOkay: false, errorMessage: error.message });
