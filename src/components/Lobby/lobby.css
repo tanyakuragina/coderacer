@@ -34,11 +34,15 @@
   top: 0;
   left: 0;
   z-index: -1;
-  width: 100%;
+  /* width: 100%; */
+  max-width: 100%;
+  height: auto;
 }
 
 #background-lobby-video {
-  width: 100%;
+  /* width: 100%; */
+  max-width: 100%;
+  height: auto;
 }
 
 h1 {
@@ -68,7 +72,6 @@ h4 {
   justify-content: center;
 }
 
-
 .textCenter {
   text-align: center;
 }
@@ -92,9 +95,8 @@ h4 {
 }
 
 .table {
- margin-bottom: unset;
+  margin-bottom: unset;
 }
-
 
 .table-table {
   display: flex;
