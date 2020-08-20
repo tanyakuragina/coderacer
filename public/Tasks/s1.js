@@ -21,8 +21,9 @@ const s = {
   sampleInput: 'coderacer is fun',
   sampleOutput: 'cdrcr s fn',
   tests: {
-    sample: { in: ['abracadabra'], out: 'brcdbr' },
+    sample: { in: ['coderacer is fun'], out: 'cdrcr s fn' },
     main: [
+      { in: ['abracadabra'], out: 'brcdbr' },
       { in: ['all your base are belong to us'], out: 'll r bs r blng t s' },
       { in: ['eval is evil'], out: 'vl s vl' },
       { in: ['goodbye'], out: 'gdby' },
@@ -31,7 +32,7 @@ const s = {
   }
 };
 
-//************************************ */
+//*************************************/
 
 const s = {
   name: "Правда или ложь",
@@ -60,14 +61,17 @@ const s = {
   name: "Убывающее число",
   difficulty: 1,
   describtion: 'Напиши функцию, которая принимает неотрицательное целое число и возвращает его цифры в убывающем порядке. Другими словами - переставь цифры местами, чтобы получить максимально возможное значение',
-  startParameters: 'str',
+  startParameters: 'num',
   sampleInput: '42145',
   sampleOutput: '54421',
   tests: {
-    sample: { in: ['145263'], out: '654321' },
+    sample: { in: [145263], out: 654321 },
     main: [
-      { in: ['123456789'], out: '987654321' },
-      { in: ['12345'], out: '54321' },
+      { in: [123456789], out: 987654321 },
+      { in: [12345], out: 54321 },
+      { in: [926387145], out: 987654321 },
+      { in: [11111555577], out: 77555511111 },
+      { in: [2340234120120], out: 4433222211000 },
     ]
   }
 };
@@ -82,24 +86,26 @@ function descendingOrder(n) {
 const s = {
   name: "Найти все делители",
   difficulty: 1,
-  describtion: 'Напиши функцию с именем divisors которая принимает целое и возвращает массив всех делителей введенного числа, в порядке возрастания значения, если делителей нет, выведи  строку "(integer) is prime"',
-  startParameters: 'str',
-  sampleInput: 'divisors(12)',
+  describtion: 'Напиши функцию, которая принимает целое и возвращает массив всех делителей введенного числа, в порядке возрастания значения. Если делителей нет, выведи  строку "(integer) is prime"',
+  startParameters: 'num',
+  sampleInput: '12',
   sampleOutput: '[2,3,4,6]',
   tests: {
-    sample: { in: ['divisors(25);'], out: '[5]' },
+    sample: { in: [25], out: [5] },
     main: [
-      { in: ['123456789'], out: '987654321' },
-      { in: ['12345'], out: '54321' },
-      { in: ['divisors(13);'], out: '"13 is prime"' },
+      { in: [123456789], out: [3, 9, 3607, 3803, 10821, 11409, 32463, 34227, 13717421, 41152263] },
+      { in: [12345], out: [3, 5, 15, 823, 2469, 4115] },
+      { in: [13], out: "13 is prime" },
+      { in: [42], out: [2, 3, 6, 7, 14, 21] },
+      { in: [1337], out: [7, 191] },
     ]
   }
 };
 
 // решение
 function divisors(integer) {
-  var res = []
-  for (var i = 2; i <= Math.floor(integer / 2); ++i) if (integer % i == 0) res.push(i);
+  let res = []
+  for (let i = 2; i <= Math.floor(integer / 2); ++i) if (integer % i == 0) res.push(i);
   return res.length ? res : integer + ' is prime'
 };
 

@@ -14,7 +14,9 @@ export default function login(email, password) {
         }),
       });
       if (response.status === 200) {
-        dispatch(authenticatedSuccessfully());
+        const user = await response.json();
+        console.log(user);
+        dispatch(authenticatedSuccessfully(user._id));
       }
     } catch (err) {
       dispatch(sendError(err.message));

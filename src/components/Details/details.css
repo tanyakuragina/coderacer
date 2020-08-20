@@ -1,0 +1,55 @@
+.details {
+  position: relative;
+  top: 740px;
+  background-color: rgb(23, 4, 46);
+  height: 1060px;
+}
+
+.window-one {
+  position: relative;
+  top: 0px;
+  left: 0;
+  z-index: 1 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(26, 11, 70, 0.3);
+  height: 290px;
+}
+
+.window-two {
+  position: relative;
+  top: 30px;
+  left: 35px;
+  z-index: 1 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 120px;
+  height: 150px;
+} 
+
+.window-three {
+  position: relative;
+  top: 50px;
+  left: 18px;
+  z-index: 1 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(26, 11, 70, 0.3);
+  height: 290px;
+} 
+.colored {
+  color: rgb(25, 13, 41);
+}
+
+
+.info {
+  border-radius: 30px;
+}
+
+.master {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+}

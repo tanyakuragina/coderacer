@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import newGame from '../../redux/thunks/newGame.js';
@@ -26,18 +23,9 @@ export default function Home() {
       <>
         <div className="background_home">
           <div id="maskBack">
-            <Link to="/game">Войти в игру</Link>
+            {/* <Link to="/game">Войти в игру</Link>
             <br />
             <br />
-            <Link to="/new-game">
-              <Button
-                onClick={() => {
-                  dispatch(newGame(new Date('2020-08-16T18:30:00')));
-                }}
-              >
-                Создать игру (тест)
-              </Button>
-            </Link>
             <br />
             <br />
             <br />
@@ -48,14 +36,22 @@ export default function Home() {
               }}
             >
               Выйти из игры (тест)
-            </Button>
-            <div className='home'><h1>Игры, которые вот-вот начнутся...</h1></div>
+            </Button> */}
+
+            <div className="home">
+              <h1>Игры, которые вот-вот начнутся...</h1>
+            </div>
             <div className="d-flex justify-content-center">
-              <Table className="homeTable w-25" striped bordered hover variant="dark">
+              <Table
+                className="homeTable w-50"
+                striped
+                bordered
+                hover
+                variant="dark"
+              >
                 <thead>
                   <tr>
-                    <th>ID игры</th>
-                    <th>Автор игры</th>
+                    <th>Создатель игры</th>
                     <th>Время начала игры</th>
                     <th>Количество игроков</th>
                   </tr>
@@ -65,20 +61,38 @@ export default function Home() {
                   games.map((game) => (
                     <tbody>
                       <tr>
-                        <td>{game._id}</td>
                         <td>{game.author}</td>
-                        <td>{game.startDate}</td>
-                        <td>{game.players}</td>
+                        <td>{new Date(game.startDate).toLocaleTimeString('ru-RU')}</td>
+                        <td>{`${game.players}/10`}</td>
                         <td>
+                          {currentGame ? currentGame._id === game._id && (
                           <Link to={`/game/${game._id}`}>
                             <Button
                               onClick={() => {
                                 dispatch(joinGame(game._id));
                               }}
                             >
-                              Зайти в игру (тест)
+                              Вернуться
+                              в
+                              игру
                             </Button>
                           </Link>
+
+                          )
+                            : (
+                              <Link to={`/game/${game._id}`}>
+                                <Button
+                                  onClick={() => {
+                                    dispatch(joinGame(game._id));
+                                  }}
+                                >
+                                  Зайти
+                                  в
+                                  игру
+                                </Button>
+                              </Link>
+
+                            )}
                         </td>
                       </tr>
                     </tbody>
@@ -87,6 +101,16 @@ export default function Home() {
                   <div>Загружаем...</div>
                 )}
               </Table>
+            </div>
+            <div className="createGame">
+              <h1>Создайте свою игру</h1>
+            </div>
+            <div className="createGame">
+              <Link to="/new-game">
+                <Button>
+                  Создать игру
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

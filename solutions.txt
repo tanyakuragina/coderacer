@@ -1,0 +1,30 @@
+
+(str) => {
+  return str.split('').filter(e => !['a','e','i','o','u','y'].includes(e)).join('')
+}
+
+
+(str) => {
+  const result = ''
+ if (str.length % 2 === 0) {
+   return str.slice(Math.floor(str.length/2)-1, Math.floor(str.length/2)+1)
+ } else {
+   return str.slice(str.length/2,str.length/2+1)
+ }
+}
+
+(num) => {
+  return Number(num.toString().split('').sort((a,b) => b-a).join(''))
+}
+
+(bool) => {
+ return bool ? 'YES' : 'NO'
+}
+
+(num) => {
+  let result = [];
+  for (let i = 2; i<=num/2; i++) {
+    if (num % i === 0) result.push(i)
+  }
+  return result[0] ? result : num + ' is prime'
+}

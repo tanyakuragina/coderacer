@@ -8,8 +8,12 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import Timer from 'react-compound-timer';
+import useInterval from '../../hooks/useInterval.js';
+import getOneGame from '../../redux/thunks/getOneGame';
 import getChallenge from '../../redux/thunks/getChallenge.js';
 import postScore from '../../redux/thunks/postScore.js';
+import GameProgress from '../GameProgress';
+import Finish from '../Finish';
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -34,6 +38,11 @@ export default function Game() {
     setCode(`\n(${startParams}) => {\n\n}`);
   }, [challenge]);
 
+  useInterval(() => {
+    if (game) {
+      dispatch(getOneGame(game._id));
+    }
+  }, 5000);
   let msgBuffer = '';
 
   function workerMessage(ev) {
@@ -57,6 +66,7 @@ export default function Game() {
         setUserConsole(msgBuffer);
         if (result) {
           if (challengeNumber === (challengeIds.length - 1)) {
+            dispatch(postScore(game._id));
             setIsFinished(true);
           } else {
             dispatch(postScore(game._id));
@@ -125,15 +135,15 @@ export default function Game() {
     }
   }
 
-  if (!challenge) return <h1>Загрузка</h1>;
+  if (!challenge) return <h1 className="text-dark">Загрузка</h1>;
 
-  if (isFinalTestPassed) return <h1>Done</h1>;
+  if (isFinished) return <Finish />;
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col>
-          <h2 className="mt-3">{challenge.name}</h2>
+        <Col xs="4">
+          <h2 className="mt-3 text-dark">{challenge.name}</h2>
           <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
             <Tab eventKey="description" title="Описание задачи">
               <div className="my-1">{challenge.description}</div>
@@ -151,7 +161,7 @@ export default function Game() {
         </Col>
         <Col>
           <Row>
-            <h2 className="mt-3">До конца игры:</h2>
+            <h2 className="mt-3 text-dark">До конца игры:</h2>
           </Row>
           <Row>
             <Timer
@@ -168,9 +178,16 @@ export default function Game() {
             </Timer>
           </Row>
         </Col>
-        {/* <Col>
-          {lapsTime.map((time) => <div>{time.toString()}</div>)}
-        </Col> */}
+        <Col xs="5" className="mx-5 mt-3 float-right">
+          <h2 className="mt-3 text-dark">Таблица лидеров:</h2>
+          {game && game.players.map((player) => (
+            <GameProgress
+              bgcolor="red"
+              completed={player.challengeTimes.length}
+              username={player.player.username}
+            />
+          ))}
+        </Col>
       </Row>
       <Row className="my-3">
         <Col>

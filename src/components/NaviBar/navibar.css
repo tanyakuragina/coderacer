@@ -1,9 +1,31 @@
+@font-face {
+  font-family: "Road Rage";
+  src: url("/fonts/Road_Rage.otf") format("opentype");
+}
+
 #navibar {
   background-color: rgb(54, 15, 133);
 }
 
 #codeTitle {
-  font-family: 'Roboto', sans-serif;
-  font-size: 30px;
+  font-family: "Road Rage";
+	font-size: 30px;
+	font-weight:  100;
+	letter-spacing: 2px;
+	text-align: center;
+	color: #f35626;
+	background-image: -webkit-linear-gradient(92deg, white, #feab3a);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  -webkit-animation: hue 1s infinite linear;
+  padding: 2px;
 }
 
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}

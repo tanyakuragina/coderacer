@@ -22,14 +22,14 @@ mongoose.connect('mongodb://localhost:27017/coderacer', {
 });
 mongoose.connection.on(
   'error',
-  console.error.bind(console, 'Ошибка соединения с MongoDB:')
+  console.error.bind(console, 'Ошибка соединения с MongoDB:'),
 );
 
 app.use(express.json());
 app.use(
   session({
     secret: 'asgaerhgse',
-  })
+  }),
 );
 
 app.use((req, res, next) => {
@@ -49,7 +49,7 @@ app.post('/api/login', async (req, res) => {
     delete user.password;
     // подняли сессии
     req.session.user = user;
-    return res.end();
+    return res.json(user);
   }
   res.status(401).end();
 });
@@ -67,7 +67,7 @@ app.get(
     res.json({
       email: req.session.user.email,
     });
-  }
+  },
 );
 
 // регистрация
@@ -117,13 +117,18 @@ app.get('/api/challenges', async (req, res) => {
 });
 
 app.get('/api/challenges/:id', async (req, res) => {
+  if (!req.session.user) {
+    return res.sendStatus(401);
+  }
   const challenge = await Challenge.findById(req.params.id);
   res.json(challenge);
 });
 
-
 // выдает массив всех еще не начавшихся игр (без заданий), отсортированных по дате старта
 app.get('/api/game/gameList', async (req, res) => {
+  if (!req.session.user) {
+    return res.sendStatus(401);
+  }
   const games = await Game.findUpcoming();
   // console.log(games)
   res.json(games);
@@ -132,6 +137,19 @@ app.get('/api/game/gameList', async (req, res) => {
 // выдает полную информацию по игре. id - это _id игры в БД
 app.get('/api/game/:id', async (req, res) => {
   const game = await Game.findById(req.params.id).populate('players.player').populate('author');
+  game.players.sort((a, b) => {
+    if (a.challengeTimes.length === 0 && b.challengeTimes.length === 0) {
+      return 0;
+    }
+    if (a.challengeTimes.length === b.challengeTimes.length) {
+      if (a.challengeTimes[a.challengeTimes.length - 1].getTime() < b.challengeTimes[b.challengeTimes.length - 1].getTime()) {
+        return -1;
+      }
+      return 1;
+    }
+    return b.challengeTimes.length - a.challengeTimes.length;
+  });
+  console.log(game);
   res.json(game);
 });
 
@@ -147,7 +165,7 @@ app.post('/api/game/join/:id', async (req, res) => {
       .json({ isOkay: false, errorMessage: 'Игра уже началась' });
   }
   const playerIndex = game.players.findIndex(
-    (player) => player.player.toString() === req.session.user._id
+    (player) => player.player.toString() === req.session.user._id,
   );
   if (playerIndex === -1) {
     game.players.push({
@@ -167,7 +185,7 @@ app.post('/api/game/quit/:id', async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
     const playerIndex = game.players.findIndex(
-      (player) => player.player.toString() === req.session.user._id
+      (player) => player.player.toString() === req.session.user._id,
     );
     game.players.splice(playerIndex, 1);
     await game.save();
@@ -185,6 +203,9 @@ app.post('/api/game/postScore/:id', async (req, res) => {
   }
   try {
     const game = await Game.findById(req.params.id).populate('players.player');
+    if (Date.now() > new Date(game.startDate).getTime() + (1000 * 60 * 30)) {
+      throw new Error('Игра уже завершилась');
+    }
     console.log(game.players);
     const playerIndex = game.players.findIndex((player) => player.player._id.toString() === req.session.user._id);
     game.players[playerIndex].challengeTimes.push(Date.now());
@@ -218,6 +239,18 @@ app.post('/api/game/new', async (req, res) => {
     ],
   });
   res.json(game);
+});
+
+app.delete('/api/game/:id', async (req, res) => {
+  if (!req.session.user) {
+    return res.sendStatus(401);
+  }
+  const game = await Game.findById(req.params.id);
+  if (game.author.toString() === req.session.user._id) {
+    await Game.findOneAndDelete({ _id: req.params.id });
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(401);
 });
 
 // get user statistics

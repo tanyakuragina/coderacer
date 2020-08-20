@@ -1,40 +1,44 @@
 import React from 'react';
 import './App.css';
 import './index.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
-import GuestPage from './components/GuestPage';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Lobby from './components/Lobby';
 import SignUp from './components/SignUp';
 import NaviBar from './components/NaviBar';
 import Game from './components/Game';
-
+import PrivateRoute from './components/PrivateRoute';
+import NewGame from './components/NewGame';
+import Test from './components/Test';
+import Details from './components/Details'
+// import main from '../public/main.mp4'
 
 function App() {
   return (
     <>
-      <NaviBar />
       <Router>
+        <NaviBar />
         <Switch>
-          <Route exact path="/game">
+          <PrivateRoute exact path="/game">
             <Game />
-          </Route>
-          <Route exact path="/game/:id">
+          </PrivateRoute>
+          <PrivateRoute exact path="/new-game">
+            <NewGame />
+          </PrivateRoute>
+          <PrivateRoute exact path="/game/:id">
             <Lobby />
-          </Route>
-          <Route exact path="/home">
+          </PrivateRoute>
+          <PrivateRoute exact path="/home">
             <Home />
-          </Route>
-          <Route exact path="/lobby">
+          </PrivateRoute>
+          <PrivateRoute exact path="/lobby">
             <Lobby />
-          </Route>
+          </PrivateRoute>
           <Route exact path="/">
-            <GuestPage />
+            {/* <SignUp /> */}
             <SignUp />
+            <Details />
           </Route>
         </Switch>
       </Router>

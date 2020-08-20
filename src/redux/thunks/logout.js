@@ -3,7 +3,8 @@ import { logout, sendError } from '../actionCreators.js';
 export default function logoutRequest() {
   return async (dispatch) => {
     try {
-      dispatch(logout());
+      await dispatch(logout());
+      localStorage.clear();
       fetch('/api/logout');
     } catch (err) {
       dispatch(sendError(err.message));
