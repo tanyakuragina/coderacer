@@ -139,7 +139,7 @@ export default function Game() {
     }
   }
 
-  if (isCheater) return <img style={{ 'justify-content': 'center' }} src="https://i.ytimg.com/vi/rWFPw8Lt1bk/hqdefault.jpg" height="500px" width="600px" />;
+  if (isCheater) return <img src="https://i.ytimg.com/vi/rWFPw8Lt1bk/hqdefault.jpg" height="500px" width="600px" />;
 
   if (!challenge) return <h1 className="text-dark">Загрузка</h1>;
 
