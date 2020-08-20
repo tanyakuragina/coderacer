@@ -74,46 +74,31 @@ export default function Game() {
             dispatch(postScore(game._id));
             setChallengeNumber(challengeNumber + 1);
             setIsTestPassed(false);
-          } else {
-            msgBuffer += 'Тесты пройдены успешно!';
+            setIsFinalTestPassed(false);
           }
-          setUserConsole(msgBuffer);
-          if (result) {
-            if (challengeNumber === (challengeIds.length - 1)) {
-              setIsFinished(true);
-            } else {
-              dispatch(postScore(game._id));
-              setChallengeNumber(challengeNumber + 1);
-              setIsTestPassed(false);
-              setIsFinalTestPassed(false);
-            }
-          }
-          break;
         }
-      case 'result':
-        {
-          setWorkerRunning(false);
-          setUserConsole(msgBuffer);
-          const result = data.result.every((res) => res === true);
-          if (!result) {
-            msgBuffer += 'Тесты не пройдены!';
-          } else {
-            msgBuffer += 'Тесты пройдены успешно!';
-          }
-          setUserConsole(msgBuffer);
-          setIsTestPassed(result);
-          break;
+        break;
+      }
+      case 'result': {
+        setWorkerRunning(false);
+        setUserConsole(msgBuffer);
+        const result = data.result.every((res) => res === true);
+        if (!result) {
+          msgBuffer += 'Тесты не пройдены!';
+        } else {
+          msgBuffer += 'Тесты пройдены успешно!';
         }
-      case 'log':
-
-      {
+        setUserConsole(msgBuffer);
+        setIsTestPassed(result);
+        break;
+      }
+      case 'log': {
         msgBuffer += `${data.message.join(' ')}\n`;
         break;
       }
       case 'cheater':
         setIsCheater(true);
         break;
-        
       default:
         console.log('unknown message type');
     }
