@@ -54,22 +54,20 @@ function Lobby() {
             >
               <h4 className="textCenter">
                 До начала игры осталось:
-                <Timer.Hours />
-                {' '}
-                ч.
-                <Timer.Minutes />
-                {' '}
-                мин.
-                <Timer.Seconds />
-                {' '}
-                сек.
+                <Timer.Hours /> ч.
+                <Timer.Minutes /> мин.
+                <Timer.Seconds /> сек.
               </h4>
             </Timer>
           )}
           {isGameStarted && (
+            // <div className="d-flex justify-content-end">
             <Link to="/game">
-              <Button>Начать игру</Button>
+              <Button variant="success" size="lg" className="mb-2" block>
+                Начать игру
+              </Button>
             </Link>
+            // </div>
           )}
           <div className="table-table">
             <Table className="lobbyTable" striped bordered hover variant="dark">
@@ -109,12 +107,24 @@ function Lobby() {
             </Table>
           </div>
           <Link to="/home">
-            <Button onClick={() => { dispatch(quitGame(game._id)); }}>Выйти из игры</Button>
+            <Button size="lg" block className="mb-2 mt-2"
+              onClick={() => {
+                dispatch(quitGame(game._id));
+              }}
+            >
+              Выйти из игры
+            </Button>
           </Link>
           {userId === game?.author._id && (
-          <Link to="/home">
-            <Button onClick={() => { dispatch(deleteGame(game._id)); }}>Отменить игру</Button>
-          </Link>
+            <Link to="/home">
+              <Button variant="danger" size="lg" block
+                onClick={() => {
+                  dispatch(deleteGame(game._id));
+                }}
+              >
+                Отменить игру
+              </Button>
+            </Link>
           )}
         </div>
       </div>
