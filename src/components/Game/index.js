@@ -28,6 +28,7 @@ export default function Game() {
   const [isTestPassed, setIsTestPassed] = React.useState(false);
   const [isFinalTestPassed, setIsFinalTestPassed] = React.useState(false);
   const [isFinished, setIsFinished] = React.useState(false);
+  const [isCheater, setIsCheater] = React.useState(false);
 
   React.useEffect(() => {
     dispatch(getChallenge(challengeIds[challengeNumber]));
@@ -103,10 +104,15 @@ export default function Game() {
           break;
         }
       case 'log':
-        {
-          msgBuffer += `${data.message.join(' ')}\n`;
-          break;
-        }
+
+      {
+        msgBuffer += `${data.message.join(' ')}\n`;
+        break;
+      }
+      case 'cheater':
+        setIsCheater(true);
+        break;
+        
       default:
         console.log('unknown message type');
     }
@@ -145,6 +151,8 @@ export default function Game() {
       setUserConsole(msgBuffer);
     }
   }
+
+  if (isCheater) return <img src="https://i.ytimg.com/vi/rWFPw8Lt1bk/hqdefault.jpg" height="500px" width="600px" />;
 
   if (!challenge) return <h1 className="text-dark">Загрузка</h1>;
 
