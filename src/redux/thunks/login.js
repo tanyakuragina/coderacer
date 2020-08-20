@@ -15,8 +15,8 @@ export default function login(email, password) {
       });
       if (response.status === 200) {
         const user = await response.json();
-        console.log(user);
-        console.log('>>>>11' + user.username)
+        // console.log(user);
+        // console.log('>>>>11' + user.username)
         dispatch(authenticatedSuccessfully(user._id, user.username));
       }
     } catch (err) {

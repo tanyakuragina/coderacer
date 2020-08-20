@@ -39,3 +39,11 @@ export function setProfile(data) {
 export function dropGame() {
   return { type: actionTypes.dropGame };
 }
+
+export function setNewName(data) {
+  return { type: actionTypes.setNewName, username: data };
+}
+
+export function updateInput(name) {
+  return { type: actionTypes.setUpdateInput, usernameInput: name };
+}
