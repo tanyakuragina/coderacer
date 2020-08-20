@@ -12,7 +12,8 @@ import PrivateRoute from './components/PrivateRoute';
 import NewGame from './components/NewGame';
 import Test from './components/Test';
 import Details from './components/Details';
-import Account from './components/Account'
+import Account from './components/Account';
+import AboutUs from './components/AboutUs';
 // import main from '../public/main.mp4'
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
       <Router>
         <NaviBar />
         <Switch>
+          <PrivateRoute exact path="/about-us">
+            <AboutUs />
+          </PrivateRoute>
           <PrivateRoute exact path="/user/:id">
             <Account />
           </PrivateRoute>
