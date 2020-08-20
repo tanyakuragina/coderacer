@@ -2,9 +2,6 @@
   position: relative;
 }
 
-.about-us-back:hover {
-}
-
 #mainPhoto {
   border-radius: 15px;
   transition: 0.4s;
@@ -12,8 +9,4 @@
 
 #mainPhoto:hover {
   transform: scale(1.2);
-  /* -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
-  transition: all 0.3s ease; */
 }
