@@ -10,11 +10,9 @@ import NaviBar from './components/NaviBar';
 import Game from './components/Game';
 import PrivateRoute from './components/PrivateRoute';
 import NewGame from './components/NewGame';
-import Test from './components/Test';
 import Details from './components/Details';
 import Account from './components/Account';
 import AboutUs from './components/AboutUs';
-// import main from '../public/main.mp4'
 
 function App() {
   return (
@@ -44,7 +42,6 @@ function App() {
             <Lobby />
           </PrivateRoute>
           <Route exact path="/">
-            {/* <SignUp /> */}
             <SignUp />
             <Details />
           </Route>
