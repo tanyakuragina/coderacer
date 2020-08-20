@@ -1,13 +1,16 @@
 import React from 'react';
+import Avatar from '../Avatar';
+import './index.css';
+// import '../Lobby/lobby.css';
 
 export default function GameProgress(props) {
   const { bgcolor, completed, username } = props;
 
   const containerStyles = {
-    height: 40,
     width: '100%',
-    borderRadius: 50,
-    margin: 20,
+    borderRadius: 8,
+    margin: 18,
+    'align-items': 'center',
   };
 
   const fillerStyles = {
@@ -28,8 +31,11 @@ export default function GameProgress(props) {
   };
 
   return (
-    <div className="row" style={containerStyles}>
-      <span style={{ height: '40px', verticalAlign: 'top', fontSize: '25px' }}>{username}</span>
+    <div className="player d-flex" style={containerStyles}>
+      <div className="border">
+        <Avatar avatarSource="/avatar1.jpg" />
+      </div>
+      <span style={{ height: '40px', verticalAlign: 'middle', fontSize: '25px' }} className="playerFont m-3">{username}</span>
       <div style={fillerStyles} />
       <span style={carStyles} />
     </div>

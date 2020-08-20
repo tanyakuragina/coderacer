@@ -72,30 +72,41 @@ export default function Game() {
             dispatch(postScore(game._id));
             setChallengeNumber(challengeNumber + 1);
             setIsTestPassed(false);
-            setIsFinalTestPassed(false);
+          } else {
+            msgBuffer += 'Тесты пройдены успешно!';
           }
+          setUserConsole(msgBuffer);
+          if (result) {
+            if (challengeNumber === (challengeIds.length - 1)) {
+              setIsFinished(true);
+            } else {
+              dispatch(postScore(game._id));
+              setChallengeNumber(challengeNumber + 1);
+              setIsTestPassed(false);
+              setIsFinalTestPassed(false);
+            }
+          }
+          break;
         }
-        break;
-      }
       case 'result':
-      {
-        setWorkerRunning(false);
-        setUserConsole(msgBuffer);
-        const result = data.result.every((res) => res === true);
-        if (!result) {
-          msgBuffer += 'Тесты не пройдены!';
-        } else {
-          msgBuffer += 'Тесты пройдены успешно!';
+        {
+          setWorkerRunning(false);
+          setUserConsole(msgBuffer);
+          const result = data.result.every((res) => res === true);
+          if (!result) {
+            msgBuffer += 'Тесты не пройдены!';
+          } else {
+            msgBuffer += 'Тесты пройдены успешно!';
+          }
+          setUserConsole(msgBuffer);
+          setIsTestPassed(result);
+          break;
         }
-        setUserConsole(msgBuffer);
-        setIsTestPassed(result);
-        break;
-      }
       case 'log':
-      {
-        msgBuffer += `${data.message.join(' ')}\n`;
-        break;
-      }
+        {
+          msgBuffer += `${data.message.join(' ')}\n`;
+          break;
+        }
       default:
         console.log('unknown message type');
     }
