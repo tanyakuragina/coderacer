@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import getProfile from '../../redux/thunks/getProfile';
@@ -40,24 +41,38 @@ function Account() {
         </div>
         <div className="greeting">
           <h1 className="account-title">Личный кабинет</h1>
-          <h2 className="greeting-name">
+          <h2 className="greeting-name mb-4">
             Привет,
-            {username}
+            {` ${username}`}
           </h2>
           <Edit />
 
         </div>
         <div>
-          <table>
-            {games && games.map((game) => (
-              <tbody>
+          <h2 className="mt-3 mx-5">Прошлые игры:</h2>
+          <Table variant="dark" className="m-5">
+            <thead>
+              <th>Создатель игры</th>
+              <th>Дата начала</th>
+              <th>Количество игроков</th>
+            </thead>
+            <tbody>
+              {games && games.map((game) => (
                 <tr>
-                  <td>{new Date(game.startDate).toLocaleTimeString('ru-RU')}</td>
+                  <td>{game.author.username}</td>
+                  <td>
+                    {new Date(game.startDate).toLocaleTimeString('ru-RU', {
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                    })}
+                  </td>
                   <td>{`${game.players.length}/10`}</td>
                 </tr>
-              </tbody>
-            ))}
-          </table>
+              ))}
+            </tbody>
+          </Table>
         </div>
       </div>
     </>

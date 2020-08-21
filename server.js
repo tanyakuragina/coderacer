@@ -287,7 +287,7 @@ app.get('/api/user/:id', async (req, res) => {
 
 app.get('/api/games/user/:id', async (req, res) => {
   const user = await User.findById(req.params.id);
-  const games = await user.findPastGames();
+  const games = await user.findPastGames().populate('author');
   res.json(games);
 });
 
