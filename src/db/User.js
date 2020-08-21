@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
 userSchema.methods.findPastGames = function () {
   return this.model('Game').find({ 'players.player': this._id }).where('startDate')
     .lte(new Date())
-    .sort({ startDate: 1 });
+    .sort({ startDate: -1 });
 };
 
 export default mongoose.model('User', userSchema);
