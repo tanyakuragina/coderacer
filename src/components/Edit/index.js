@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import getNewName from '../../redux/thunks/getNewName';
 import { updateInput } from '../../redux/actionCreators';
+import './edit.css'
 
 function Edit() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function Edit() {
             name="username"
             value={usernameInput}
           />
-          <button>Изменить имя</button>
+          <button className="btn btn-primary">Изменить имя</button>
         </form>
       </div>
     </>
