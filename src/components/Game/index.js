@@ -54,52 +54,48 @@ export default function Game() {
         setWorkerRunning(false);
         break;
       case 'resultFinal':
-      {
-        setWorkerRunning(false);
-        setUserConsole(msgBuffer);
-        const result = data.result.every((res) => res === true);
-        if (!result) {
-          msgBuffer += 'Тесты не пройдены!';
-          setIsTestPassed(false);
-        } else {
-          msgBuffer += 'Тесты пройдены успешно!';
-        }
-        setUserConsole(msgBuffer);
-        if (result) {
-          if (challengeNumber === (challengeIds.length - 1)) {
-            dispatch(postScore(game._id));
-            setIsFinished(true);
-          } else {
-            dispatch(postScore(game._id));
-            setChallengeNumber(challengeNumber + 1);
+        {
+          setWorkerRunning(false);
+          setUserConsole(msgBuffer);
+          const result = data.result.every((res) => res === true);
+          if (!result) {
+            msgBuffer += 'Тесты не пройдены!';
             setIsTestPassed(false);
-            setIsFinalTestPassed(false);
+          } else {
+            msgBuffer += 'Тесты пройдены успешно!';
           }
+          setUserConsole(msgBuffer);
+          if (result) {
+            if (challengeNumber === (challengeIds.length - 1)) {
+              dispatch(postScore(game._id));
+              setIsFinished(true);
+            } else {
+              dispatch(postScore(game._id));
+              setChallengeNumber(challengeNumber + 1);
+              setIsTestPassed(false);
+            }
+          }
+          break;
         }
-        break;
-      }
       case 'result':
-      {
-        setWorkerRunning(false);
-        setUserConsole(msgBuffer);
-        const result = data.result.every((res) => res === true);
-        if (!result) {
-          msgBuffer += 'Тесты не пройдены!';
-        } else {
-          msgBuffer += 'Тесты пройдены успешно!';
+        {
+          setWorkerRunning(false);
+          setUserConsole(msgBuffer);
+          const result = data.result.every((res) => res === true);
+          if (!result) {
+            msgBuffer += 'Тесты не пройдены!';
+          } else {
+            msgBuffer += 'Тесты пройдены успешно!';
+          }
+          setUserConsole(msgBuffer);
+          setIsTestPassed(result);
+          break;
         }
-        setUserConsole(msgBuffer);
-        setIsTestPassed(result);
-        break;
-      }
       case 'log':
-      {
-        msgBuffer += `${data.message.join(' ')}\n`;
-        break;
-      }
-      case 'cheater':
-        setIsCheater(true);
-        break;
+        {
+          msgBuffer += `${data.message.join(' ')}\n`;
+          break;
+        }
       default:
         console.log('unknown message type');
     }
@@ -184,7 +180,7 @@ export default function Game() {
             </Timer>
           </Row>
         </Col>
-        <Col xs="5" className="mx-5 mt-3 float-right">
+        <Col xs="5" className="mx-5 mt-3 float-right" style={{ border: '1px solid purple' }}>
           <h2 className="mt-3 text-dark">Таблица лидеров:</h2>
           {game && game.players.map((player) => (
             <GameProgress
