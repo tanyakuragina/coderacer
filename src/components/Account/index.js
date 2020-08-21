@@ -69,6 +69,7 @@ function Account() {
                     })}
                   </td>
                   <td>{`${game.players.length}/10`}</td>
+                  <td><Link to={`/finish/${game._id}`}><button className="btn btn-success">Просмотреть результаты</button></Link></td>
                 </tr>
               ))}
             </tbody>

@@ -1,15 +1,29 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Table } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import getOneGame from '../../redux/thunks/getOneGame';
+import useInterval from '../../hooks/useInterval';
 
 export default function () {
+  const { id } = useParams();
   const game = useSelector((state) => state.game);
+  const dispatch = useDispatch();
 
-  if (!game) return <h1>NO GAME FOUND</h1>;
+  useEffect(() => {
+    dispatch(getOneGame(id));
+  }, []);
+
+  useInterval(() => {
+    if (game && new Date(game.startDate).getTime() + (1000 * 60 * 30) < Date.now()) {
+      dispatch(getOneGame(id));
+    }
+  }, 5000);
+  if (!game) return <h1>LOADING...</h1>;
 
   return (
     <>
-      <Table striped bordered hover>
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>Место</th>

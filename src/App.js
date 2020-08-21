@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import './index.css';
-import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Lobby from './components/Lobby';
@@ -13,6 +12,7 @@ import NewGame from './components/NewGame';
 import Details from './components/Details';
 import Account from './components/Account';
 import AboutUs from './components/AboutUs';
+import Finish from './components/Finish';
 
 function App() {
   return (
@@ -40,6 +40,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute exact path="/lobby">
             <Lobby />
+          </PrivateRoute>
+          <PrivateRoute path="/finish/:id">
+            <Finish />
           </PrivateRoute>
           <Route exact path="/">
             <SignUp />

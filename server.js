@@ -164,7 +164,7 @@ app.post('/api/game/join/:id', async (req, res) => {
     return res.sendStatus(401);
   }
   const game = await Game.findById(req.params.id);
-  if (game.startDate > Date.now) {
+  if (game.startDate > Date.now()) {
     return res
       .status(400)
       .json({ isOkay: false, errorMessage: 'Игра уже началась' });
