@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     required: [true, 'Введите username'],
     validate: [
       function (username) {
-        var re = /^[\w.-]{0,19}[0-9a-z]/;
+        const re = /^[\w.-]{0,19}[0-9a-z]/;
         return re.test(username);
       },
       'Используется символы от a-z, 0-9',
@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
     required: [true, 'Введите email'],
     validate: [
       function (email) {
-        var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         return re.test(email);
       },
       'Пожалуйста, введите корректный email',
@@ -36,5 +36,9 @@ const userSchema = mongoose.Schema({
     required: [true, 'Введите пароль'],
   },
 });
+
+userSchema.methods.findPastGames = function () {
+  return this.model('Game').find({ 'players.player': this._id });
+};
 
 export default mongoose.model('User', userSchema);
