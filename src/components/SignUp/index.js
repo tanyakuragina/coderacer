@@ -71,53 +71,57 @@ function SignUp() {
                               handleSubmit(e);
                             }}
                           >
-                            <FormGroup>
-                              {/* <Label for="username">Ваш ник</Label> */}
-                              <Input
-                                type="text"
-                                name="username"
-                                placeholder="Новый ник"
-                                onChange={(e) => {
-                                  setInputs({
-                                    ...inputs,
-                                    username: e.target.value,
-                                  });
-                                }}
-                              />
-                            </FormGroup>
-                            <FormGroup>
-                              {/* <Label for="email">Email</Label> */}
-                              <Input
-                                type="text"
-                                name="email"
-                                placeholder="Новый email"
-                                onChange={(e) => {
-                                  setInputs({
-                                    ...inputs,
-                                    email: e.target.value,
-                                  });
-                                }}
-                              />
-                            </FormGroup>
-                            <FormGroup>
-                              {/* <Label for="password">Password</Label> */}
-                              <Input
-                                type="password"
-                                name="password"
-                                placeholder="Новый пароль"
-                                onChange={(e) => {
-                                  setInputs({
-                                    ...inputs,
-                                    password: e.target.value,
-                                  });
-                                }}
-                              />
-                            </FormGroup>
+                            <div className="d-flex justify-content-center">
+                              <div>
+                                <FormGroup>
+                                  {/* <Label for="username">Ваш ник</Label> */}
+                                  <Input
+                                    type="text"
+                                    name="username"
+                                    placeholder="Новый ник"
+                                    onChange={(e) => {
+                                      setInputs({
+                                        ...inputs,
+                                        username: e.target.value,
+                                      });
+                                    }}
+                                  />
+                                </FormGroup>
+                                <FormGroup>
+                                  {/* <Label for="email">Email</Label> */}
+                                  <Input
+                                    type="text"
+                                    name="email"
+                                    placeholder="Новый email"
+                                    onChange={(e) => {
+                                      setInputs({
+                                        ...inputs,
+                                        email: e.target.value,
+                                      });
+                                    }}
+                                  />
+                                </FormGroup>
+                                <FormGroup>
+                                  {/* <Label for="password">Password</Label> */}
+                                  <Input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Новый пароль"
+                                    onChange={(e) => {
+                                      setInputs({
+                                        ...inputs,
+                                        password: e.target.value,
+                                      });
+                                    }}
+                                  />
+                                </FormGroup>
                             <FormGroup>
                               <Button color="primary" type="submit">
                                 Зарегистрироваться
                               </Button>
                             </FormGroup>
+                              </div>
+                            </div>
                           </Form>
                         </MDBCardBody>
                       </div>

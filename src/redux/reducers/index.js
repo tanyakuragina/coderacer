@@ -9,6 +9,8 @@ const inititalState = {
   game: null,
   games: [],
   username: '',
+  usernameInput: '',
+  pastGames: [],
 };
 
 const reducer = (state = inititalState, action) => {
@@ -75,6 +77,24 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         user: action.user,
+      };
+
+    case actionTypes.setNewName:
+      return {
+        ...state,
+        username: action.username,
+      };
+
+    case actionTypes.setUpdateInput:
+      return {
+        ...state,
+        usernameInput: action.usernameInput,
+      };
+
+    case actionTypes.setPastGames:
+      return {
+        ...state,
+        pastGames: action.pastGames,
       };
 
     default:
