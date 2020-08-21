@@ -29,4 +29,5 @@
   return result[0] ? result : num + ' is prime'
 }
 
+
 self.postMessage({type: 'resultFinal', result: [true]})
