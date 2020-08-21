@@ -211,10 +211,10 @@ export default function Game() {
         <Col xs="5" className="mx-5 mt-3 float-right">
           <h2 className="mt-3 text-light">Таблица лидеров:</h2>
           {game
-            && game.players.map((player) => (
+            && game.players.map((player, i) => (
               <GameProgress
                 className="text-light"
-                bgcolor="red"
+                bgcolor={i}
                 completed={player.challengeTimes.length}
                 username={player.player.username}
               />

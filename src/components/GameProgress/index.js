@@ -6,6 +6,8 @@ import './index.css';
 export default function GameProgress(props) {
   const { bgcolor, completed, username } = props;
 
+  const colors = ['#ec6b10', '#ea3463', '#69e3e7', '#261346', '#ea28cf', '#d42478', '#ea28cf', '#f6c819', '#2e2156', '#ea3476'];
+
   const containerStyles = {
     width: '100%',
     borderRadius: 8,
@@ -17,13 +19,12 @@ export default function GameProgress(props) {
     'z-index': 100,
     height: '100%',
     width: `${completed * 8}%`,
-    color: 'red',
-    backgroundColor: 'red',
     borderRadius: 'inherit',
     textAlign: 'right',
     display: 'inline-block',
     transition: 'width 1s ease-in-out',
-    color: bgcolor,
+    backgroundColor: colors[bgcolor],
+    color: colors[bgcolor],
   };
 
   const carStyles = {
@@ -47,10 +48,14 @@ export default function GameProgress(props) {
           verticalAlign: 'top',
           fontSize: '25px',
           margin: '8px',
-          color: 'white'
-        }}>{username}</span>
+          color: 'white',
+        }}
+        >
+          {username}
+        </span>
         <div style={fillerStyles}>.</div>
         <span style={carStyles} />
-      </div >
-    </>);
+      </div>
+    </>
+  );
 }
