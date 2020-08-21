@@ -1,11 +1,12 @@
 import React from 'react';
 import './test.css';
+import Finish from '../Finish'
 
 function Test() {
   return (
     <>
       <div>
-        <h6>Text</h6>
+        <Finish />
       </div>
     </>
   );

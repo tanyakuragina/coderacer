@@ -28,7 +28,7 @@ export default function GameProgress(props) {
 
   const carStyles = {
     height: '40px',
-    width: '40px',
+    width: '50px',
     display: 'inline-block',
     background: 'url("/fonts/red.png") no-repeat',
   };

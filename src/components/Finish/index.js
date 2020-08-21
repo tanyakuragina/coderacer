@@ -15,7 +15,10 @@ export default function () {
   }, []);
 
   useInterval(() => {
-    if (game && new Date(game.startDate).getTime() + (1000 * 60 * 30) < Date.now()) {
+    if (
+      game &&
+      new Date(game.startDate).getTime() + 1000 * 60 * 30 < Date.now()
+    ) {
       dispatch(getOneGame(id));
     }
   }, 5000);
@@ -23,38 +26,61 @@ export default function () {
 
   return (
     <>
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Место</th>
-            <th>Игрок</th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>8</th>
-            <th>9</th>
-            <th>10</th>
-          </tr>
-        </thead>
-        <tbody>
-          {game.players.map((player, i) => (
-            <tr>
-              <td>{i + 1}</td>
-              <td>{player.player.username}</td>
-              {player.challengeTimes.map((time, i) => {
-                if (i === 0) {
-                  return <td>{Math.floor((new Date(time).getTime() - new Date(game.startDate).getTime()) / 1000)}</td>;
-                }
-                return <td>{Math.floor((new Date(time).getTime() - new Date(player.challengeTimes[i - 1]).getTime()) / 1000)}</td>;
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <div className="finish d-flex justify-content-center">
+        <img src='../finishflags.svg' width='200' height='200' />
+      </div>
+      <div className="d-flex justify-content-center m-3">
+        <div className="w-50">
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th>Место</th>
+                <th>Игрок</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+              </tr>
+            </thead>
+            <tbody>
+              {game.players.map((player, i) => (
+                <tr>
+                  <td>{i + 1}</td>
+                  <td>{player.player.username}</td>
+                  {player.challengeTimes.map((time, i) => {
+                    if (i === 0) {
+                      return (
+                        <td>
+                          {Math.floor(
+                            (new Date(time).getTime() -
+                              new Date(game.startDate).getTime()) /
+                              1000
+                          ) + ' сек.'}
+                        </td>
+                      );
+                    }
+                    return (
+                      <td>
+                        {Math.floor(
+                          (new Date(time).getTime() -
+                            new Date(player.challengeTimes[i - 1]).getTime()) /
+                            1000
+                        ) + ' сек.'} 
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </>
   );
 }
