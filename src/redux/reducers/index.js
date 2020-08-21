@@ -10,6 +10,7 @@ const inititalState = {
   games: [],
   username: '',
   usernameInput: '',
+  pastGames: [],
 };
 
 const reducer = (state = inititalState, action) => {
@@ -88,6 +89,12 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         usernameInput: action.usernameInput,
+      };
+
+    case actionTypes.setPastGames:
+      return {
+        ...state,
+        pastGames: action.pastGames,
       };
 
     default:

@@ -47,3 +47,10 @@ export function setNewName(data) {
 export function updateInput(name) {
   return { type: actionTypes.setUpdateInput, usernameInput: name };
 }
+
+export function setPastGames(games) {
+  return {
+    type: actionTypes.setPastGames,
+    pastGames: games,
+  };
+}
