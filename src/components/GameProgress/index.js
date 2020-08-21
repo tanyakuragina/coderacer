@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '../Avatar';
+import '../Lobby/lobby.css';
 import './index.css';
-// import '../Lobby/lobby.css';
 
 export default function GameProgress(props) {
   const { bgcolor, completed, username } = props;
@@ -23,23 +23,34 @@ export default function GameProgress(props) {
     textAlign: 'right',
     display: 'inline-block',
     transition: 'width 1s ease-in-out',
+    color: bgcolor,
   };
 
   const carStyles = {
     height: '40px',
     width: '40px',
     display: 'inline-block',
-    background: 'url("/fonts/racecar.svg") no-repeat',
+    background: 'url("/fonts/red.png") no-repeat',
   };
 
   return (
-    <div className="player d-flex" style={containerStyles}>
-      <div className="border">
-        <Avatar avatarSource="/avatar1.jpg" />
-      </div>
-      <span style={{ height: '40px', verticalAlign: 'middle', fontSize: '25px' }} className="playerFont m-3">{username}</span>
-      <div style={fillerStyles} />
-      <span style={carStyles} />
-    </div>
-  );
+    <>
+      <div
+        style={containerStyles}
+        className="row player"
+      >
+        <div className="avatar">
+          <Avatar />
+        </div>
+        <span style={{
+          height: '40px',
+          verticalAlign: 'top',
+          fontSize: '25px',
+          margin: '8px',
+          color: 'white'
+        }}>{username}</span>
+        <div style={fillerStyles}>.</div>
+        <span style={carStyles} />
+      </div >
+    </>);
 }
