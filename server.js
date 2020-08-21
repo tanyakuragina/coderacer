@@ -164,11 +164,11 @@ app.post('/api/game/join/:id', async (req, res) => {
     return res.sendStatus(401);
   }
   const game = await Game.findById(req.params.id);
-  if (game.startDate > Date.now()) {
-    return res
-      .status(400)
-      .json({ isOkay: false, errorMessage: 'Игра уже началась' });
-  }
+  // if (game.startDate > Date.now()) {
+  //   return res
+  //     .status(400)
+  //     .json({ isOkay: false, errorMessage: 'Игра уже началась' });
+  // }
   const playerIndex = game.players.findIndex(
     (player) => player.player.toString() === req.session.user._id,
   );
