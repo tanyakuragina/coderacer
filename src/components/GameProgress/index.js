@@ -14,9 +14,11 @@ export default function GameProgress(props) {
   };
 
   const fillerStyles = {
+    'z-index': 100,
     height: '100%',
     width: `${completed * 8}%`,
-    backgroundColor: bgcolor,
+    color: 'red',
+    backgroundColor: 'red',
     borderRadius: 'inherit',
     textAlign: 'right',
     display: 'inline-block',
