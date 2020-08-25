@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 
 const saltRounds = 10;
-
+mongoose.set('useFindAndModify', false);
 // Подключаем mongoose.
 mongoose.connect('mongodb://localhost:27017/coderacer', {
   useNewUrlParser: true,
@@ -46,10 +46,10 @@ app.post('/api/login', async (req, res) => {
   const user = users.find((user) => user.email === email);
   console.log(user);
   if (user && (await bcrypt.compare(password, user.password))) {
-    delete user.password;
+    // delete user.password;
     // подняли сессии
     req.session.user = user;
-    return res.json(user);
+    return res.json({ _id: user._id, username: user.username });
   }
   res.status(401).end();
 });
@@ -81,10 +81,10 @@ app.post('/api/signup', async (req, res) => {
       password: await bcrypt.hash(password, saltRounds),
     });
     req.session.user = user;
+    res.json({ isOkay: true, ...user._doc });
     await user.save();
     console.log('ok');
     // req.session.user = user;
-    res.json({ isOkay: true });
   } catch (error) {
     console.log(error.message);
     res.json({ isOkay: false, errorMessage: error.message });
@@ -136,13 +136,18 @@ app.get('/api/game/gameList', async (req, res) => {
 
 // выдает полную информацию по игре. id - это _id игры в БД
 app.get('/api/game/:id', async (req, res) => {
-  const game = await Game.findById(req.params.id).populate('players.player').populate('author');
+  const game = await Game.findById(req.params.id)
+    .populate('players.player')
+    .populate('author');
   game.players.sort((a, b) => {
     if (a.challengeTimes.length === 0 && b.challengeTimes.length === 0) {
       return 0;
     }
     if (a.challengeTimes.length === b.challengeTimes.length) {
-      if (a.challengeTimes[a.challengeTimes.length - 1].getTime() < b.challengeTimes[b.challengeTimes.length - 1].getTime()) {
+      if (
+        a.challengeTimes[a.challengeTimes.length - 1].getTime()
+        < b.challengeTimes[b.challengeTimes.length - 1].getTime()
+      ) {
         return -1;
       }
       return 1;
@@ -159,11 +164,11 @@ app.post('/api/game/join/:id', async (req, res) => {
     return res.sendStatus(401);
   }
   const game = await Game.findById(req.params.id);
-  if (game.startDate > Date.now) {
-    return res
-      .status(400)
-      .json({ isOkay: false, errorMessage: 'Игра уже началась' });
-  }
+  // if (game.startDate > Date.now()) {
+  //   return res
+  //     .status(400)
+  //     .json({ isOkay: false, errorMessage: 'Игра уже началась' });
+  // }
   const playerIndex = game.players.findIndex(
     (player) => player.player.toString() === req.session.user._id,
   );
@@ -203,11 +208,13 @@ app.post('/api/game/postScore/:id', async (req, res) => {
   }
   try {
     const game = await Game.findById(req.params.id).populate('players.player');
-    if (Date.now() > new Date(game.startDate).getTime() + (1000 * 60 * 30)) {
+    if (Date.now() > new Date(game.startDate).getTime() + 1000 * 60 * 30) {
       throw new Error('Игра уже завершилась');
     }
     console.log(game.players);
-    const playerIndex = game.players.findIndex((player) => player.player._id.toString() === req.session.user._id);
+    const playerIndex = game.players.findIndex(
+      (player) => player.player._id.toString() === req.session.user._id,
+    );
     game.players[playerIndex].challengeTimes.push(Date.now());
     await game.save();
     return res.json(game);
@@ -264,6 +271,37 @@ app.get('/api/game/user/:id', async (req, res) => {
   } else {
     // get error message
     res.json({ name: 'error' });
+  }
+});
+
+// выдает информацию по пользователю для профиля
+app.get('/api/user/:id', async (req, res) => {
+  if (req.session.user) {
+    const user = await User.findById(req.params.id);
+    console.log(`>>>>${user.username}`);
+    res.json(user);
+  } else {
+    res.json({ name: 'error' });
+  }
+});
+
+app.get('/api/games/user/:id', async (req, res) => {
+  const user = await User.findById(req.params.id);
+  const games = await user.findPastGames().populate('author');
+  res.json(games);
+});
+
+// изменяет ник игрока
+app.put('/api/username/:id', async (req, res, next) => {
+  if (req.session.user) {
+    await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { username: req.body.username },
+    );
+    console.log(req.body.username);
+    res.json({ username: req.body.username });
+  } else {
+    res.json({ isOkay: false, errorMessage: 'user is not auth' });
   }
 });
 

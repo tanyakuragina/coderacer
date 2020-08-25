@@ -28,7 +28,7 @@ li a:hover {
 }
 
 .background_home {
-  height: 900px;
+  height: 100%;
   background-image: url('../../pictures/car.jpg');
   background-repeat: no-repeat;
   background-size: cover;

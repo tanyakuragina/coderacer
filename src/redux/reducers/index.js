@@ -8,6 +8,9 @@ const inititalState = {
   challenge: null,
   game: null,
   games: [],
+  username: '',
+  usernameInput: '',
+  pastGames: [],
 };
 
 const reducer = (state = inititalState, action) => {
@@ -47,6 +50,7 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         userId: action.userId,
+        username: action.username,
         isAuthenticated: true,
       };
 
@@ -68,6 +72,29 @@ const reducer = (state = inititalState, action) => {
       return {
         ...state,
         challenges: action.challenges,
+      };
+    case actionTypes.setProfile:
+      return {
+        ...state,
+        user: action.user,
+      };
+
+    case actionTypes.setNewName:
+      return {
+        ...state,
+        username: action.username,
+      };
+
+    case actionTypes.setUpdateInput:
+      return {
+        ...state,
+        usernameInput: action.usernameInput,
+      };
+
+    case actionTypes.setPastGames:
+      return {
+        ...state,
+        pastGames: action.pastGames,
       };
 
     default:

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Container, Row, Col, Button, Tabs, Tab,
 } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -17,10 +18,15 @@ import Finish from '../Finish';
 
 export default function Game() {
   const dispatch = useDispatch();
+  const username = useSelector((state) => state.username);
   const game = useSelector((state) => state.game);
-  const challengeIds = useSelector((state) => state.game && state.game.challenges);
+  const challengeIds = useSelector(
+    (state) => state.game && state.game.challenges,
+  );
   const challenge = useSelector((state) => state.challenge);
-  const startParams = useSelector((state) => state.challenge && state.challenge.startParameters);
+  const startParams = useSelector(
+    (state) => state.challenge && state.challenge.startParameters,
+  );
   const [challengeNumber, setChallengeNumber] = React.useState(0);
   const [code, setCode] = React.useState('\n() => {\n\n}');
   const [userConsole, setUserConsole] = React.useState('');
@@ -28,6 +34,7 @@ export default function Game() {
   const [isTestPassed, setIsTestPassed] = React.useState(false);
   const [isFinalTestPassed, setIsFinalTestPassed] = React.useState(false);
   const [isFinished, setIsFinished] = React.useState(false);
+  const [isCheater, setIsCheater] = React.useState(false);
 
   React.useEffect(() => {
     dispatch(getChallenge(challengeIds[challengeNumber]));
@@ -52,8 +59,7 @@ export default function Game() {
       case 'closing':
         setWorkerRunning(false);
         break;
-      case 'resultFinal':
-      {
+      case 'resultFinal': {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
         const result = data.result.every((res) => res === true);
@@ -65,7 +71,7 @@ export default function Game() {
         }
         setUserConsole(msgBuffer);
         if (result) {
-          if (challengeNumber === (challengeIds.length - 1)) {
+          if (challengeNumber === challengeIds.length - 1) {
             dispatch(postScore(game._id));
             setIsFinished(true);
           } else {
@@ -77,8 +83,7 @@ export default function Game() {
         }
         break;
       }
-      case 'result':
-      {
+      case 'result': {
         setWorkerRunning(false);
         setUserConsole(msgBuffer);
         const result = data.result.every((res) => res === true);
@@ -91,11 +96,15 @@ export default function Game() {
         setIsTestPassed(result);
         break;
       }
-      case 'log':
-      {
+      case 'log': {
         msgBuffer += `${data.message.join(' ')}\n`;
         break;
       }
+      case 'cheater':
+        if (username !== 'JSRacer') {
+          setIsCheater(true);
+        }
+        break;
       default:
         console.log('unknown message type');
     }
@@ -110,17 +119,24 @@ export default function Game() {
   function runTest(type) {
     try {
       const tests = type === 'test'
-        ? [{
-          in: challenge.tests.sample.in,
-          out: challenge.tests.sample.out,
-        }] : challenge.tests.main;
+        ? [
+          {
+            in: challenge.tests.sample.in,
+            out: challenge.tests.sample.out,
+          },
+        ]
+        : challenge.tests.main;
       setWorkerRunning(true);
       msgBuffer = '';
       setUserConsole('');
       const worker = new Worker('worker.js');
       worker.addEventListener('message', workerMessage);
       worker.addEventListener('error', workerError);
-      worker.postMessage({ do: type === 'test' ? 'run' : 'runFinal', code, tests });
+      worker.postMessage({
+        do: type === 'test' ? 'run' : 'runFinal',
+        code,
+        tests,
+      });
       worker.postMessage({ type: 'die' });
       setUserConsole(msgBuffer);
       setTimeout(async () => {
@@ -135,24 +151,34 @@ export default function Game() {
     }
   }
 
+  if (isCheater && username !== 'JSRacer') {
+    return (
+      <img
+        src="https://i.ytimg.com/vi/rWFPw8Lt1bk/hqdefault.jpg"
+        height="800px"
+        width="1000px"
+      />
+    );
+  }
+
   if (!challenge) return <h1 className="text-dark">Загрузка</h1>;
 
-  if (isFinished) return <Finish />;
+  if (isFinished) return <Redirect to={`/finish/${game._id}`} />;
 
   return (
     <Container fluid>
       <Row>
         <Col xs="4">
-          <h2 className="mt-3 text-dark">{challenge.name}</h2>
+          <h2 className="mt-3 text-light">{challenge.name}</h2>
           <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
             <Tab eventKey="description" title="Описание задачи">
-              <div className="my-1">{challenge.description}</div>
+              <div className="my-1 text-light">{challenge.description}</div>
             </Tab>
             <Tab eventKey="sample" title="Примеры">
-              <div className="my-1">
+              <div className="my-1 text-light">
                 {`Пример исходных данных: ${challenge.sampleInput}`}
               </div>
-              <div>
+              <div className="text-light">
                 {`Пример результата: ${challenge.sampleOutput}`}
               </div>
             </Tab>
@@ -161,11 +187,15 @@ export default function Game() {
         </Col>
         <Col>
           <Row>
-            <h2 className="mt-3 text-dark">До конца игры:</h2>
+            <h2 className="mt-3 text-light">До конца игры:</h2>
           </Row>
-          <Row>
+          <Row className="text-light">
             <Timer
-              initialTime={new Date(new Date(game.startDate).getTime() + 60 * 30 * 1000).getTime() - Date.now()}
+              initialTime={
+                new Date(
+                  new Date(game.startDate).getTime() + 60 * 30 * 1000,
+                ).getTime() - Date.now()
+              }
               direction="backward"
             >
               <Timer.Minutes />
@@ -179,23 +209,28 @@ export default function Game() {
           </Row>
         </Col>
         <Col xs="5" className="mx-5 mt-3 float-right">
-          <h2 className="mt-3 text-dark">Таблица лидеров:</h2>
-          {game && game.players.map((player) => (
-            <GameProgress
-              bgcolor="red"
-              completed={player.challengeTimes.length}
-              username={player.player.username}
-            />
-          ))}
+          <h2 className="mt-3 text-light">Таблица лидеров:</h2>
+          {game
+            && game.players.map((player, i) => (
+              <GameProgress
+                className="text-light"
+                bgcolor={i}
+                completed={player.challengeTimes.length}
+                username={player.player.username}
+              />
+            ))}
         </Col>
       </Row>
-      <Row className="my-3">
+      <Row className="my-3 text-light">
         <Col>
           <h3>Ваше решение:</h3>
           <AceEditor
+            className="text-light"
             mode="javascript"
             theme="tomorrow_night_eighties"
-            onChange={(e) => { setCode(e); }}
+            onChange={(e) => {
+              setCode(e);
+            }}
             name="EDITOR_ID"
             value={code}
             height="300px"
@@ -207,13 +242,31 @@ export default function Game() {
               tabSize: 2,
             }}
           />
-          <Button disabled={workerRunning} onClick={() => { runTest('test'); }} className="mt-3">Тест</Button>
-          {isTestPassed && <Button variant="success" className="mt-3 mx-2" onClick={() => { runTest('main'); }}>Отправить решение</Button>}
+          <Button
+            disabled={workerRunning}
+            onClick={() => {
+              runTest('test');
+            }}
+            className="mt-3"
+          >
+            Тест
+          </Button>
+          {isTestPassed && (
+            <Button
+              variant="success"
+              className="mt-3 mx-2 text-light"
+              onClick={() => {
+                runTest('main');
+              }}
+            >
+              Отправить решение
+            </Button>
+          )}
         </Col>
       </Row>
       <Row className="my-3">
         <Col>
-          <h3>Консоль:</h3>
+          <h3 className="text-light">Консоль:</h3>
           <AceEditor
             theme="tomorrow_night_eighties"
             name="CONSOLE"
